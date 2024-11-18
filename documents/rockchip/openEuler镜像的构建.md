@@ -441,7 +441,7 @@ dnf --installroot=$WORKDIR/rootfs/ install -y alsa-utils wpa_supplicant vim net-
     ```
 3.  拷贝 wifi 配置文件，蓝牙启动文件
 
-    1.  下载 [无线配置目录](../scripts/bin/wireless) 到 $WORKDIR
+    1.  下载 [无线配置目录](../../scripts/rockchip/bin/wireless) 到 $WORKDIR
 
     2.  拷贝文件 :
         ```
