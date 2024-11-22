@@ -213,9 +213,9 @@ mk_boot() {
 
     LOG "start gen initrd..."
     dracut --no-kernel ${boot_dir}/initrd.img
-    LOG "gen initrd donw."
+    LOG "gen initrd done."
 
-    kernel_name=$(ls $boot_dir | grep vmlinu)
+    kernel_name=$(ls $boot_dir | grep vmlinuz)
     dtb_name=$(ls $boot_dir | grep dtb)
     LOG "gen extlinux config for $dtb_name"
     if [ "${platform}" == "rockchip" ];then
