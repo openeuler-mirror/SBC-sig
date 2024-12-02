@@ -8,8 +8,10 @@ The target boot.img will be generated in the build folder of the directory where
 Options: 
   -b, --branch KERNEL_BRANCH            The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
   -k, --kernel KERNEL_URL               Required! The URL of kernel source's repository.
+  -c, --config KERNEL_DEFCONFIG         The name/path of defconfig file when compiling kernel, which defaults to openeuler_rockchip_defconfig.
   -d, --device-tree DTB_NAME            Required! The device tree name of target board, which defaults to rk3399-firefly.
   -p, --platform PLATFORM               Required! The platform of target board, which defaults to rockchip.
+  --cores N                             The number of cpu cores to be used during making.
   -h, --help                            Show command help.
 "
 
@@ -22,17 +24,22 @@ help()
 default_param() {
     workdir=$(pwd)/build
     branch=openEuler-20.03-LTS
+    default_defconfig=openeuler_rockchip_defconfig
     dtb_name=rk3399-firefly
     platform=rockchip
     kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
     boot_dir=$workdir/boot
     log_dir=$workdir/log
+    make_cores=$(nproc)
 }
 
 local_param(){
     if [ -f $workdir/.param ]; then
         branch=$(cat $workdir/.param | grep branch)
         branch=${branch:7}
+
+        default_defconfig=$(cat $workdir/.param | grep default_defconfig)
+        default_defconfig=${branch:18}
 
         dtb_name=$(cat $workdir/.param | grep dtb_name)
         dtb_name=${dtb_name:9}
@@ -61,6 +68,10 @@ parseargs()
             branch=`echo $2`
             shift
             shift
+        elif [ "x$1" == "x-c" -o "x$1" == "x--config" ]; then
+            default_defconfig=`echo $2`
+            shift
+            shift
         elif [ "x$1" == "x-d" -o "x$1" == "x--device-tree" ]; then
             dtb_name=`echo $2`
             shift
@@ -71,6 +82,10 @@ parseargs()
             shift
         elif [ "x$1" == "x-p" -o "x$1" == "x--platform" ]; then
             platform=`echo $2`
+            shift
+            shift
+        elif [ "x$1" == "x--cores" ]; then
+            make_cores=`echo $2`
             shift
             shift
         else
@@ -111,6 +126,9 @@ clone_and_check_kernel_source() {
             last_branch=$(cat $workdir/.param_last | grep branch)
             last_branch=${last_branch:7}
 
+            last_default_defconfig=$(cat $workdir/.param_last | grep default_defconfig)
+            last_default_defconfig=${last_default_defconfig:18}
+
             last_dtb_name=$(cat $workdir/.param_last | grep dtb_name)
             last_dtb_name=${last_dtb_name:9}
             
@@ -127,6 +145,7 @@ clone_and_check_kernel_source() {
             cd $workdir
 
             if [[ ${last_branch} != ${branch} || \
+            ${last_default_defconfig} != ${default_defconfig} || \
             ${last_dtb_name} != ${dtb_name} || \
             ${last_kernel_url} != ${kernel_url} || \
             ${lastest_kernel_version} != ${local_kernel_version} ]]; then
@@ -143,49 +162,23 @@ clone_and_check_kernel_source() {
     fi
 }
 
-build_rockchip-6.6-kernel() {
-    cp $workdir/../configs/rockchip64-6.6_defconfig kernel/arch/arm64/configs
-    cd $workdir/kernel
-    make ARCH=arm64 rockchip64-6.6_defconfig
-    LOG "make kernel begin..."
-    make ARCH=arm64 -j$(nproc)
-}
-
-build_rockchip-5.10-kernel() {
-    cp $workdir/../configs/rockchip64-5.10_defconfig kernel/arch/arm64/configs
-    cd $workdir/kernel
-    make ARCH=arm64 rockchip64-5.10_defconfig
-    LOG "make kernel begin..."
-    make ARCH=arm64 -j$(nproc)
-}
-
-build_rockchip-4.19-kernel() {
-    cp $workdir/../configs/rockchip64-4.19_defconfig kernel/arch/arm64/configs
-    cd $workdir/kernel
-    make ARCH=arm64 rockchip64_4.19_defconfig
-    LOG "make kernel begin..."
-    make ARCH=arm64 -j$(nproc)
-}
-
-build_phytium-5.10-kernel() {
-    cd $workdir/kernel
-    make ARCH=arm64 phytium_defconfig
-    LOG "make kernel begin..."
-    make ARCH=arm64 -j$(nproc)
-}
-
-build_phytium-6.6-kernel() {
-    cd $workdir/kernel
-    make ARCH=arm64 phytium_defconfig
-    LOG "make kernel begin..."
-    make ARCH=arm64 -j$(nproc)
-}
-
-build_rk3588-kernel() {
-    cd $workdir/kernel
-    make ARCH=arm64 openeuler_rk3588_defconfig
-    LOG "make kernel begin..."
-    make ARCH=arm64 -j$(nproc)
+make_kernel(){
+    LOG "make kernel(${default_defconfig}) begin..."
+    kernel_dir_tmp=$1
+    cd "${kernel_dir_tmp}"
+    if [ "x${kernel_defconfig:0:1}" != "x/" ]; then
+        if [ ! -f arch/arm64/configs/${kernel_defconfig} ]; then
+            ERROR "config file ${kernel_defconfig} can not be found in kernel source".
+            exit 2
+        fi
+        kernel_defconfig=arch/arm64/configs/${kernel_defconfig}
+    fi
+    make distclean
+    cp ${kernel_defconfig} .config
+    make ARCH=arm64 olddefconfig
+    kernel_defconfig=${kernel_defconfig##*/}
+    make ARCH=arm64 -j${make_cores}
+    LOG "make kernel(${default_defconfig}) end."
 }
 
 install_kernel() {
@@ -204,6 +197,7 @@ install_kernel() {
     make ARCH=arm64 modules_install INSTALL_MOD_PATH=$workdir/kernel/kernel-modules
     LOG "device tree name is ${dtb_name}.dtb"
     cp arch/arm64/boot/dts/${platform}/${dtb_name}.dtb ${boot_dir}
+    cp arch/arm64/boot/Image ${boot_dir}
     LOG "prepare kernel done."
 }
 
@@ -215,7 +209,6 @@ mk_boot() {
     dracut --no-kernel ${boot_dir}/initrd.img
     LOG "gen initrd done."
 
-    kernel_name=$(ls $boot_dir | grep vmlinuz)
     dtb_name=$(ls $boot_dir | grep dtb)
     LOG "gen extlinux config for $dtb_name"
     if [ "${platform}" == "rockchip" ];then
@@ -227,7 +220,7 @@ mk_boot() {
         exit 2
     fi
     echo "label openEuler
-    kernel /${kernel_name}
+    kernel /Image
     initrd /initrd.img
     fdt /${dtb_name}
     append  ${bootargs}" \
@@ -263,6 +256,19 @@ set -e
 rockchip_bootargs="earlyprintk console=ttyS2,1500000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 init=/sbin/init rootwait"
 phytium_bootargs="console=ttyAMA1,115200 earlycon=pl011,0x2800d000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait cma=256m"
 
+kernel_defconfig="openeuler_rockchip_defconfig"
+default_defconfig=""
+
+if [ "x$default_defconfig" == "x" ] ; then
+    default_defconfig=$kernel_defconfig
+elif [ -f $default_defconfig ]; then
+    cp $default_defconfig ${workdir}/
+    kernel_defconfig=${workdir}/${default_defconfig##*/}
+else
+    echo `date` - ERROR, config file $default_defconfig can not be found.
+    exit 2
+fi
+
 if [ ! -d $workdir ]; then
     mkdir $workdir
 fi
@@ -277,30 +283,7 @@ clone_and_check_kernel_source
 if [[ -f $workdir/kernel/arch/arm64/boot/dts/${platform}/${dtb_name}.dtb && -f $workdir/kernel/arch/arm64/boot/Image ]];then
     LOG "kernel is the latest"
 else
-    if [ "${platform}" == "rockchip" ];then
-        if [ "${branch:0:19}" == "openEuler-20.03-LTS" ];then # include: openEuler-20.03-LTS*
-            build_rockchip-4.19-kernel
-        elif [ "${branch}" == "openEuler-22.03-LTS-RK3588" ]; then
-            build_rk3588-kernel
-        elif [ "${branch:0:19}" == "openEuler-22.03-LTS" ]; then # include: openEuler-22.03-LTS*
-            build_rockchip-5.10-kernel
-        elif [ "${branch:0:19}" == "openEuler-24.03-LTS" ]; then # include: openEuler-24.03-LTS*
-            build_rockchip-6.6-kernel
-        else
-            echo "Unsupported version."
-        fi
-    elif [ "${platform}" == "phytium" ];then
-        if [ "${branch:0:19}" == "openEuler-22.03-LTS" ]; then # include: openEuler-22.03-LTS*
-            build_phytium-5.10-kernel
-        elif [ "${branch:0:19}" == "openEuler-24.03-LTS" ]; then # include: openEuler-24.03-LTS*
-            build_phytium-6.6-kernel
-        else
-            echo "Unsupported version."
-        fi
-    else
-        echo "Unsupported platform"
-        exit 2
-    fi
+    make_kernel $workdir/kernel
 fi
 if [[ -f $workdir/boot.img && $(cat $workdir/.done | grep bootimg) == "bootimg" ]];then
     LOG "boot is the latest"

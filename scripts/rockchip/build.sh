@@ -6,15 +6,17 @@ Build Rockchip bootable images.
 The target bootable compressed images will be generated in the build/YYYY-MM-DD folder of the directory where the build script is located.
 
 Options: 
-  -n, --name IMAGE_NAME            The Rockchip image name to be built.
-  -k, --kernel KERNEL_URL          The URL of kernel source's repository, which defaults to https://gitee.com/openeuler/rockchip-kernel.git.
-  -b, --branch KERNEL_BRANCH       The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
-  -c, --config BOARD_CONFIG        Required! The name of target board which should be a space separated list, which defaults to firefly-rk3399_defconfig.
-  -p, --platform PLATFORM          Required! The platform of target board, which defaults to rockchip.
-  -r, --repo REPO_INFO             The URL/path of target repo file or list of repo's baseurls which should be a space separated list.
-  -d, --device-tree DTB_NAME       Required! The device tree name of target board, which defaults to rk3399-firefly.
-  -s, --spec SPEC                  The image's specification: headless, xfce, ukui, dde or the file path of rpmlist. The default is headless.
-  -h, --help                       Show command help.
+  -n, --name IMAGE_NAME                The Rockchip image name to be built.
+  -k, --kernel KERNEL_URL              The URL of kernel source's repository, which defaults to https://gitee.com/openeuler/rockchip-kernel.git.
+  -b, --branch KERNEL_BRANCH           The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
+  -c, --config KERNEL_DEFCONFIG        The name/path of defconfig file when compiling kernel, which defaults to openeuler_rockchip_defconfig.
+  -u, --ubootconfig UBOOT_DEFCONFIG    Required! The name of defconfig file when compiling u-boot, which defaults to firefly-rk3399_defconfig.
+  -p, --platform PLATFORM              Required! The platform of target board, which defaults to rockchip.
+  -r, --repo REPO_INFO                 The URL/path of target repo file or list of repo's baseurls which should be a space separated list.
+  -d, --device-tree DTB_NAME           Required! The device tree name of target board, which defaults to rk3399-firefly.
+  -s, --spec SPEC                      The image's specification: headless, xfce, ukui, dde or the file path of rpmlist. The default is headless.
+  --cores N                            The number of cpu cores to be used during making.
+  -h, --help                           Show command help.
 "
 
 help()
@@ -26,7 +28,7 @@ help()
 used_param() {
     echo ""
     echo "Default args"
-    echo "CONFIG_NAME          : $config"
+    echo "KERNEL_DEFCONFIG     : $default_defconfig"
     echo ""    
     echo "DTB_NAME             : $dtb_name"
     echo ""
@@ -37,7 +39,8 @@ used_param() {
 }
 
 default_param() {
-    config=firefly-rk3399_defconfig
+    default_defconfig=openeuler_rockchip_defconfig
+    ubootconfig=firefly-rk3399_defconfig
     dtb_name=rk3399-firefly
     platform=rockchip
     branch=openEuler-20.03-LTS
@@ -46,6 +49,7 @@ default_param() {
     workdir=$(pwd)/build
     board_type=rk3399
     name=${branch}-${dtb_name}-aarch64-alpha1
+    make_cores=$(nproc)
 }
 
 save_param() {
@@ -55,7 +59,8 @@ save_param() {
     if [ -f $workdir/.param ]; then
         mv $workdir/.param $workdir/.param_last
     fi
-    echo "config=$config
+    echo "default_defconfig=$default_defconfig
+ubootconfig=$ubootconfig
 dtb_name=$dtb_name
 platform=$platform
 branch=$branch
@@ -98,7 +103,11 @@ parseargs()
             shift
             shift
         elif [ "x$1" == "x-c" -o "x$1" == "x--config" ]; then
-            config=`echo $2`
+            default_defconfig=`echo $2`
+            shift
+            shift
+        elif [ "x$1" == "x-u" -o "x$1" == "x--ubootconfig" ]; then
+            ubootconfig=`echo $2`
             shift
             shift
         elif [ "x$1" == "x-r" -o "x$1" == "x--repo" ]; then
@@ -111,6 +120,10 @@ parseargs()
             shift
         elif [ "x$1" == "x-s" -o "x$1" == "x--spec" ]; then
             spec_param=`echo $2`
+            shift
+            shift
+        elif [ "x$1" == "x--cores" ]; then
+            make_cores=`echo $2`
             shift
             shift
         else
