@@ -6,8 +6,9 @@ Build Rockchip u-boot image.
 The target files idbloader.img and u-boot.itb will be generated in the build/u-boot folder of the directory where the build_u-boot.sh script is located.
 
 Options: 
-  -c, --config BOARD_CONFIG     Required! The name of target board which should be a space separated list, which defaults to firefly-rk3399_defconfig, set none to use prebuild u-boot image.
-  -h, --help                    Show command help.
+  -u, --ubootconfig         UBOOT_DEFCONFIG    Required! The name of defconfig file when compiling u-boot, which defaults to firefly-rk3399_defconfig, set none to use prebuild u-boot image.
+  --cores N                 The number of cpu cores to be used during making.
+  -h, --help                Show command help.
 "
 
 help()
@@ -17,18 +18,19 @@ help()
 }
 
 default_param() {
-    config="firefly-rk3399_defconfig"
+    ubootconfig="firefly-rk3399_defconfig"
     workdir=$(pwd)/build
     u_boot_url="https://gitlab.arm.com/systemready/firmware-build/u-boot.git"
     rk3399_bl31_url="https://github.com/rockchip-linux/rkbin/raw/master/bin/rk33/rk3399_bl31_v1.36.elf"
     log_dir=$workdir/log
     nonfree_bin_dir=${workdir}/../bin
+    make_cores=$(nproc)
 }
 
 local_param(){
     if [ -f $workdir/.param ]; then
-        config=$(cat $workdir/.param | grep config)
-        config=${config:7}
+        ubootconfig=$(cat $workdir/.param | grep ubootconfig)
+        ubootconfig=${ubootconfig:12}
     fi
 }
 
@@ -44,8 +46,12 @@ parseargs()
             return 1
         elif [ "x$1" == "x" ]; then
             shift
-        elif [ "x$1" == "x-c" -o "x$1" == "x--config" ]; then
-            config=`echo $2`
+        elif [ "x$1" == "x-u" -o "x$1" == "x--ubootconfig" ]; then
+            ubootconfig=`echo $2`
+            shift
+            shift
+        elif [ "x$1" == "x--cores" ]; then
+            make_cores=`echo $2`
             shift
             shift
         else
@@ -97,9 +103,9 @@ build_u-boot() {
             ERROR "arm-trusted-firmware(bl31.elf) can not be found!"
             exit 2
         fi
-        make ARCH=arm $config
-        make ARCH=arm -j$(nproc)
-        make ARCH=arm u-boot.itb -j$(nproc)
+        make ARCH=arm $ubootconfig
+        make ARCH=arm -j${make_cores}
+        make ARCH=arm u-boot.itb -j${make_cores}
         LOG "make u-boot done."
     fi
     if [ ! -f u-boot.itb ]; then
@@ -152,7 +158,7 @@ fi
 sed -i 's/u-boot//g' $workdir/.done
 LOG "build u-boot..."
 
-if [ "x$config" == "xnone" ]; then
+if [ "x$ubootconfig" == "xnone" ]; then
     use_prebuild_u-boot
 else
     build_u-boot
