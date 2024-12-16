@@ -6,14 +6,12 @@ Build Rockchip bootable images.
 The target bootable compressed images will be generated in the build/YYYY-MM-DD folder of the directory where the build script is located.
 
 Options: 
+  --board BOARD                        Required! The config of target board in the boards folder, which defaults to rockchip.
   -n, --name IMAGE_NAME                The Rockchip image name to be built.
   -k, --kernel KERNEL_URL              The URL of kernel source's repository, which defaults to https://gitee.com/openeuler/rockchip-kernel.git.
   -b, --branch KERNEL_BRANCH           The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
   -c, --config KERNEL_DEFCONFIG        The name/path of defconfig file when compiling kernel, which defaults to openeuler_rockchip_defconfig.
-  -u, --ubootconfig UBOOT_DEFCONFIG    Required! The name of defconfig file when compiling u-boot, which defaults to firefly-rk3399_defconfig.
-  -p, --platform PLATFORM              Required! The platform of target board, which defaults to rockchip.
   -r, --repo REPO_INFO                 The URL/path of target repo file or list of repo's baseurls which should be a space separated list.
-  -d, --device-tree DTB_NAME           Required! The device tree name of target board, which defaults to rk3399-firefly.
   -s, --spec SPEC                      The image's specification: headless, xfce, ukui, dde or the file path of rpmlist. The default is headless.
   --cores N                            The number of cpu cores to be used during making.
   -h, --help                           Show command help.
@@ -30,16 +28,15 @@ used_param() {
     echo "Default args"
     echo "KERNEL_DEFCONFIG     : $default_defconfig"
     echo ""    
-    echo "DTB_NAME             : $dtb_name"
+    echo "TARGET_BOARD         : $board"
     echo ""
     echo "KERNEL_BRANCH        : $branch"
-    echo ""
-    echo "PLATFORM             : $platform"
     echo ""
 }
 
 default_param() {
     default_defconfig=openeuler_rockchip_defconfig
+    board=firefly-rk3399
     ubootconfig=firefly-rk3399_defconfig
     dtb_name=rk3399-firefly
     platform=rockchip
@@ -86,16 +83,16 @@ parseargs()
             return 1
         elif [ "x$1" == "x" ]; then
             shift
+        elif [ "x$1" == "x--board" ]; then
+            board=`echo $2`
+            shift
+            shift
         elif [ "x$1" == "x-n" -o "x$1" == "x--name" ]; then
             name=`echo $2`
             shift
             shift
         elif [ "x$1" == "x-k" -o "x$1" == "x--kernel" ]; then
             kernel_url=`echo $2`
-            shift
-            shift
-        elif [ "x$1" == "x-p" -o "x$1" == "x--platform" ]; then
-            platform=`echo $2`
             shift
             shift
         elif [ "x$1" == "x-b" -o "x$1" == "x--branch" ]; then
@@ -106,16 +103,8 @@ parseargs()
             default_defconfig=`echo $2`
             shift
             shift
-        elif [ "x$1" == "x-u" -o "x$1" == "x--ubootconfig" ]; then
-            ubootconfig=`echo $2`
-            shift
-            shift
         elif [ "x$1" == "x-r" -o "x$1" == "x--repo" ]; then
             repo_file=`echo $2`
-            shift
-            shift
-        elif [ "x$1" == "x-d" -o "x$1" == "x--device-tree" ]; then
-            dtb_name=`echo $2`
             shift
             shift
         elif [ "x$1" == "x-s" -o "x$1" == "x--spec" ]; then
@@ -146,6 +135,15 @@ LOG(){
 
 default_param
 parseargs "$@" || help $?
+
+LOG "Selected board: ${board}."
+
+source boards/${board}.conf
+
+LOG "U-Boot config: ${ubootconfig}."
+LOG "DeviceTree name: ${dtb_name}."
+LOG "Target platform: ${platform}."
+
 used_param
 if [ ! -d $workdir ]; then
     mkdir $workdir
