@@ -1,25 +1,15 @@
 <!-- TOC -->
 
 - [环境需求](#环境需求)
-- [树莓派相关](#树莓派相关)
+- [树莓派相关内容准备](#树莓派相关内容准备)
     - [编译内核](#编译内核)
         - [准备环境](#准备环境)
-        - [下载源码](#下载源码)
-        - [进入内核目录](#进入内核目录)
-        - [切换分支](#切换分支)
-        - [载入默认配置](#载入默认配置)
-        - [编译](#编译)
-        - [创建编译内核模块目录](#创建编译内核模块目录)
-        - [编译内核模块](#编译内核模块)
-        - [收集编译结果](#收集编译结果)
+        - [内核编译](#内核编译)
     - [配置引导](#配置引导)
         - [下载引导](#下载引导)
         - [进入引导目录](#进入引导目录)
         - [删除没有必要的文件](#删除没有必要的文件)
         - [添加cmdline.txt](#添加cmdlinetxt)
-        - [boot 内容完善](#boot-内容完善)
-            - [将内核放进引导](#将内核放进引导)
-            - [将设备树文件放进引导](#将设备树文件放进引导)
     - [树莓派固件和应用](#树莓派固件和应用)
         - [下载固件和应用](#下载固件和应用)
 - [制作 openEuler 的 rootfs](#制作-openeuler-的-rootfs)
@@ -34,7 +24,6 @@
         - [网络相关](#网络相关)
     - [rootfs 内容完善](#rootfs-内容完善)
         - [将固件放进 rootfs](#将固件放进-rootfs)
-        - [将内核模块放进rootfs](#将内核模块放进rootfs)
     - [rootfs设置](#rootfs设置)
 - [制作镜像](#制作镜像)
     - [生成镜像并分区挂载](#生成镜像并分区挂载)
@@ -48,8 +37,9 @@
         - [挂载根目录和 boot 分区](#挂载根目录和-boot-分区)
         - [获取生成的 img 镜像的 blkid](#获取生成的-img-镜像的-blkid)
     - [修改 fstab](#修改-fstab)
-    - [rootfs 拷贝到镜像](#rootfs-拷贝到镜像)
-    - [boot 引导拷贝到镜像](#boot-引导拷贝到镜像)
+    - [rootfs 文件拷贝到镜像](#rootfs-文件拷贝到镜像)
+    - [boot 引导文件拷贝到镜像](#boot-引导文件拷贝到镜像)
+    - [内核更新](#内核更新)
     - [卸载镜像](#卸载镜像)
         - [同步到盘](#同步到盘)
         - [卸载](#卸载)
@@ -73,7 +63,7 @@
 - 使用 AArch64 架构的主机，例如树莓派
 - 使用 [QEMU](https://www.qemu.org/) 模拟器搭建 AArch64 运行环境
 
-# 树莓派相关
+# 树莓派相关内容准备
 
 操作目录：${WORKDIR}
 
@@ -86,97 +76,11 @@
 
 除了使用 AArch64 架构的 openEuler 或 CentOS 7/8 运行环境，也可以采用交叉编译的方式编译内核，文档详见 [交叉编译内核](./交叉编译内核.md)。这里，我们在 AArch64 架构的服务器上编译内核。
 
-### 下载源码
+### 内核编译
 
-根据内核不同版本，需要下载不同仓库的不同分支：
+编译时可能还需要 bison、flex、build-essential 等，根据提示安装即可。
 
-1.  6.6 内核
-
-    - openEuler 24.09：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b OLK-6.6 && cd raspberrypi-kernel`
-    - openEuler 24.03 LTS：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b OLK-6.6 && cd raspberrypi-kernel`
-
-2.  6.1 内核
-
-    - openEuler 23.03：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b openEuler-23.03 && cd raspberrypi-kernel`
-
-3.  5.10 内核
-
-    - openEuler 22.03 LTS SP4：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b OLK-5.10 && cd raspberrypi-kernel`
-    - openEuler 22.03 LTS SP3：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b OLK-5.10 && cd raspberrypi-kernel`
-    - openEuler 22.03 LTS SP2：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b openEuler-22.03-LTS-SP2 && cd raspberrypi-kernel`
-    - openEuler 22.03 LTS SP1：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b openEuler-22.03-LTS-SP1 && cd raspberrypi-kernel`
-    - openEuler 22.09：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b openEuler-22.09 && cd raspberrypi-kernel`
-    - openEuler 22.03 LTS：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b openEuler-22.03-LTS && cd raspberrypi-kernel`
-    - openEuler 21.09：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b openEuler-21.09 && cd raspberrypi-kernel`
-    - openEuler 21.03：`git clone git@gitee.com:openeuler/kernel.git -b openEuler-21.03 && cd kernel`
-
-4.  4.19 内核
-
-    - openEuler 20.03 LTS：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b openEuler-20.03-LTS && cd raspberrypi-kernel`
-    - openEuler 20.09：`git clone git@gitee.com:openeuler/raspberrypi-kernel.git -b openEuler-20.09 && cd raspberrypi-kernel`
-
-下面编译时可能还需要 bison、flex、build-essential 等，根据提示安装即可。
-
-### 载入默认配置
-
-根据内核不同版本，需要载入不同的默认配置：
-
-1.  6.6 内核
-
-    - openEuler 24.09：`make bcm2711_defconfig`
-    - openEuler 24.03 LTS：`make bcm2711_defconfig`
-
-2.  6.1 内核
-
-    - openEuler 23.03：`make bcm2711_defconfig`
-
-3.  5.10 内核
-
-    - openEuler 22.03 LTS SP4：`make bcm2711_defconfig`
-    - openEuler 22.03 LTS SP3：`make bcm2711_defconfig`
-    - openEuler 22.03 LTS SP2：`make bcm2711_defconfig`
-    - openEuler 22.03 LTS SP1：`make bcm2711_defconfig`
-    - openEuler 22.09：`make bcm2711_defconfig`
-    - openEuler 22.03 LTS：`make bcm2711_defconfig`
-    - openEuler 21.09：`make bcm2711_defconfig`
-    - openEuler 21.03：`make bcm2711_defconfig`
-
-4.  4.19 内核
-
-    - openEuler 20.03 LTS：`make openeuler-raspi_defconfig`
-    - openEuler 20.09：`make openeuler-raspi_defconfig`
-
-对应的 defconfig 文件在 ./arch/arm64/configs 下。
-
-### 编译
-
-`make ARCH=arm64 -j4`
-
-### 创建编译内核模块目录
-
-`mkdir ${WORKDIR}/output`
-
-### 编译内核模块
-
-`make INSTALL_MOD_PATH=${WORKDIR}/output/ modules_install`
-
-在 ${WORKDIR}/output 文件夹下会生成 lib 文件夹。
-
-### 收集编译结果
-
-1.  内核
-
-    `cp ${WORKDIR}/raspberrypi-kernel/arch/arm64/boot/Image ${WORKDIR}/output/`
-
-2.  设备树文件等
-
-    `cp ${WORKDIR}/raspberrypi-kernel/arch/arm64/boot/dts/broadcom/*.dtb ${WORKDIR}/output/`
-
-    `mkdir ${WORKDIR}/output/overlays`
-
-    `cp ${WORKDIR}/raspberrypi-kernel/arch/arm64/boot/dts/overlays/*.dtb* ${WORKDIR}/output/overlays/`
-
-至此，所有内核及内核模块相关内容都在 ${WORKDIR}/output 下了。
+具体编译过程请参考文档 [内核编译](./内核编译.md#内核编译)。
 
 ## 配置引导
 
@@ -186,7 +90,7 @@
 
 `git clone --depth=1 https://github.com/raspberrypi/firmware`
 
-得到文件 ${WORKDIR}/firmware 。
+得到文件 ${WORKDIR}/firmware。
 
 ### 进入引导目录
 
@@ -202,19 +106,7 @@
 
 写入新系统的内核参数：
 
-`console=serial0,115200 console=tty1 root=/dev/mmcblk0p3 rootfstype=ext4 elevator=deadline rootwait`
-
-### boot 内容完善
-
-#### 将内核放进引导
-
-`cp ${WORKDIR}/output/Image ${WORKDIR}/firmware/boot/kernel8.img`
-
-#### 将设备树文件放进引导
-
-`cp ${WORKDIR}/output/*.dtb ${WORKDIR}/firmware/boot/`
-
-`cp ${WORKDIR}/output/overlays/* ${WORKDIR}/firmware/boot/overlays/`
+`console=serial0,115200 console=tty1 root=/dev/mmcblk0p3 rootfstype=ext4 elevator=deadline rootwait net.ifnames=0`
 
 ## 树莓派固件和应用
 
@@ -248,11 +140,11 @@
 
 ## 创建 RPM 数据库
 
-`mkdir ${WORKDIR}/rootfs`
-
-`mkdir -p ${WORKDIR}/rootfs/var/lib/rpm`
-
-`rpm --root ${WORKDIR}/rootfs/ --initdb`
+```
+mkdir ${WORKDIR}/rootfs
+mkdir -p ${WORKDIR}/rootfs/var/lib/rpm
+rpm --root ${WORKDIR}/rootfs/ --initdb
+```
 
 ## 下载安装 openEuler 发布包
 
@@ -260,15 +152,16 @@
 
 会在 ${WORKDIR}/rootfs 下生成三个文件夹:
 
-etc/ usr/ var/
+`etc/ usr/ var/`
 
 ## 安装 yum
 
 ### 添加 yum 源
 
-`mkdir ${WORKDIR}/rootfs/etc/yum.repos.d`
-
-`curl -o ${WORKDIR}/rootfs/etc/yum.repos.d/openEuler-20.03-LTS.repo https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`
+```
+mkdir ${WORKDIR}/rootfs/etc/yum.repos.d
+curl -o ${WORKDIR}/rootfs/etc/yum.repos.d/openEuler-20.03-LTS.repo https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo
+```
 
 ### 安装 dnf
 
@@ -276,9 +169,10 @@ etc/ usr/ var/
 
 ### 安装必要软件
 
-`dnf --installroot=${WORKDIR}/rootfs/ makecache`
-
-`dnf --installroot=${WORKDIR}/rootfs/ install -y alsa-utils wpa_supplicant vim net-tools iproute iputils NetworkManager openssh-server passwd hostname ntp bluez pulseaudio-module-bluetooth`
+```
+dnf --installroot=${WORKDIR}/rootfs/ makecache
+dnf --installroot=${WORKDIR}/rootfs/ install -y alsa-utils wpa_supplicant vim net-tools iproute iputils NetworkManager openssh-server passwd hostname ntp bluez pulseaudio-module-bluetooth
+```
 
 ## 添加配置文件
 
@@ -350,19 +244,15 @@ mv ${WORKDIR}/rootfs/lib/firmware/BCM43430A1.hcd ${WORKDIR}/rootfs/lib/firmware/
 mv ${WORKDIR}/rootfs/lib/firmware/BCM4345C0.hcd ${WORKDIR}/rootfs/lib/firmware/brcm/
 ```
 
-### 将内核模块放进rootfs
-
-`cp -r ${WORKDIR}/output/lib/modules ${WORKDIR}/rootfs/lib/`
-
 ## rootfs设置
 
 1.  挂载必要的路径
 
-    `mount --bind /dev ${WORKDIR}/rootfs/dev`
-
-    `mount -t proc /proc ${WORKDIR}/rootfs/proc`
-
-    `mount -t sysfs /sys ${WORKDIR}/rootfs/sys`
+    ```
+    mount --bind /dev ${WORKDIR}/rootfs/dev
+    mount -t proc /proc ${WORKDIR}/rootfs/proc
+    mount -t sysfs /sys ${WORKDIR}/rootfs/sys
+    ```
 
 2.  run chroot
 
@@ -396,11 +286,11 @@ mv ${WORKDIR}/rootfs/lib/firmware/BCM4345C0.hcd ${WORKDIR}/rootfs/lib/firmware/b
 
 9.  取消临时挂载的目录
 
-    `umount -l ${WORKDIR}/rootfs/dev`
-
-    `umount -l ${WORKDIR}/rootfs/proc`
-
-    `umount -l ${WORKDIR}/rootfs/sys`
+    ```
+    umount -l ${WORKDIR}/rootfs/dev
+    umount -l ${WORKDIR}/rootfs/proc
+    umount -l ${WORKDIR}/rootfs/sys
+    ```
 
 # 制作镜像
 
@@ -408,11 +298,12 @@ mv ${WORKDIR}/rootfs/lib/firmware/BCM4345C0.hcd ${WORKDIR}/rootfs/lib/firmware/b
 
 ### 计算镜像大小
 
-`du -sh --block-size=1MiB ${WORKDIR}/rootfs`
+```
+du -sh --block-size=1MiB ${WORKDIR}/rootfs
+du -sh --block-size=1MiB ${WORKDIR}/firmware/boot
+```
 
-`du -sh --block-size=1MiB ${WORKDIR}/firmware/boot`
-
-得到总大小后略加 1100MiB 即可，将该大小记为 `SIZE`。
+得到总大小后加 2000MiB 即可，将该大小记为 `SIZE`。
 
 ### 创建空镜像
 
@@ -475,9 +366,7 @@ add map loop0p3 ...
 
 运行 `ls /dev/mapper/loop0p*` 可以看到分区分别对应刚才为 openEuler_raspi.img 做的三个分区：
 
-```
-/dev/mapper/loop0p1 /dev/mapper/loop0p2 /dev/mapper/loop0p3
-```
+`/dev/mapper/loop0p1 /dev/mapper/loop0p2 /dev/mapper/loop0p3`
 
 ### 格式化分区
 
@@ -499,9 +388,10 @@ add map loop0p3 ...
 
 ### 挂载根目录和 boot 分区
 
-`mount -t vfat -o uid=root,gid=root,umask=0000 /dev/mapper/loop0p1 ${WORKDIR}/boot/`
-
-`mount -t ext4 /dev/mapper/loop0p3 ${WORKDIR}/root/`
+```
+mount -t vfat -o uid=root,gid=root,umask=0000 /dev/mapper/loop0p1 ${WORKDIR}/boot/
+mount -t ext4 /dev/mapper/loop0p3 ${WORKDIR}/root/
+```
 
 ### 获取生成的 img 镜像的 blkid
 
@@ -523,19 +413,17 @@ UUID=2785-C7C3  /boot vfat    defaults,noatime 0 0
 UUID=a451bee4-4384-48a2-8d5a-d09c2dd9a1a  swap swap    defaults,noatime 0 0
 ```
 
-## rootfs 拷贝到镜像
+## rootfs 文件拷贝到镜像
 
 `rsync -avHAXq ${WORKDIR}/rootfs/* ${WORKDIR}/root`
 
-## boot 引导拷贝到镜像
+## boot 引导文件拷贝到镜像
 
-`cd ${WORKDIR}/firmware/boot`
+`cp -a ${WORKDIR}/firmware/boot/* ${WORKDIR}/boot`
 
-`tar cf ${WORKDIR}/boot.tar ./`
+## 内核更新
 
-`cd ${WORKDIR}/boot`
-
-`tar xf ${WORKDIR}/boot.tar -C .`
+内核更新过程请参考文档 [内核更新](./内核编译.md#内核更新)。该文档中 `${boot}` 和 `${rootfs}` 分别代表镜像文件的 `boot` 和 `root` 分区挂载路径 `${WORKDIR}/boot` 和 `${WORKDIR}/root`。
 
 ## 卸载镜像
 
