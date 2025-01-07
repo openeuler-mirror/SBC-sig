@@ -45,7 +45,7 @@ default_param() {
     kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
     workdir=$(pwd)/build
     board_type=rk3399
-    name=${branch}-${dtb_name}-aarch64-alpha1
+    name=${branch}-${board}-aarch64-alpha1
     make_cores=$(nproc)
 }
 
@@ -138,7 +138,9 @@ parseargs "$@" || help $?
 
 LOG "Selected board: ${board}."
 
-source boards/${board}.conf
+cur_dir=$(cd $(dirname $0);pwd)
+
+source ${cur_dir}/boards/${board}.conf
 
 LOG "U-Boot config: ${ubootconfig}."
 LOG "DeviceTree name: ${dtb_name}."
@@ -149,6 +151,7 @@ if [ ! -d $workdir ]; then
     mkdir $workdir
 fi
 save_param
+log_dir=${workdir}/log
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ -f $workdir/.done ];then
     LOG "Checking the previous build."
