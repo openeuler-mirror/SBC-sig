@@ -33,6 +33,7 @@ xfdesktop
 xfce4-*
 xfce4-*-plugin
 network-manager-applet
+*fonts
 fcitx
 fcitx-qt5
 fcitx-cloudpinyin
