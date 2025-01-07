@@ -34,8 +34,20 @@ ln -s /lib/firmware /etc/firmware
 if [ -f /etc/locale.conf ]; then
     sed -i -e "s/^LANG/#LANG/" /etc/locale.conf
 fi
-if [ "x$1" == "xxfce" ] || [ "x$1" == "xukui" ] || [ "x$1" == "xdde" ]; then
+if [ "x$1" == "xxfce" ] || [ "x$1" == "xukui" ] || [ "x$1" == "xdde" ] || [ "x$1" == "xgnome" ]; then
     echo 'LANG="zh_CN.UTF-8"' >> /etc/locale.conf
+    cat << EOF > /etc/X11/xorg.conf.d/99-vc4.conf
+Section "OutputClass"
+  Identifier "vc4"
+  MatchDriver "vc4"
+  Driver "modesetting"
+  Option "PrimaryGPU" "true"
+EndSection
+EOF
+    systemctl set-default graphical.target
 else
     echo 'LANG="en_US.utf8"' >> /etc/locale.conf
+fi
+if [ "x$1" == "xgnome" ]; then
+    systemctl enable gdm
 fi
