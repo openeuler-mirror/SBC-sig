@@ -248,6 +248,9 @@ mk_boot() {
     rm -rf ${boot_dir}
 }
 
+kernel_defconfig="openeuler_rockchip_defconfig"
+default_defconfig=""
+
 default_param
 local_param
 parseargs "$@" || help $?
@@ -255,9 +258,6 @@ set -e
 
 rockchip_bootargs="earlyprintk console=ttyS2,1500000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 init=/sbin/init rootwait"
 phytium_bootargs="console=ttyAMA1,115200 earlycon=pl011,0x2800d000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait cma=256m"
-
-kernel_defconfig="openeuler_rockchip_defconfig"
-default_defconfig=""
 
 if [ "x$default_defconfig" == "x" ] ; then
     default_defconfig=$kernel_defconfig
