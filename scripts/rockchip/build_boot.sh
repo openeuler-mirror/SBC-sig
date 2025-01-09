@@ -39,7 +39,7 @@ local_param(){
         branch=${branch:7}
 
         default_defconfig=$(cat $workdir/.param | grep default_defconfig)
-        default_defconfig=${branch:18}
+        default_defconfig=${default_defconfig:18}
 
         dtb_name=$(cat $workdir/.param | grep dtb_name)
         dtb_name=${dtb_name:9}
@@ -248,8 +248,7 @@ mk_boot() {
     rm -rf ${boot_dir}
 }
 
-kernel_defconfig="openeuler_rockchip_defconfig"
-default_defconfig=""
+kernel_defconfig=""
 
 default_param
 local_param
@@ -259,14 +258,13 @@ set -e
 rockchip_bootargs="earlyprintk console=ttyS2,1500000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 init=/sbin/init rootwait"
 phytium_bootargs="console=ttyAMA1,115200 earlycon=pl011,0x2800d000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait cma=256m"
 
-if [ "x$default_defconfig" == "x" ] ; then
-    default_defconfig=$kernel_defconfig
+if [ ! -f $default_defconfig ] ; then
+    LOG "kernel defconfig is : ${default_defconfig}"
+    kernel_defconfig=$default_defconfig
 elif [ -f $default_defconfig ]; then
+    LOG "use local kernel defconfig..."
     cp $default_defconfig ${workdir}/
     kernel_defconfig=${workdir}/${default_defconfig##*/}
-else
-    echo `date` - ERROR, config file $default_defconfig can not be found.
-    exit 2
 fi
 
 if [ ! -d $workdir ]; then
