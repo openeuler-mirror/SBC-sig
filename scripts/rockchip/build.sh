@@ -56,7 +56,8 @@ save_param() {
     if [ -f $workdir/.param ]; then
         mv $workdir/.param $workdir/.param_last
     fi
-    echo "default_defconfig=$default_defconfig
+    echo "board=$board
+default_defconfig=$default_defconfig
 ubootconfig=$ubootconfig
 dtb_name=$dtb_name
 platform=$platform
@@ -142,6 +143,7 @@ cur_dir=$(cd $(dirname $0);pwd)
 
 source ${cur_dir}/boards/${board}.conf
 
+LOG "Board config: ${board}."
 LOG "U-Boot config: ${ubootconfig}."
 LOG "DeviceTree name: ${dtb_name}."
 LOG "Target platform: ${platform}."

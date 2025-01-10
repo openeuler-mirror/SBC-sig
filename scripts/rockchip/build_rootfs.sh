@@ -2,14 +2,14 @@
 
 __usage="
 Usage: build_rootfs [OPTIONS]
-Build Rockchip openEuler-root image.
+Build openEuler rootfs image.
 Run in root user.
 The target rootfs.img will be generated in the build folder of the directory where the build_rootfs.sh script is located.
 
 Options: 
+  --board, BOARD                Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   -r, --repo REPO_INFO          The URL/path of target repo file or list of repo's baseurls which should be a space separated list.
   -b, --branch KERNEL_BRANCH    The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
-  -d, --device-tree DTB_NAME    The device tree name of target board, which defaults to rk3399-firefly.
   -s, --spec SPEC               The image's specification: headless, xfce, ukui, dde or the file path of rpmlist. The default is headless.
   -h, --help                    Show command help.
 "
@@ -21,10 +21,10 @@ help()
 }
 
 default_param() {
+    board=firefly-rk3399
     repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
     tmp_dir=${workdir}/tmp
     workdir=$(pwd)/build
-    dtb_name=rk3399-firefly
     branch=openEuler-20.03-LTS
     nonfree_bin_dir=${workdir}/../bin
     rootfs_dir=${workdir}/rootfs
@@ -33,14 +33,14 @@ default_param() {
 
 local_param(){
     if [ -f $workdir/.param ]; then
+        board=$(cat $workdir/.param | grep board)
+        board=${board:6}
+
         repo_file=$(cat $workdir/.param | grep repo_file)
         repo_file=${repo_file:10}
 
         branch=$(cat $workdir/.param | grep branch)
         branch=${branch:7}
-
-        dtb_name=$(cat $workdir/.param | grep dtb_name)
-        dtb_name=${dtb_name:9}
 
         spec_param=$(cat $workdir/.param | grep spec_param)
         spec_param=${spec_param:11}
@@ -59,16 +59,16 @@ parseargs()
             return 1
         elif [ "x$1" == "x" ]; then
             shift
+        elif [ "x$1" == "x--board" ]; then
+            board=`echo $2`
+            shift
+            shift
         elif [ "x$1" == "x-r" -o "x$1" == "x--repo" ]; then
             repo_file=`echo $2`
             shift
             shift
         elif [ "x$1" == "x-b" -o "x$1" == "x--branch" ]; then
             branch=`echo $2`
-            shift
-            shift
-        elif [ "x$1" == "x-d" -o "x$1" == "x--device-tree" ]; then
-            dtb_name=`echo $2`
             shift
             shift
         elif [ "x$1" == "x-s" -o "x$1" == "x--spec" ]; then
@@ -289,49 +289,8 @@ EOF
     echo "LABEL=boot  /boot vfat    defaults,noatime 0 0" >> ${rootfs_dir}/etc/fstab
     LOG "Set fstab done."
 
-    if [ -f $workdir/.param ]; then
-        dtb_name=$(cat $workdir/.param | grep dtb_name)
-        dtb_name=${dtb_name:9}
-        if [ "x$dtb_name" == "xrk3399-firefly" ]; then
-            cd $workdir
-            if [ "x$branch" == "xopenEuler-20.03-LTS" ]; then
-                mkdir -p ${rootfs_dir}/system
-                mkdir -p ${rootfs_dir}/etc/profile.d/
-                mkdir -p ${rootfs_dir}/usr/bin/
-                cp -r $nonfree_bin_dir/wireless/system/*    ${rootfs_dir}/system/
-                cp   $nonfree_bin_dir/wireless/rcS.sh    ${rootfs_dir}/etc/profile.d/
-                cp   $nonfree_bin_dir/wireless/enable_bt    ${rootfs_dir}/usr/bin/
-                chmod +x  ${rootfs_dir}/usr/bin/enable_bt  ${rootfs_dir}/etc/profile.d/rcS.sh
-                LOG "install firefly-rk3399 wireless firmware done."
-                ln -s ${rootfs_dir}/system/etc/firmware ${rootfs_dir}/etc/firmware
-            fi
-            mkdir -p ${rootfs_dir}/usr/lib/firmware/brcm
-            cp $nonfree_bin_dir/linux-firmware/ap6356s/brcmfmac4356-sdio.bin ${rootfs_dir}/usr/lib/firmware/brcm
-            cp $nonfree_bin_dir/linux-firmware/ap6356s/brcmfmac4356-sdio.firefly,firefly-rk3399.txt ${rootfs_dir}/usr/lib/firmware/brcm
-            cp $nonfree_bin_dir/linux-firmware/ap6356s/BCM4356A2.hcd ${rootfs_dir}/usr/lib/firmware/brcm
-        elif [ "x$dtb_name" == "xrk3588-firefly-itx-3588j" ]; then
-            cd $workdir
-            mkdir -p ${rootfs_dir}/etc/modules-load.d/
-            echo "8821cu" >> ${rootfs_dir}/etc/modules-load.d/8821cu.conf
-        elif [ "x$dtb_name" == "xrk3566-roc-pc" ];then
-            mkdir -p ${rootfs_dir}/usr/lib/firmware/brcm
-            cp $nonfree_bin_dir/linux-firmware/ap6255/brcmfmac43455-sdio.bin ${rootfs_dir}/usr/lib/firmware/brcm/brcmfmac43455-sdio.firefly,rk3566-roc-pc.bin
-            cp $nonfree_bin_dir/linux-firmware/ap6255/brcmfmac43455-sdio.txt ${rootfs_dir}/usr/lib/firmware/brcm/brcmfmac43455-sdio.firefly,rk3566-roc-pc.txt
-            cp $nonfree_bin_dir/linux-firmware/ap6255/BCM4345C0.hcd ${rootfs_dir}/usr/lib/firmware/brcm
-        elif [ "x$dtb_name" == "xrk3568-roc-pc-se" ];then
-            mkdir -p ${rootfs_dir}/usr/lib/firmware/brcm
-            cp $nonfree_bin_dir/linux-firmware/ap6275s/brcmfmac43752-sdio.bin ${rootfs_dir}/usr/lib/firmware/brcm/brcmfmac43752-sdio.firefly,rk3568-roc-pc-se.bin
-            cp $nonfree_bin_dir/linux-firmware/ap6275s/brcmfmac43752-sdio.txt ${rootfs_dir}/usr/lib/firmware/brcm/brcmfmac43752-sdio.firefly,rk3568-roc-pc-se.txt
-            cp $nonfree_bin_dir/linux-firmware/ap6275s/BCM4362A2.hcd ${rootfs_dir}/usr/lib/firmware/brcm
-        elif [[ "x$dtb_name" == "xphytiumpi_firefly" ]]; then
-            mkdir -p ${rootfs_dir}/lib/firmware/rtlbt/
-            cp $nonfree_bin_dir/linux-firmware/rtl8821c/systemd-hciattach.service ${rootfs_dir}/etc/systemd/system/systemd-hciattach.service
-	        cp $nonfree_bin_dir/linux-firmware/rtl8821c/rtk_hciattach ${rootfs_dir}/usr/bin/rtk_hciattach
-	        cp $nonfree_bin_dir/linux-firmware/rtl8821c/rtl8821c_config ${rootfs_dir}/lib/firmware/rtlbt/rtl8821c_config
-	        cp $nonfree_bin_dir/linux-firmware/rtl8821c/rtl8821c_fw ${rootfs_dir}/lib/firmware/rtlbt/rtl8821c_fw
-            chmod +x ${rootfs_dir}/usr/bin/rtk_hciattach
-        fi
-    fi
+    POST_BOARD_OVERLAY
+
     UMOUNT_ALL
 }
 
@@ -372,6 +331,12 @@ parseargs "$@" || help $?
 
 CONFIG_RPM_LIST=$workdir/../configs/rpmlist
 
+POST_BOARD_OVERLAY() {
+    echo "Initial POST_BOARD_OVERLAY function" # It will be overwritten by board.conf.
+}
+
+source $workdir/../boards/${board}.conf
+
 if [ ! -d $workdir ]; then
     mkdir $workdir
 fi
@@ -384,22 +349,24 @@ sed -i 's/rootfs//g' $workdir/.done
 LOG "build rootfs..."
 if [ -d rootfs ]; then
     if [[ -f $workdir/rootfs.img && $(cat $workdir/.done | grep rootfs) == "rootfs" ]];then
-        last_branch=$(cat $workdir/.param_last | grep branch)
-        last_branch=${last_branch:7}
+        if [ -f $workdir/.param_last ];then
+            last_branch=$(cat $workdir/.param_last | grep branch)
+            last_branch=${last_branch:7}
 
-        last_dtb_name=$(cat $workdir/.param_last | grep dtb_name)
-        last_dtb_name=${last_dtb_name:9}
+            last_board=$(cat $workdir/.param_last | grep board)
+            last_board=${last_board:6}
 
-        last_repo_file=$(cat $workdir/.param_last | grep repo_file)
-        last_repo_file=${last_repo_file:10}
+            last_repo_file=$(cat $workdir/.param_last | grep repo_file)
+            last_repo_file=${last_repo_file:10}
 
-        last_spec_param=$(cat $workdir/.param_last | grep spec_param)
-        last_spec_param=${last_spec_param:11}
+            last_spec_param=$(cat $workdir/.param_last | grep spec_param)
+            last_spec_param=${last_spec_param:11}
 
-        if [[ ${last_branch} != ${branch} || ${last_dtb_name} != ${dtb_name} || ${last_repo_file} != ${repo_file} || ${last_spec_param} != ${spec_param} ]]; then
-            rm -rf rootfs
-            build_rootfs
-            mk_rootfsimg
+            if [[ ${last_branch} != ${branch} || ${last_board} != ${board} || ${last_repo_file} != ${repo_file} || ${last_spec_param} != ${spec_param} ]]; then
+                rm -rf rootfs
+                build_rootfs
+                mk_rootfsimg
+            fi
         fi
     else
         rm -rf rootfs
