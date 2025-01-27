@@ -15,6 +15,15 @@
 </tr></thead>
 <tbody>
 <tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP1-DevStation-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 内测版（DevStation 开发者工作站、中文输入法）</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root（openeuler）</li><li>pi（raspberry）</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/01/27</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>1004.5 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-75.0.0.11</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 源仓库</a></td>
+</tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP1-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 内测版</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root（openeuler）</li><li>pi（raspberry）</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
