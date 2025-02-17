@@ -40,7 +40,7 @@
 
   - RK35xx
 
-    需要将编译好的 u-boot 二进制文件放到 [u-boot 目录](../../scripts/rockchip/bin/u-boot/)下，并在 [build_boot.sh](../../scripts/rockchip/build_u-boot.sh#L126) 中增加相应操作。
+    需要将编译好的 u-boot 二进制文件放到 [u-boot 目录](../../scripts/rockchip/bin/u-boot/)下，并在版型文件中增加文件路径。
 
 ## 准备 firmware 文件
    
@@ -72,6 +72,12 @@ POST_BOARD_OVERLAY() {
   1.  ubootconfig=UBOOT_DEFCONFIG
 
       开发板对应的 defconfig 的文件名称，对应 [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs) 下 `UBOOT_DEFCONFIG` 文件，默认为 `firefly-rk3399_defconfig`；如需在 RK3568/RK3588 开发板上使用预编译的 u-boot，可以将此项设置为 `none`。
+      
+      如果设置为 `none`，则还需添加以下附属配置参数：
+
+        - local_uboot_dir
+
+          开发板 u-boot 配置设置为 `none` 时，本地预编译的 u-boot 二进制文件的位置。
 
   2.  dtb_name=DTB_NAME
 

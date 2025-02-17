@@ -2,11 +2,11 @@
 
 __usage="
 Usage: build_u-boot [OPTIONS]
-Build Rockchip u-boot image.
+Build openEuler SBCs u-boot image.
 The target files idbloader.img and u-boot.itb will be generated in the build/u-boot folder of the directory where the build_u-boot.sh script is located.
 
 Options: 
-  -u, --ubootconfig         UBOOT_DEFCONFIG    Required! The name of defconfig file when compiling u-boot, which defaults to firefly-rk3399_defconfig, set none to use prebuild u-boot image.
+  --board, BOARD            Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   --cores N                 The number of cpu cores to be used during making.
   -h, --help                Show command help.
 "
@@ -18,7 +18,7 @@ help()
 }
 
 default_param() {
-    ubootconfig="firefly-rk3399_defconfig"
+    board=firefly-rk3399
     workdir=$(pwd)/build
     u_boot_url="https://gitlab.arm.com/systemready/firmware-build/u-boot.git"
     rk3399_bl31_url="https://github.com/rockchip-linux/rkbin/raw/master/bin/rk33/rk3399_bl31_v1.36.elf"
@@ -29,8 +29,8 @@ default_param() {
 
 local_param(){
     if [ -f $workdir/.param ]; then
-        ubootconfig=$(cat $workdir/.param | grep ubootconfig)
-        ubootconfig=${ubootconfig:12}
+        board=$(cat $workdir/.param | grep board)
+        board=${board:6}
     fi
 }
 
@@ -46,8 +46,8 @@ parseargs()
             return 1
         elif [ "x$1" == "x" ]; then
             shift
-        elif [ "x$1" == "x-u" -o "x$1" == "x--ubootconfig" ]; then
-            ubootconfig=`echo $2`
+        elif [ "x$1" == "x--board" ]; then
+            board=`echo $2`
             shift
             shift
         elif [ "x$1" == "x--cores" ]; then
@@ -119,26 +119,17 @@ use_prebuild_u-boot() {
     if [ -d $workdir/u-boot ]; then
         rm -rf $workdir/u-boot
     fi
+
     mkdir $workdir/u-boot
-    if [ -f $workdir/.param ]; then
-        dtb_name=$(cat $workdir/.param | grep dtb_name)
-        dtb_name=${dtb_name:9}
-        if [[ "x$dtb_name" == "xrk3588s-roc-pc" || "x$dtb_name" == "xrk3588-firefly-itx-3588j" ]]; then
-            cp $nonfree_bin_dir/u-boot/firefly-rk3588/* $workdir/u-boot
-        elif [[ "x$dtb_name" == "xrk3588-rock-5b" ]]; then
-            cp $nonfree_bin_dir/u-boot/radxa-rock5b/* $workdir/u-boot
-        elif [[ "x$dtb_name" == "xrk3566-roc-pc" ]]; then
-            cp $nonfree_bin_dir/u-boot/firefly-rk3566/* $workdir/u-boot
-        elif [[ "x$dtb_name" == "xrk3568-roc-pc-se" ]]; then
-            cp $nonfree_bin_dir/u-boot/firefly-rk3568/* $workdir/u-boot
-        elif [[ "x$dtb_name" == "xphytiumpi_firefly" ]]; then
-            cp $nonfree_bin_dir/u-boot/phytiumpi/fip-all-sd-boot.bin $workdir/u-boot
-            mkenvimage -s 0x1000 -o $workdir/u-boot/env.bin $nonfree_bin_dir/u-boot/phytiumpi/env.txt
-            dd if=$workdir/u-boot/env.bin of=$workdir/u-boot/fip-all-sd-boot.bin bs=1k seek=1472 conv=notrunc
-        else
-           echo "target u-boot can not found!"
-           exit 2
-        fi
+    if [[ "x${platform}" == "xrockchip" ]]; then
+        cp ${local_uboot_dir}/* $workdir/u-boot
+    elif [[ "x${platform}" == "xphytium" ]]; then
+        cp ${local_uboot_dir}/fip-all-sd-boot.bin $workdir/u-boot
+        mkenvimage -s 0x1000 -o $workdir/u-boot/env.bin ${local_uboot_dir}/env.txt
+        dd if=$workdir/u-boot/env.bin of=$workdir/u-boot/fip-all-sd-boot.bin bs=1k seek=1472 conv=notrunc
+    else
+        echo "target u-boot can not found!"
+        exit 2
     fi
 }
 
@@ -147,6 +138,8 @@ u_boot_ver="v2020.10"
 default_param
 local_param
 parseargs "$@" || help $?
+
+source $workdir/../boards/${board}.conf
 
 if [ ! -d $workdir ]; then
     mkdir $workdir
