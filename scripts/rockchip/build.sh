@@ -6,7 +6,7 @@ Build Rockchip bootable images.
 The target bootable compressed images will be generated in the build/YYYY-MM-DD folder of the directory where the build script is located.
 
 Options: 
-  --board BOARD                        Required! The config of target board in the boards folder, which defaults to rockchip.
+  --board BOARD_CONFIG                 Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   -n, --name IMAGE_NAME                The Rockchip image name to be built.
   -k, --kernel KERNEL_URL              The URL of kernel source's repository, which defaults to https://gitee.com/openeuler/rockchip-kernel.git.
   -b, --branch KERNEL_BRANCH           The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
@@ -44,7 +44,6 @@ default_param() {
     repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
     kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
     workdir=$(pwd)/build
-    board_type=rk3399
     name=${branch}-${board}-aarch64-alpha1
     make_cores=$(nproc)
 }
@@ -182,9 +181,4 @@ if [[ $(cat $workdir/.done | grep rootfs) != "rootfs" ]];then
     bash build_rootfs.sh
 fi
 
-if [[ "x$dtb_name" == "xrk3588s-roc-pc" || "x$dtb_name" == "xrk3588-firefly-itx-3588j" || "x$dtb_name" == "xrk3588-rock-5b" ]]; then
-    board_type=rk3588
-else
-    board_type=rk3399
-fi
-bash gen_image.sh -n $name -t $board_type -p $platform
+bash gen_image.sh --board ${board}

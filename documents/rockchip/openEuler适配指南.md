@@ -87,8 +87,16 @@ POST_BOARD_OVERLAY() {
 
       开发板所使用的平台，目前支持的平台有：rockchip、phytium。
 
+
+  4.  soc_name=SOC_NAME
+
+      开发板所使用的具体芯片型号，目前支持的芯片型号有：
+
+        - rockchip: rk3399, rk3566, rk3568, rk3588
+
+        - phytium: e2000q
     
-  4.  POST_BOARD_OVERLAY()
+  5.  POST_BOARD_OVERLAY()
 
       `POST_BOARD_OVERLAY()` 是执行复制 firmware 文件到根目录以及对目标开发板根目录执行特定操作的函数，其使用的变量与 [build_rootfs.sh](../../scripts/rockchip/build_rootfs.sh) 相同，通常包含以下两个变量：
 

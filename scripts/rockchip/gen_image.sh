@@ -7,8 +7,7 @@ The target compressed bootable images will be generated in the build/YYYY-MM-DD 
 
 Options: 
   -n, --name IMAGE_NAME         The Rockchip image name to be built.
-  -t, --type BOARD_TYPE         Board Soc type.
-  -p, --platform PLATFORM       Required! The platform of target board, which defaults to rockchip.
+  --board BOARD_CONFIG          Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   -h, --help                    Show command help.
 "
 
@@ -22,7 +21,8 @@ default_param() {
     workdir=$(pwd)/build
     outputdir=${workdir}/$(date +'%Y-%m-%d')
     name=openEuler-Firefly-RK3399-aarch64-alpha1
-    board_type=rk3399
+    board=firefly-rk3399
+    soc_name=rk3399
     platform=rockchip
     rootfs_dir=${workdir}/rootfs
     boot_dir=${workdir}/boot
@@ -49,12 +49,8 @@ parseargs()
             name=`echo $2`
             shift
             shift
-        elif [ "x$1" == "x-t" -o "x$1" == "x--type" ]; then
-            board_type=`echo $2`
-            shift
-            shift
-        elif [ "x$1" == "x-p" -o "x$1" == "x--platform" ]; then
-            platform=`echo $2`
+        elif [ "x$1" == "x--board" ]; then
+            board=`echo $2`
             shift
             shift
         else
@@ -256,7 +252,7 @@ outputd(){
         LOG "xz openEuler image success."
     fi
 
-    if [[ "x$board_type" == "xrk3399" && "x$platform" == "xrockchip" ]]; then
+    if [[ "x$soc_name" == "xrk3399" && "x$platform" == "xrockchip" ]]; then
         LOG "tar openEuler image begin..."
         cp $workdir/../bin/rk3399_loader.bin $workdir
         cp $workdir/../bin/rk3399_parameter.gpt $workdir
@@ -293,6 +289,9 @@ outputd(){
 set -e
 default_param
 parseargs "$@" || help $?
+
+source $workdir/../boards/${board}.conf
+
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ ! -f $workdir/.done ];then
     touch $workdir/.done
