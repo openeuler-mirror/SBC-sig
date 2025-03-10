@@ -7,7 +7,7 @@ Usage: build-image-docker [OPTIONS]
 Build board image.
 
 Options:
-  --board BOARD                    Required! The config of target board in the boards folder.
+  --board BOARD_CONFIG             Required! The config of target board in the boards folder.
   -d, --docker DOCKER_FILE         The URL/path of the Docker image, which defaults to https://repo.openeuler.org/openEuler-20.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz
   -n, --name IMAGE_NAME            The board image name to be built.
   -k, --kernel KERNEL_URL          The URL of kernel source's repository, which defaults to https://gitee.com/openeuler/rockchip-kernel.git.

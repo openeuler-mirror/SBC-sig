@@ -2,15 +2,14 @@
 
 __usage="
 Usage: build_boot [OPTIONS]
-Build Rockchip boot image.
+Build openEuler SBCs boot image.
 The target boot.img will be generated in the build folder of the directory where the build_boot.sh script is located.
 
 Options: 
+  --board BOARD_CONFIG                  Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   -b, --branch KERNEL_BRANCH            The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
   -k, --kernel KERNEL_URL               Required! The URL of kernel source's repository.
   -c, --config KERNEL_DEFCONFIG         The name/path of defconfig file when compiling kernel, which defaults to openeuler_rockchip_defconfig.
-  -d, --device-tree DTB_NAME            Required! The device tree name of target board, which defaults to rk3399-firefly.
-  -p, --platform PLATFORM               Required! The platform of target board, which defaults to rockchip.
   --cores N                             The number of cpu cores to be used during making.
   -h, --help                            Show command help.
 "
@@ -25,6 +24,7 @@ default_param() {
     workdir=$(pwd)/build
     branch=openEuler-20.03-LTS
     default_defconfig=openeuler_rockchip_defconfig
+    board=firefly-rk3399
     dtb_name=rk3399-firefly
     platform=rockchip
     kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
@@ -41,11 +41,8 @@ local_param(){
         default_defconfig=$(cat $workdir/.param | grep default_defconfig)
         default_defconfig=${default_defconfig:18}
 
-        dtb_name=$(cat $workdir/.param | grep dtb_name)
-        dtb_name=${dtb_name:9}
-        
-        platform=$(cat $workdir/.param | grep platform)
-        platform=${platform:9}
+        board=$(cat $workdir/.param | grep board)
+        board=${board:6}
 
         kernel_url=$(cat $workdir/.param | grep kernel_url)
         kernel_url=${kernel_url:11}
@@ -64,6 +61,10 @@ parseargs()
             return 1
         elif [ "x$1" == "x" ]; then
             shift
+        elif [ "x$1" == "x--board" ]; then
+            board=`echo $2`
+            shift
+            shift
         elif [ "x$1" == "x-b" -o "x$1" == "x--branch" ]; then
             branch=`echo $2`
             shift
@@ -72,16 +73,8 @@ parseargs()
             default_defconfig=`echo $2`
             shift
             shift
-        elif [ "x$1" == "x-d" -o "x$1" == "x--device-tree" ]; then
-            dtb_name=`echo $2`
-            shift
-            shift
         elif [ "x$1" == "x-k" -o "x$1" == "x--kernel" ]; then
             kernel_url=`echo $2`
-            shift
-            shift
-        elif [ "x$1" == "x-p" -o "x$1" == "x--platform" ]; then
-            platform=`echo $2`
             shift
             shift
         elif [ "x$1" == "x--cores" ]; then
@@ -266,6 +259,8 @@ elif [ -f $default_defconfig ]; then
     cp $default_defconfig ${workdir}/
     kernel_defconfig=${workdir}/${default_defconfig##*/}
 fi
+
+source $workdir/../boards/${board}.conf
 
 if [ ! -d $workdir ]; then
     mkdir $workdir

@@ -7,7 +7,7 @@ Run in root user.
 The target rootfs.img will be generated in the build folder of the directory where the build_rootfs.sh script is located.
 
 Options: 
-  --board, BOARD                Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
+  --board, BOARD_CONFIG         Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   -r, --repo REPO_INFO          The URL/path of target repo file or list of repo's baseurls which should be a space separated list.
   -b, --branch KERNEL_BRANCH    The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
   -s, --spec SPEC               The image's specification: headless, xfce, ukui, dde or the file path of rpmlist. The default is headless.

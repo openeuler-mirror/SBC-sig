@@ -6,7 +6,7 @@ Build openEuler SBCs u-boot image.
 The target files idbloader.img and u-boot.itb will be generated in the build/u-boot folder of the directory where the build_u-boot.sh script is located.
 
 Options: 
-  --board, BOARD            Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
+  --board, BOARD_CONFIG     Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   --cores N                 The number of cpu cores to be used during making.
   -h, --help                Show command help.
 "
