@@ -45,12 +45,15 @@ attr
 audit-libs
 autoconf
 automake
+avahi
+avahi-devel
 avahi-glib
 avahi-libs
 babeltrace
 basesystem
 bash
 binutils
+binutils-gold
 bluez-libs
 bolt
 brotli
@@ -58,6 +61,7 @@ brotli-devel
 btrfs-progs
 bubblewrap
 bullet
+bullet-devel
 bzip2
 bzip2-devel
 ca-certificates
@@ -68,7 +72,10 @@ cairo-gobject-devel
 cdparanoia-libs
 checkpolicy
 chkconfig
+cmake
+cmake-data
 cmake-filesystem
+cmake-rpm-macros
 code
 colord
 colord-gtk
@@ -87,7 +94,6 @@ cronie
 crontabs
 crun
 crypto-policies
-crypto-policies-scripts
 cryptsetup
 CUnit
 CUnit-devel
@@ -101,6 +107,7 @@ dbus
 dbus-c++
 dbus-common
 dbus-daemon
+dbus-devel
 dbus-glib
 dbus-libs
 dbus-tools
@@ -126,6 +133,7 @@ efi-filesystem
 efi-srpm-macros
 efivar-libs
 efl
+efl-devel
 elfutils-default-yama-scope
 elfutils-libelf
 elfutils-libs
@@ -147,6 +155,7 @@ findutils
 firefox
 firewalld
 flac
+flac-devel
 flatpak
 fontconfig
 fontconfig-devel
@@ -188,8 +197,6 @@ geocode-glib-devel
 gettext
 ghostscript
 giflib
-git
-git-core
 gjs
 glib2
 glib2-devel
@@ -319,9 +326,9 @@ ipcalc
 ipset
 ipset-libs
 iptables
-iptables-help
 iptables-libs
 iptables-nft
+isl
 iso-codes
 iw
 jack-audio-connection-kit
@@ -336,6 +343,7 @@ jq
 jsc4.1
 jsc5.0
 json-c
+jsoncpp
 json-glib
 json-glib-devel
 kbd
@@ -361,7 +369,7 @@ libass
 libassuan
 libasyncns
 libatasmart
-libatomic
+libatomic_ops
 libavdevice
 libblkid
 libblockdev
@@ -379,6 +387,7 @@ libcloudproviders
 libcomps
 libconfig
 libcurl
+libdaemon
 libdatrie
 libdatrie-devel
 libdav1d
@@ -386,7 +395,6 @@ libdazzle
 libdb
 libdbusmenu
 libdbusmenu-gtk3
-libdmx
 libdnf
 libdrm
 libedit
@@ -396,6 +404,7 @@ liberation-fonts
 libev
 libevdev
 libevent
+libevent-devel
 libexif
 libfdisk
 libffado
@@ -438,6 +447,7 @@ libijs
 libimagequant
 libimobiledevice
 libinput
+libinput-devel
 libiptcdata
 libjcat
 libjpeg-turbo
@@ -467,6 +477,7 @@ libnotify
 libnsl2
 libnvme
 libogg
+libogg-devel
 libosinfo
 libpaper
 libpcap
@@ -498,12 +509,12 @@ libsepol
 libsepol-devel
 libshout
 libsigc++20
-libsigsegv
 libslirp
 libSM
 libsmartcols
 libsmbclient
 libsndfile
+libsndfile-devel
 libsolv
 libsoup
 libsoup3
@@ -530,11 +541,13 @@ libtracker-sparql3
 libudisks2
 libunistring
 libunwind
+libunwind-devel
 libusbmuxd
 libusbx
 libuser
 libutempter
 libuuid
+libuv
 libv4l
 libva
 libvdpau
@@ -542,6 +555,7 @@ libverto
 libvisual
 libvncserver
 libvorbis
+libvorbis-devel
 libvpx
 libwacom
 libwacom-data
@@ -579,6 +593,7 @@ libXinerama-devel
 libxkbcommon
 libxkbcommon-devel
 libxkbcommon-x11
+libxkbcommon-x11-devel
 libxkbfile
 libxklavier
 libxml2
@@ -601,6 +616,7 @@ libXxf86dga
 libXxf86vm
 libyaml
 lilv-libs
+linux-firmware
 llvm-libs
 lmdb
 lockdev
@@ -608,6 +624,7 @@ logrotate
 low-memory-monitor
 lua
 luajit
+luajit-devel
 lua-posix
 lvm2
 lvm2-dbusd
@@ -624,6 +641,7 @@ mesa-demos
 mesa-dri-drivers
 mesa-filesystem
 mesa-libEGL
+mesa-libEGL-devel
 mesa-libgbm
 mesa-libGL
 mesa-libglapi
@@ -634,6 +652,7 @@ mokutil
 mozilla-filesystem
 mozjs102
 mpfr
+mpg123-devel
 mpg123-libs
 mtdev
 multipath-tools
@@ -668,9 +687,11 @@ openjpeg2
 openldap
 openssh
 openssl
+openssl-devel
 openssl-libs
 openssl-pkcs11
 opus
+opus-devel
 orc
 osinfo-db
 osinfo-db-tools
@@ -711,7 +732,6 @@ perl-Encode
 perl-Encode-devel
 perl-Encode-Locale
 perl-Env
-perl-Error
 perl-experimental
 perl-Exporter
 perl-ExtUtils-Command
@@ -725,7 +745,6 @@ perl-File-Temp
 perl-Filter
 perl-Filter-Simple
 perl-Getopt-Long
-perl-Git
 perl-HTTP-Tiny
 perl-IO-Compress
 perl-IO-Socket-IP
@@ -766,7 +785,6 @@ perl-Storable
 perl-Sys-Syslog
 perl-Term-ANSIColor
 perl-Term-Cap
-perl-TermReadKey
 perl-Test-Harness
 perl-Test-Simple
 perl-Text-Balanced
@@ -810,6 +828,7 @@ psmisc
 publicsuffix-list
 pulseaudio
 pulseaudio-libs
+pulseaudio-libs-devel
 pulseaudio-libs-glib2
 python3
 python3-cairo
@@ -879,6 +898,7 @@ samba-common
 sbc
 SDL
 SDL2
+SDL2-devel
 sed
 selinux-policy
 selinux-policy-targeted
@@ -908,6 +928,7 @@ sysprof
 sysprof-cli
 sysprof-devel
 systemd
+systemd-devel
 systemd-libs
 systemd-pam
 systemd-udev
