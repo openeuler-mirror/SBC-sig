@@ -680,14 +680,6 @@ libXtst
 libXv
 libXxf86vm
 libyaml
-linux-firmware
-linux-firmware-ath
-linux-firmware-cypress
-linux-firmware-iwlwifi
-linux-firmware-libertas
-linux-firmware-mediatek
-linux-firmware-mrvl
-linux-firmware-netronome
 llvm-libs
 lmdb
 lm_sensors

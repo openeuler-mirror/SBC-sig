@@ -613,7 +613,6 @@ libXxf86dga
 libXxf86vm
 libyaml
 lilv-libs
-linux-firmware
 llvm-libs
 lmdb
 lockdev

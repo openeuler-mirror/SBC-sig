@@ -81,7 +81,7 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
 ### Raspberry Pi
 
 >![](documents/public_sys-resources/icon-notice.gif) **Note:**   
->Currently, only the openEuler 24.03 LTS SP1 Raspberry Pi images support both Raspberry Pi 5 and Raspberry Pi 3B/3B+/4B/400, while other versions of the Raspberry Pi images only support Raspberry Pi 3B/3B+/4B/400.
+>Currently, only the openEuler 24.03 LTS SP1/25.03 Raspberry Pi images support both Raspberry Pi 5 and Raspberry Pi 3B/3B+/4B/400, while other versions of the Raspberry Pi images only support Raspberry Pi 3B/3B+/4B/400.
 
 Basic information of the images for Raspberry Pi is as follows. [more images](documents/raspberrypi/images.en.md)
 
@@ -95,60 +95,52 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 </tr></thead>
 <tbody>
 <tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP1-DevStation-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 alpha1 (DevStation and Chinese input method)</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.03-raspi-aarch64-alpha1.img.xz">openEuler 25.03 alpha1</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2025/01/27</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>1004.5 MiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-75.0.0.11</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/04/02</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>323.8 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.6.0.9</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.03/generic.repo">openEuler 25.03 repository</a></td>
 </tr>
 <tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP1-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 alpha1</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.03-UKUI-raspi-aarch64-alpha1.img.xz">openEuler 25.03 alpha1 (UKUI desktop and Chinese input method)</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2025/01/06</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>293.6 MiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.0.0.10</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 repository</a></td>
-</tr>
-<tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP1-UKUI-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 alpha1 (UKUI desktop and Chinese input method)</a></td>
-<td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2025/01/06</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/04/02</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.6 GiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.0.0.10</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.6.0.9</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.03/generic.repo">openEuler 25.03 repository</a></td>
 </tr>
 <tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP1-DDE-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 alpha1 (DDE desktop and Chinese input method)</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.03-DDE-raspi-aarch64-alpha1.img.xz">openEuler 25.03 alpha1 (DDE desktop and Chinese input method)</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2025/01/06</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/04/02</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.8 GiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.0.0.10</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.6.0.9</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.03/generic.repo">openEuler 25.03 repository</a></td>
 </tr>
 <tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP1-GNOME-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 alpha1 (GNOME desktop and Chinese input method)</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.03-GNOME-raspi-aarch64-alpha1.img.xz">openEuler 25.03 alpha1 (GNOME desktop and Chinese input method)</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2025/01/07</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/04/02</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>2.5 GiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.0.0.10</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.6.0.9</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.03/generic.repo">openEuler 25.03 repository</a></td>
 </tr>
 <tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP1-UEFI-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 alpha1 (EFI boot)</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.03-DevStation-raspi-aarch64-alpha1.img.xz">openEuler 25.03 alpha1 (DevStation and Chinese input method)</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2025/01/07</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>323 MiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.0.0.11</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/04/02</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>1.3 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.6.0.9</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.03/generic.repo">openEuler 25.03 repository</a></td>
 </tr>
 <tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://repo.openeuler.org/openEuler-24.03-LTS-SP1/raspi_img/openEuler-24.03-LTS-SP1-raspi-aarch64.img.xz">openEuler 24.03 LTS SP1</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-25.03/raspi_img/openEuler-25.03-raspi-aarch64.img.xz">openEuler 25.03</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root（openeuler）</li><li>pi（raspberry）</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2024/12/31</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>288 MiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.0.0.10</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/03/31</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>321 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-72.6.0.9</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.03/generic.repo">openEuler 25.03 repository</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 alpha1</a></td>
