@@ -19,9 +19,6 @@ hostname
 bluez
 pulseaudio-module-bluetooth
 parted
-raspberrypi-kernel
-raspberrypi-firmware
-raspberrypi-bluetooth
 sudo
 bc
 systemd-timesyncd
