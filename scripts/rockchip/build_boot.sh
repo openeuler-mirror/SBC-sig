@@ -21,7 +21,7 @@ help()
 }
 
 default_param() {
-    workdir=$(pwd)/build
+    workdir=$cur_dir/build
     branch=openEuler-20.03-LTS
     default_defconfig=openeuler_rockchip_defconfig
     board=firefly-rk3399
@@ -242,6 +242,7 @@ mk_boot() {
 }
 
 kernel_defconfig=""
+cur_dir=$(cd $(dirname $0);pwd)
 
 default_param
 local_param
@@ -260,11 +261,12 @@ elif [ -f $default_defconfig ]; then
     kernel_defconfig=${workdir}/${default_defconfig##*/}
 fi
 
-source $workdir/../boards/${board}.conf
-
 if [ ! -d $workdir ]; then
     mkdir $workdir
 fi
+
+source $workdir/../boards/${board}.conf
+
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ ! -f $workdir/.done ];then
     touch $workdir/.done

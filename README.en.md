@@ -13,6 +13,9 @@ This repository is the main repository of the openEuler SBC (Single-Board Comput
     - [How to download latest image](#how-to-download-latest-image)
         - [Raspberry Pi](#raspberry-pi)
         - [Rockchip](#rockchip)
+    - [How to build image](#how-to-build-image)
+        - [Prepare the environment](#prepare-the-environment)
+        - [Run the scripts to build image](#run-the-scripts-to-build-image)
 
 <!-- /TOC -->
 
@@ -287,3 +290,49 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 </tbody></table>
+
+## How to build image
+
+### Prepare the environment
+
+To build openEuler AArch64 image for Raspberry Pi, Rockchip or other SoCs, the requirements of running scripts of this repository are as follows:
+
+- OS: openEuler or CentOS 8
+- Hardware: AArch64 hardware, such as Raspberry Pi, Firefly RK3399, Firefly ROC-RK3588S-PC
+
+For other architecture hardware, you can use [QEMU](https://www.qemu.org/) to build AArch64 system emulation.
+
+### Run the scripts to build image
+
+You can use the respective scripts of Raspberry Pi, Rockchip or other SoCs to build images. Refer to the specific documentation:
+- [Build Raspberry Pi images](./documents/树莓派.md#构建镜像)
+- [Build images for Rochchip and other SoCs](./documents/瑞芯微等开发板.md#镜像构建)
+
+Alternatively, you can use the unified entry point [build.sh](./scripts/build.sh) to build images for Raspberry Pi, Rockchip or other SoCs by executing the following command:
+
+`sudo bash scripts/build.sh --board BOARD_TYPE --in-docker [other_args...]`
+
+Parameter Definitions & Meaning:
+
+1. `--in-docker`
+   Build the image using a Docker container. Refer to the links below:
+   - [Build Raspberry Pi images in Docker](./documents/树莓派.md#docker-容器内构建)
+   - [Build images for Rockchip or other SoCs in Docker](./documents/瑞芯微等开发板.md#docker-容器内构建)
+
+2. `--board BOARD_TYPE`
+   Specifies the development board type. Currently supported parameters include:
+
+   - `rpi`: Build a Raspberry Pi image without compiling the kernel. For other parameters, refer to [Quick build for Raspberry Pi (no kernel compilation)](./documents/树莓派.md#快速构建无需编译内核推荐).
+   - `rpi-custom`: Build a Raspberry Pi image with kernel compilation. For other parameters, refer to [Build a Raspberry Pi image using a custom-compiled kernel](./documents/树莓派.md#完全构建包括编译内核).
+   - `firefly-itx-3588j`: Build a Firefly ITX-3588J image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `firefly-rk3399`: Build a Firefly RK3399 image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `firefly-roc-rk3566-pc`: Build a Firefly ROC-RK3566-PC image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `firefly-roc-rk3568-pc`: Build a Firefly ROC-RK3568-PC image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `firefly-roc-rk3568-pc-se`: Build a Firefly ROC-RK3568-PC-SE image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `firefly-roc-rk3588s-pc`: Build a Firefly ROC-RK3588S-PC image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `phytiumpi-4gb`: Build a Phytium Pi 4GB image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `radxa-rock5b`: Build a Radxa Rock-5B image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `radxa-rockpi-4a`: Build a Radxa RockPi-4A image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+
+3. `-h`, `--help`
+   Display help information.

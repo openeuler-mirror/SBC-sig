@@ -13,6 +13,9 @@
     - [最新镜像](#最新镜像)
         - [树莓派](#树莓派)
         - [瑞芯微等其他开发板](#瑞芯微等其他开发板)
+    - [镜像构建](#镜像构建)
+        - [准备环境](#准备环境)
+        - [构建镜像](#构建镜像)
 
 <!-- /TOC -->
 ## To Do List
@@ -286,3 +289,48 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 </tbody></table>
+
+## 镜像构建
+
+### 准备环境
+
+本仓库的脚本运行环境要求如下：
+
+- 操作系统：openEuler、CentOS 8
+- 架构：AArch64，如树莓派、 RK3399 开发板、 RK3588 开发板
+
+其他架构可以使用 [QEMU](https://www.qemu.org/) 模拟器搭建 AArch64 运行环境。
+
+### 构建镜像
+
+可以使用树莓派或瑞芯微等开发板各自的脚本构建镜像，具体文档参考：
+- [树莓派镜像构建](./documents/树莓派.md#构建镜像)
+- [瑞芯微等开发板镜像构建](./documents/瑞芯微等开发板.md#镜像构建)
+
+也可以使用统一入口 [build.sh](./scripts/build.sh) 构建树莓派或瑞芯微等开发板镜像，执行命令：
+
+`sudo bash scripts/build.sh --board BOARD_TYPE --in-docker [other_args...]`
+
+各个参数含义：
+
+1. --in-docker
+   使用 Docker 容器构建镜像，参考链接：
+   - [使用 Docker 容器构建树莓派镜像](./documents/树莓派.md#docker-容器内构建)
+   - [使用 Docker 容器构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#docker-容器内构建)
+
+2. --board BOARD_TYPE
+   开发板类型和构建方式。当前支持的参数有：
+   - rpi，无需编译内核直接构建树莓派镜像，其他参数请参考 [无需编译内核快速构建树莓派镜像](./documents/树莓派.md#快速构建无需编译内核推荐)。
+   - rpi-custom，编译内核并构建树莓派镜像，其他参数请参考 [编译内核构建树莓派镜像](./documents/树莓派.md#完全构建包括编译内核)。
+   - firefly-itx-3588j，构建 Firefly ITX-3588J 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - firefly-rk3399，构建 Firefly RK3399 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - firefly-roc-rk3566-pc，构建 Firefly ROC-RK3566-PC 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - firefly-roc-rk3568-pc，构建 Firefly ROC-RK3568-PC 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - firefly-roc-rk3568-pc-se，构建 Firefly ROC-RK3568-PC-SE 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - firefly-roc-rk3588s-pc，构建 Firefly ROC-RK3588S-PC 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - phytiumpi-4gb，构建 Phytium Pi 4GB 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - radxa-rock5b，构建 Radxa Rock-5B 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - radxa-rockpi-4a，构建 Radxa RockPi-4A 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+
+3. -h, --help
+   显示帮助信息。

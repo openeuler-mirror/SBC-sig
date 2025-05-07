@@ -24,7 +24,7 @@ default_param() {
     board=firefly-rk3399
     repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
     tmp_dir=${workdir}/tmp
-    workdir=$(pwd)/build
+    workdir=$cur_dir/build
     branch=openEuler-20.03-LTS
     nonfree_bin_dir=${workdir}/../bin
     rootfs_dir=${workdir}/rootfs
@@ -325,6 +325,7 @@ mk_rootfsimg() {
 }
 set -e
 root_need
+cur_dir=$(cd $(dirname $0);pwd)
 default_param
 local_param
 parseargs "$@" || help $?
@@ -335,11 +336,12 @@ POST_BOARD_OVERLAY() {
     echo "Initial POST_BOARD_OVERLAY function" # It will be overwritten by board.conf.
 }
 
-source $workdir/../boards/${board}.conf
-
 if [ ! -d $workdir ]; then
     mkdir $workdir
 fi
+
+source $workdir/../boards/${board}.conf
+
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ ! -f $workdir/.done ];then
     touch $workdir/.done

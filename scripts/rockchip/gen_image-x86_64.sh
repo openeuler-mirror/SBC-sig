@@ -17,8 +17,8 @@ help()
 }
 
 default_param() {
-    workdir=$(pwd)/build
-    bindir=$(pwd)/bin/rk3588-pack
+    workdir=$cur_dir/build
+    bindir=$cur_dir/bin/rk3588-pack
     outputdir=${workdir}/$(date +'%Y-%m-%d')
     name=openEuler-22.03-LTS-RK3588
     rootfs_dir=${workdir}/rootfs
@@ -74,6 +74,7 @@ make_img(){
 }
 
 LOG "gen image..."
+cur_dir=$(cd $(dirname $0);pwd)
 default_param
 prepare_bin
 prepare_img
