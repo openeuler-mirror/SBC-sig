@@ -13,6 +13,8 @@ RUN dnf clean expire-cache
 
 ENV SHELL=/bin/bash
 
+RUN dnf install sudo -y
+
 RUN echo "cd /work && bash build.sh \
     --board ${board} \
     -n ${name} \

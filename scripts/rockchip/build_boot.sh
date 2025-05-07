@@ -166,6 +166,10 @@ make_kernel(){
         fi
         kernel_defconfig=arch/arm64/configs/${kernel_defconfig}
     fi
+
+    if [ ! -z "${cross_compile}" ]; then
+        export CROSS_COMPILE=${cross_compile}
+    fi
     make distclean
     cp ${kernel_defconfig} .config
     make ARCH=arm64 olddefconfig
@@ -186,6 +190,10 @@ install_kernel() {
     mkdir -p ${boot_dir}
     mkdir -p $workdir/kernel/kernel-modules
     cd $workdir/kernel
+
+    if [ ! -z "${cross_compile}" ]; then
+        export CROSS_COMPILE=${cross_compile}
+    fi
     make ARCH=arm64 install INSTALL_PATH=${boot_dir}
     make ARCH=arm64 modules_install INSTALL_MOD_PATH=$workdir/kernel/kernel-modules
     LOG "device tree name is ${dtb_name}.dtb"
@@ -259,6 +267,16 @@ elif [ -f $default_defconfig ]; then
     LOG "use local kernel defconfig..."
     cp $default_defconfig ${workdir}/
     kernel_defconfig=${workdir}/${default_defconfig##*/}
+fi
+
+cross_compile=""
+host_arch=$(arch)
+
+if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
+    LOG "You are running this script on a ${host_arch} mechine, use cross compile...."
+    cross_compile="${workdir}/aarch64-toolchain/bin/aarch64-none-linux-gnu-"
+else
+    LOG "You are running this script on a ${host_arch} mechine, progress...."
 fi
 
 if [ ! -d $workdir ]; then

@@ -103,7 +103,11 @@ build_u-boot() {
             ERROR "arm-trusted-firmware(bl31.elf) can not be found!"
             exit 2
         fi
-        make ARCH=arm $ubootconfig
+
+        if [ ! -z "${cross_compile}" ]; then
+            export CROSS_COMPILE=${cross_compile}
+        fi
+        make ARCH=arm ${ubootconfig}
         make ARCH=arm -j${make_cores}
         make ARCH=arm u-boot.itb -j${make_cores}
         LOG "make u-boot done."
@@ -139,6 +143,16 @@ cur_dir=$(cd $(dirname $0);pwd)
 default_param
 local_param
 parseargs "$@" || help $?
+
+cross_compile=""
+host_arch=$(arch)
+
+if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
+    LOG "You are running this script on a ${host_arch} mechine, use cross compile...."
+    cross_compile="${workdir}/aarch64-toolchain/aarch64-none-linux-gnu-"
+else
+    LOG "You are running this script on a ${host_arch} mechine, progress...."
+fi
 
 if [ ! -d $workdir ]; then
     mkdir $workdir
