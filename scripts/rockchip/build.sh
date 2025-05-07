@@ -43,7 +43,7 @@ default_param() {
     branch=openEuler-20.03-LTS
     repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
     kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
-    workdir=$(pwd)/build
+    workdir=$cur_dir/build
     name=${branch}-${board}-aarch64-alpha1
     make_cores=$(nproc)
 }
@@ -133,12 +133,12 @@ LOG(){
     echo `date` - INFO, $* | tee -a ${log_dir}/${builddate}.log
 }
 
+cur_dir=$(cd $(dirname $0);pwd)
+
 default_param
 parseargs "$@" || help $?
 
 LOG "Selected board: ${board}."
-
-cur_dir=$(cd $(dirname $0);pwd)
 
 source ${cur_dir}/boards/${board}.conf
 
@@ -170,15 +170,15 @@ else
 fi
 
 if [[ $(cat $workdir/.done | grep u-boot) != "u-boot" ]];then
-    bash build_u-boot.sh
+    bash $cur_dir/build_u-boot.sh
 fi
 
 if [[ $(cat $workdir/.done | grep bootimg) != "bootimg" ]];then
-    bash build_boot.sh
+    bash $cur_dir/build_boot.sh
 fi
 
 if [[ $(cat $workdir/.done | grep rootfs) != "rootfs" ]];then
-    bash build_rootfs.sh
+    bash $cur_dir/build_rootfs.sh
 fi
 
-bash gen_image.sh --board ${board}
+bash $cur_dir/gen_image.sh --board ${board}

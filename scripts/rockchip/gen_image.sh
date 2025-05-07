@@ -18,7 +18,7 @@ help()
 }
 
 default_param() {
-    workdir=$(pwd)/build
+    workdir=$cur_dir/build
     outputdir=${workdir}/$(date +'%Y-%m-%d')
     name=openEuler-Firefly-RK3399-aarch64-alpha1
     board=firefly-rk3399
@@ -287,8 +287,13 @@ outputd(){
 }
 
 set -e
+cur_dir=$(cd $(dirname $0);pwd)
 default_param
 parseargs "$@" || help $?
+
+if [ ! -d $workdir ]; then
+    mkdir $workdir
+fi
 
 source $workdir/../boards/${board}.conf
 

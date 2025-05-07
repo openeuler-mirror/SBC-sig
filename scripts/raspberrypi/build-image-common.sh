@@ -610,9 +610,9 @@ cur_dir=$(cd $(dirname $0);pwd)
 
 workdir=${cur_dir}
 if [ "x${workdir}" == "x/" ]; then
-    workdir=/raspi_output_common
+    workdir=/raspi_output
 else
-    workdir=${workdir}/raspi_output_common
+    workdir=${workdir}/raspi_output
 fi
 
 buildid=$(date +%Y%m%d%H%M%S)

@@ -48,6 +48,7 @@ parseargs()
         elif [ "x$1" == "x-k" -o "x$1" == "x--kernel" ]; then
             kernel_url=`echo $2`
             params="${params} -k ${kernel_url}"
+            KERNEL_COMPILE="-common"
             shift
             shift
         elif [ "x$1" == "x-b" -o "x$1" == "x--branch" ]; then
@@ -125,16 +126,17 @@ LOG(){
 cur_dir=$(cd $(dirname $0);pwd)
 
 docker_file="https://repo.openeuler.org/openEuler-20.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz"
+KERNEL_COMPILE=""
 
-workdir=${cur_dir}/raspi_output_common
+workdir=${cur_dir}/raspi_output
 
 buildid=$(date +%Y%m%d%H%M%S)
 builddate=${buildid:0:8}
 
 log_dir=${workdir}/log
 params_dir=${workdir}/params
-euler_dir=${cur_dir}/config-common
-params_dir_indocker=/work/raspi_output_common/params
+params_dir_indocker=/work/raspi_output/params
+euler_dir=${cur_dir}/config$KERNEL_COMPILE
 
 if [ -d ${params_dir} ]; then
     rm -rf ${params_dir}
@@ -168,16 +170,16 @@ LOG build raspi image with docker: ${docker_file}.
 
 (echo "FROM $docker_img_name" && grep -v FROM ${euler_dir}/Dockerfile_makeraspi) | docker build -t ${docker_img_name}-${buildid} --no-cache -f- ${euler_dir}
 echo docker run --rm --privileged=true \
-    -v ${cur_dir}/build-image-common.sh:/work/build-image-common.sh \
+    -v ${cur_dir}/build-image$KERNEL_COMPILE.sh:/work/build-image.sh \
     -v ${euler_dir}:/work/config-common \
     -v ${cur_dir}/config:/work/config \
-    -v ${workdir}:/work/raspi_output_common \
+    -v ${workdir}:/work/raspi_output \
     ${docker_img_name}-${buildid} ${params}
 docker run --rm --privileged=true \
-    -v ${cur_dir}/build-image-common.sh:/work/build-image-common.sh \
+    -v ${cur_dir}/build-image$KERNEL_COMPILE.sh:/work/build-image.sh \
     -v ${euler_dir}:/work/config-common \
     -v ${cur_dir}/config:/work/config \
-    -v ${workdir}:/work/raspi_output_common \
+    -v ${workdir}:/work/raspi_output \
     ${docker_img_name}-${buildid} ${params}
 chmod -R a+r ${workdir}/img
 docker image rm ${docker_img_name}-${buildid}

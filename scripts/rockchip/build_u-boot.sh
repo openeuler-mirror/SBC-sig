@@ -19,7 +19,7 @@ help()
 
 default_param() {
     board=firefly-rk3399
-    workdir=$(pwd)/build
+    workdir=$cur_dir/build
     u_boot_url="https://gitlab.arm.com/systemready/firmware-build/u-boot.git"
     rk3399_bl31_url="https://github.com/rockchip-linux/rkbin/raw/master/bin/rk33/rk3399_bl31_v1.36.elf"
     log_dir=$workdir/log
@@ -135,15 +135,17 @@ use_prebuild_u-boot() {
 
 set -e
 u_boot_ver="v2020.10"
+cur_dir=$(cd $(dirname $0);pwd)
 default_param
 local_param
 parseargs "$@" || help $?
 
-source $workdir/../boards/${board}.conf
-
 if [ ! -d $workdir ]; then
     mkdir $workdir
 fi
+
+source $workdir/../boards/${board}.conf
+
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ ! -f $workdir/.done ];then
     touch $workdir/.done
