@@ -66,7 +66,7 @@ kernel_url=$kernel_url
 spec_param=$spec_param" > $workdir/.param
 }
 
-deppkg_install() {
+oe_deppkg_install() {
     dnf makecache
     dnf install git wget make gcc bison dtc m4 flex bc openssl-devel tar dosfstools rsync parted dnf-plugins-core tar kpartx diffutils dracut uboot-tools -y
 }
@@ -133,14 +133,14 @@ LOG(){
     echo `date` - INFO, $* | tee -a ${log_dir}/${builddate}.log
 }
 
-cur_dir=$(cd $(dirname $0);pwd)
+source ${cur_dir}/boards/${board}.conf
 
 default_param
 parseargs "$@" || help $?
 
 LOG "Selected board: ${board}."
 
-source ${cur_dir}/boards/${board}.conf
+cur_dir=$(cd $(dirname $0);pwd)
 
 LOG "Board config: ${board}."
 LOG "U-Boot config: ${ubootconfig}."
@@ -151,6 +151,12 @@ used_param
 if [ ! -d $workdir ]; then
     mkdir $workdir
 fi
+
+# Firefly Toolchain Repo
+aarch64_toolchain_bin_repo="https://gitlab.com/firefly-linux/prebuilts/gcc/linux-x86/aarch64/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.git"
+
+host_arch=$(arch)
+
 save_param
 log_dir=${workdir}/log
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
@@ -165,20 +171,32 @@ if [ -f $workdir/.done ];then
         touch $workdir/.done
     fi
 else
-    deppkg_install
+    oe_deppkg_install
+    if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
+        LOG "Cloning linux arm64 cross compile toolchain for x86_64..."
+        if [ -d ${workdir}/aarch64-toolchain ];then rm -rf ${workdir}/aarch64-toolchain; fi
+        git clone --depth=1 ${aarch64_toolchain_bin_repo} ${workdir}/aarch64-toolchain
+    else
+        LOG "You are running this script on a ${host_arch} mechine, progress...."
+    fi
     touch $workdir/.done
 fi
 
 if [[ $(cat $workdir/.done | grep u-boot) != "u-boot" ]];then
-    bash $cur_dir/build_u-boot.sh
+    bash ${cur_dir}/build_u-boot.sh
 fi
 
 if [[ $(cat $workdir/.done | grep bootimg) != "bootimg" ]];then
-    bash $cur_dir/build_boot.sh
+    bash ${cur_dir}/build_boot.sh
 fi
 
 if [[ $(cat $workdir/.done | grep rootfs) != "rootfs" ]];then
-    bash $cur_dir/build_rootfs.sh
+    if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
+        LOG "You are running this script on a ${host_arch} mechine, installing qemu-user-static...."
+        sudo rpm -ivh bin/qemu-user-static-aarch64-x86_64.rpm
+    fi
+    LOG "You are running this script on a ${host_arch} mechine, start building rootfs...."
+    bash ${cur_dir}/build_rootfs.sh
 fi
 
-bash $cur_dir/gen_image.sh --board ${board}
+bash ${cur_dir}/gen_image.sh -n ${name} --board ${board}

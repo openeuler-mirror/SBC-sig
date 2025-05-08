@@ -26,6 +26,7 @@ default_param() {
     tmp_dir=${workdir}/tmp
     workdir=$cur_dir/build
     branch=openEuler-20.03-LTS
+    rootfs_arch=aarch64
     nonfree_bin_dir=${workdir}/../bin
     rootfs_dir=${workdir}/rootfs
     log_dir=${workdir}/log
@@ -128,9 +129,11 @@ root_need() {
 }
 
 INSTALL_PACKAGES(){
+    tmp_repo_info=$2
+    chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" makecache --nogpgcheck
     for item in $(cat $1)
     do
-        dnf ${repo_info} --disablerepo="*" --installroot=${rootfs_dir}/ install -y $item --nogpgcheck
+        chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y $item --nogpgcheck
         if [ $? == 0 ]; then
             LOG install $item.
         else
@@ -219,7 +222,7 @@ build_rootfs() {
     done
     
     os_release_name="openEuler-release"
-    dnf ${repo_info} --disablerepo="*" --downloaddir=${workdir}/ download ${os_release_name}
+    dnf ${repo_info} --disablerepo="*" --downloaddir=${workdir}/ download ${os_release_name} --forcearch ${rootfs_arch}
     if [ $? != 0 ]; then
         ERROR "Fail to download ${os_release_name}!"
         exit 2
@@ -232,17 +235,30 @@ build_rootfs() {
         LOG "Success to download ${os_release_name}."
     fi
 
-    rpm -ivh --nodeps --root ${rootfs_dir}/ ${os_release_name}
+    rpm -ivh --nodeps --root ${rootfs_dir}/ ${os_release_name} --ignorearch
 
     mkdir -p ${rootfs_dir}/etc/rpm
     chmod a+rX ${rootfs_dir}/etc/rpm
     echo "%_install_langs en_US" > ${rootfs_dir}/etc/rpm/macros.image-language-conf
-    INSTALL_PACKAGES $CONFIG_RPM_LIST
+    echo ${repo_info}
+    dnf ${repo_info} --disablerepo="*" --installroot=${rootfs_dir}/ install -y dnf --nogpgcheck --forcearch ${rootfs_arch}
+    
     cp -L /etc/resolv.conf ${rootfs_dir}/etc/resolv.conf
+    
+    mount --bind /dev ${rootfs_dir}/dev
+    mount -t proc /proc ${rootfs_dir}/proc
+    mount -t sysfs /sys ${rootfs_dir}/sys
+    
+    INSTALL_PACKAGES ${CONFIG_RPM_LIST} "${repo_info}"
+
+    rm -rf ${rootfs_dir}/*.core
     rm ${workdir}/*rpm
     
-    echo "   nameserver 8.8.8.8
-   nameserver 114.114.114.114"  > "${rootfs_dir}/etc/resolv.conf"
+    for dns in $default_dns
+    do
+        echo "   nameserver ${dns}" >> "${rootfs_dir}/etc/resolv.conf"
+    done
+
     if [ ! -d ${rootfs_dir}/etc/sysconfig/network-scripts ]; then mkdir "${rootfs_dir}/etc/sysconfig/network-scripts"; fi
     echo "   TYPE=Ethernet
    PROXY_METHOD=none
@@ -262,10 +278,6 @@ build_rootfs() {
    DEVICE=eth0" > "${rootfs_dir}/etc/sysconfig/network-scripts/ifup-eth0"
     
     LOG "Configure network done."
-
-    mount --bind /dev ${rootfs_dir}/dev
-    mount -t proc /proc ${rootfs_dir}/proc
-    mount -t sysfs /sys ${rootfs_dir}/sys
 
     cp $nonfree_bin_dir/../bin/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
     chmod +x ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
@@ -335,6 +347,12 @@ CONFIG_RPM_LIST=$workdir/../configs/rpmlist
 POST_BOARD_OVERLAY() {
     echo "Initial POST_BOARD_OVERLAY function" # It will be overwritten by board.conf.
 }
+
+if [[ "x$arch" == "arm64" ]]; then
+    rootfs_arch="aarch64"
+fi
+
+default_dns="8.8.8.8 8.8.4.4 114.114.114.114"
 
 if [ ! -d $workdir ]; then
     mkdir $workdir
