@@ -158,7 +158,7 @@ if [ ! -d $workdir ]; then
     mkdir $workdir
 fi
 
-source $workdir/../boards/${board}.conf
+source $cur_dir/boards/${board}.conf
 
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ ! -f $workdir/.done ];then
