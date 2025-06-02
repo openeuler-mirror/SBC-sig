@@ -131,6 +131,8 @@ use_prebuild_u-boot() {
         cp ${local_uboot_dir}/fip-all-sd-boot.bin $workdir/u-boot
         mkenvimage -s 0x1000 -o $workdir/u-boot/env.bin ${local_uboot_dir}/env.txt
         dd if=$workdir/u-boot/env.bin of=$workdir/u-boot/fip-all-sd-boot.bin bs=1k seek=1472 conv=notrunc
+    elif [[ "x${platform}" == "xallwinner" ]]; then
+        cp ${local_uboot_dir}/* $workdir/u-boot
     else
         echo "target u-boot can not found!"
         exit 2

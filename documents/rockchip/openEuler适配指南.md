@@ -95,8 +95,18 @@ POST_BOARD_OVERLAY() {
         - rockchip: rk3399, rk3566, rk3568, rk3588
 
         - phytium: e2000q
-    
-  5.  POST_BOARD_OVERLAY()
+        
+        - allwinner: h616
+
+  5.  part_table
+
+       开发板所使用的分区表 ，目前使用的有：
+       
+        - gpt: rockchip, phytium
+       
+        - msdos: allwinner
+
+  6.  POST_BOARD_OVERLAY()
 
       `POST_BOARD_OVERLAY()` 是执行复制 firmware 文件到根目录以及对目标开发板根目录执行特定操作的函数，其使用的变量与 [build_rootfs.sh](../../scripts/rockchip/build_rootfs.sh) 相同，通常包含以下两个变量：
 
