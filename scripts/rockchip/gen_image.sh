@@ -139,13 +139,15 @@ make_img(){
 
     device=""
     LOSETUP_D_IMG
-    size=`du -sh --block-size=1MiB ${workdir}/rootfs.img | cut -f 1 | xargs`
+    size=`ls -l --block-size=1MiB ${workdir}/rootfs.img | awk '{ print $5 }'`
     size=$(($size+1100))
     losetup -D
     img_file=${workdir}/${name}.img
     dd if=/dev/zero of=${img_file} bs=1MiB count=$size status=progress && sync
 
-    parted ${img_file} mklabel gpt mkpart primary fat32 32768s 524287s
+    LOG "create ${part_table} partition table."
+    parted ${img_file} mklabel ${part_table} mkpart primary fat32 32768s 524287s
+
     parted ${img_file} -s set 1 boot on
     parted ${img_file} mkpart primary ext4 524288s 100%
 
@@ -218,6 +220,14 @@ make_img(){
             sfdisk --no-reread /dev/${loopX} < ${uboot_dir}/part.txt
         else
             ERROR "phytium fip-all-sd-boot file can not be found!"
+            exit 2
+        fi
+    elif [ "${platform}" == "allwinner" ];then
+        echo "Installing Allwinner U-Boot..."
+        if [ -f ${uboot_dir}/u-boot-sunxi-with-spl.bin ]; then
+            dd if=${uboot_dir}/u-boot-sunxi-with-spl.bin of=/dev/${loopX} seek=8k
+        else
+            ERROR "allwinner u-boot file can not be found!"
             exit 2
         fi
     else

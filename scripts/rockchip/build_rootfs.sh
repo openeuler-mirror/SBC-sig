@@ -309,8 +309,9 @@ EOF
 mk_rootfsimg() {
     trap 'LOSETUP_D_IMG' EXIT
     cd $workdir
-    size=`du -sh --block-size=1MiB ${rootfs_dir} | cut -f 1 | xargs`
-    size=$(($size+500))
+    rootfs_size=`du -sh --block-size=1MiB ${rootfs_dir} | cut -f 1 | xargs`
+    mod_size=`du -sh --block-size=1MiB ${workdir}/kernel/kernel-modules/lib/modules | cut -f 1 | xargs`
+    size=$(($rootfs_size+$mod_size+100))
     rootfs_img=${workdir}/rootfs.img
     dd if=/dev/zero of=${rootfs_img} bs=1MiB count=$size status=progress && sync
     mkfs.ext4 -L rootfs ${workdir}/rootfs.img

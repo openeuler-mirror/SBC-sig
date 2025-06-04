@@ -216,6 +216,8 @@ mk_boot() {
         bootargs=${rockchip_bootargs}
     elif [ "${platform}" == "phytium" ];then
         bootargs=${phytium_bootargs}
+    elif [ "${platform}" == "allwinner" ];then
+        bootargs=${allwinner_bootargs}
     else
         echo "Unsupported platform"
         exit 2
@@ -259,6 +261,7 @@ set -e
 
 rockchip_bootargs="earlyprintk console=ttyS2,1500000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 init=/sbin/init rootwait"
 phytium_bootargs="console=ttyAMA1,115200 earlycon=pl011,0x2800d000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait cma=256m"
+allwinner_bootargs="console=tty0 console=ttyS0,115200 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait earlycon clk_gnore_unused"
 
 if [ ! -f $default_defconfig ] ; then
     LOG "kernel defconfig is : ${default_defconfig}"
