@@ -333,6 +333,8 @@ Parameter Definitions & Meaning:
    - `phytiumpi-4gb`: Build a Phytium Pi 4GB image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
    - `radxa-rock5b`: Build a Radxa Rock-5B image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
    - `radxa-rockpi-4a`: Build a Radxa RockPi-4A image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `orangepi-zero2`: Build a Orange Pi Zero2 image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+   - `longanpi-3h`: Build a Sipeed Longan Pi 3H image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
 
 3. `-h`, `--help`
    Display help information.
