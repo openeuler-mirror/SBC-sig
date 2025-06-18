@@ -331,6 +331,8 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
    - phytiumpi-4gb，构建 Phytium Pi 4GB 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
    - radxa-rock5b，构建 Radxa Rock-5B 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
    - radxa-rockpi-4a，构建 Radxa RockPi-4A 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - orangepi-zero2，构建 Orange Pi Zero2 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
+   - longanpi-3h，构建 Sipeed Longan Pi 3H 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
 
 3. -h, --help
    显示帮助信息。
