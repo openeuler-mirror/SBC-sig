@@ -66,6 +66,8 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
     - [打包 ITX-RK3588J 一体化烧写镜像](documents/rockchip/打包ITX-RK3588J一体化烧写镜像.md)
     - [设置 SELinux](documents/rockchip/设置SELinux.md)
     - [使用 Docker 构建镜像](documents/rockchip/使用Docker构建镜像.md)
+    - [openEuler 适配指南](documents/rockchip/openEuler适配指南.md)
+    - [在openEuler上使用RKNPU](documents/rockchip/在openEuler上使用RKNPU.md)
 - [scripts](./scripts/): 镜像构建脚本
     - [树莓派](./scripts/raspberrypi): 构建 openEuler 树莓派镜像的脚本
       - [快速构建（不编译内核）](scripts/raspberrypi/build-image.sh)

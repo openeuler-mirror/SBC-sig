@@ -67,6 +67,8 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
     - [Packaging ITX-RK3588J Integrated Burn Write Image](documents/rockchip/打包ITX-RK3588J一体化烧写镜像.md)
     - [Set up SELinux](documents/rockchip/设置SELinux.md)
     - [Build an image using Docker](documents/rockchip/使用Docker构建镜像.md)
+    - [openEuler Adaptation Guide](documents/rockchip/openEuler适配指南.md)
+    - [Using RKNPU on openEuler](documents/rockchip/在openEuler上使用RKNPU.md)
 - [scripts](./scripts/):
   - [Raspberry Pi](./scripts/raspberrypi): Script for building openEuler image for Raspberry Pi
     - [Quickly Build (without kernel compilation)](scripts/raspberrypi/build-image.sh)
