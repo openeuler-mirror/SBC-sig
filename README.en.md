@@ -69,6 +69,7 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
     - [Build an image using Docker](documents/rockchip/使用Docker构建镜像.md)
     - [openEuler Adaptation Guide](documents/rockchip/openEuler适配指南.md)
     - [Using RKNPU on openEuler](documents/rockchip/在openEuler上使用RKNPU.md)
+    - [Run RKLLM on openEuler](documents/rockchip/在openEuler上运行RKLLM.md)
 - [scripts](./scripts/):
   - [Raspberry Pi](./scripts/raspberrypi): Script for building openEuler image for Raspberry Pi
     - [Quickly Build (without kernel compilation)](scripts/raspberrypi/build-image.sh)
