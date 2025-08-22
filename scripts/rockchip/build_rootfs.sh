@@ -241,7 +241,7 @@ build_rootfs() {
     chmod a+rX ${rootfs_dir}/etc/rpm
     echo "%_install_langs en_US" > ${rootfs_dir}/etc/rpm/macros.image-language-conf
     echo ${repo_info}
-    dnf ${repo_info} --disablerepo="*" --installroot=${rootfs_dir}/ install -y dnf --nogpgcheck --forcearch ${rootfs_arch}
+    dnf ${repo_info} --disablerepo="*" --installroot=${rootfs_dir}/ install -y dnf yum --nogpgcheck --forcearch ${rootfs_arch}
     
     cp -L /etc/resolv.conf ${rootfs_dir}/etc/resolv.conf
     
