@@ -1,1 +1,0 @@
-../config/extend-root.sh

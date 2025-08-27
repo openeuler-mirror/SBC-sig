@@ -1,1 +1,0 @@
-../config/chroot.sh
