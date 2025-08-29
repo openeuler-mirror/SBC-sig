@@ -1,8 +1,10 @@
 #!/bin/bash
+set -e
+set -x
 
 __usage="
 Usage: gen_image [OPTIONS]
-Generate Rockchip bootable image.
+Generate openEuler bootable image.
 The target compressed bootable images will be generated in the build/YYYY-MM-DD folder of the directory where the gen_image.sh script is located.
 
 Options: 
@@ -79,4 +81,4 @@ default_param
 prepare_bin
 prepare_img
 make_img
-echo "image" >> $workdir/.done
+echo "image" >> ${workdir}/.done

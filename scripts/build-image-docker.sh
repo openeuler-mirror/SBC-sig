@@ -1,10 +1,10 @@
 #!/bin/bash
-
 set -e
+set -x
 
 __usage="
 Usage: build-image-docker [OPTIONS]
-Build board image.
+Build openEuler image.
 
 Options:
   --board BOARD_CONFIG             Required! The config of target board in the boards folder.
@@ -14,7 +14,7 @@ Options:
   -b, --branch KERNEL_BRANCH       The branch name of kernel source's repository, which defaults to openEuler-22.03-LTS-SP3.
   -c, --config KERNEL_DEFCONFIG    The name/path of defconfig file when compiling kernel, which defaults to openeuler_rockchip_defconfig.
   -r, --repo REPO_INFO             Required! The URL/path of target repo file or list of repo's baseurls which should be a space separated list.
-  -s, --spec SPEC                  The image's specification: headless, xfce, ukui, dde or the file path of rpmlist. The default is headless.
+  -s, --spec SPEC                  The image's specification: headless, xfce, ukui, dde, gnome, devstation or the file path of rpmlist. The default is headless.
   --cores N                        The number of cpu cores to be used during making.
   -h, --help                       Show command help.
 "
@@ -100,6 +100,11 @@ builddate=${buildid:0:8}
 make_cores=$(nproc)
 log_dir=${workdir}/log
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
+if [ "x${board}" == "xraspberrypi" ]; then
+    config_dir=${cur_dir}/configs-rpi
+else
+    config_dir=${cur_dir}/configs
+fi
 
 parseargs "$@" || help $?
 
@@ -123,7 +128,7 @@ docker_img_name=${docker_img_name##*: }
 
 LOG build board image with docker: ${docker_file}.
 
-(echo "FROM $docker_img_name" && grep -v FROM ${cur_dir}/configs/Dockerfile) | \
+(echo "FROM $docker_img_name" && grep -v FROM ${config_dir}/Dockerfile) | \
     docker build -t ${docker_img_name}-${buildid} \
     --build-arg board=${board} \
     --build-arg docker_file=${docker_file} \
@@ -134,7 +139,7 @@ LOG build board image with docker: ${docker_file}.
     --build-arg repo_file=${repo_file} \
     --build-arg spec_param=${spec_param} \
     --build-arg make_cores=${make_cores} \
-    --no-cache -f- ${cur_dir}/configs
+    --no-cache -f- ${config_dir}
     
 echo docker run --rm --privileged=true \
     -v ${cur_dir}:/work \

@@ -1,12 +1,14 @@
 #!/bin/bash
+set -e
+set -x
 
 __usage="
 Usage: gen_image [OPTIONS]
-Generate Rockchip bootable image.
+Generate openEuler bootable image.
 The target compressed bootable images will be generated in the build/YYYY-MM-DD folder of the directory where the gen_image.sh script is located.
 
 Options: 
-  -n, --name IMAGE_NAME         The Rockchip image name to be built.
+  -n, --name IMAGE_NAME         The openEuler image name to be built.
   --board BOARD_CONFIG          Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   -h, --help                    Show command help.
 "
@@ -24,6 +26,8 @@ default_param() {
     board=firefly-rk3399
     soc_name=rk3399
     platform=rockchip
+    nonfree_bin_dir=${cur_dir}/bin
+    config_dir=${cur_dir}/configs
     rootfs_dir=${workdir}/rootfs
     boot_dir=${workdir}/boot
     uboot_dir=${workdir}/u-boot
@@ -47,6 +51,9 @@ parseargs()
             shift
         elif [ "x$1" == "x-n" -o "x$1" == "x--name" ]; then
             name=`echo $2`
+            if [ "x${name:0-4}" == "x.img" ]; then
+                name=${name::-4}
+            fi
             shift
             shift
         elif [ "x$1" == "x--board" ]; then
@@ -122,15 +129,13 @@ LOG(){
 }
 
 make_img(){
-    cd $workdir
-
-    if [[ -f $workdir/boot.img && $(cat $workdir/.done | grep bootimg) == "bootimg" ]];then
+    if [[ -f ${workdir}/boot.img && $(cat ${workdir}/.done | grep bootimg) == "bootimg" ]];then
         LOG "boot.img check done."
     else
         ERROR "boot.img check failed, please re-run build_boot.sh."
         exit 2
     fi
-    if [[ -f $workdir/rootfs.img && $(cat $workdir/.done | grep rootfs) == "rootfs" ]];then
+    if [[ -f ${workdir}/rootfs.img && $(cat ${workdir}/.done | grep rootfs) == "rootfs" ]];then
         LOG "rootfs.img check done."
     else
         ERROR "rootfs.img check failed, please re-run build_rootfs.sh."
@@ -143,16 +148,25 @@ make_img(){
     size=$(($size+1100))
     losetup -D
     img_file=${workdir}/${name}.img
+    LOG create ${img_file} size of ${size}MiB
     dd if=/dev/zero of=${img_file} bs=1MiB count=$size status=progress && sync
 
     LOG "create ${part_table} partition table."
-    parted ${img_file} mklabel ${part_table} mkpart primary fat32 32768s 524287s
-
+    if [ "x${board}" == "xraspberrypi" ]; then
+        section1_start=16384
+        section1_end=1064959
+    else
+        section1_start=32768
+        section1_end=524287
+    fi
+    parted ${img_file} mklabel ${part_table} mkpart primary fat32 ${section1_start}s ${section1_end}s
     parted ${img_file} -s set 1 boot on
-    parted ${img_file} mkpart primary ext4 524288s 100%
+    parted ${img_file} mkpart primary ext4 $(($section1_end+1))s 100%
 
     device=`losetup -f --show -P ${img_file}`
+    LOG "after losetup: ${device}"
     trap 'LOSETUP_D_IMG' EXIT
+    LOG "image ${img_file} created and mounted as ${device}"
     kpartx -va ${device}
     loopX=${device##*\/}
     partprobe ${device}
@@ -170,25 +184,40 @@ make_img(){
 
     if [ -d ${rootfs_dir} ];then rm -rf ${rootfs_dir}; fi
     mkdir ${rootfs_dir}
-    mount $workdir/rootfs.img ${rootfs_dir}
+    mount ${workdir}/rootfs.img ${rootfs_dir}
     if [ -d ${boot_dir} ];then rm -rf ${boot_dir}; fi
     mkdir ${boot_dir}
-    mount $workdir/boot.img ${boot_dir}
+    mount ${workdir}/boot.img ${boot_dir}
 
-    cp -rfp ${boot_dir}/* ${boot_mnt}
+    cp -rfp ${boot_dir}/* ${boot_mnt} || LOG "${boot_dir} is empty."
+
     line=$(blkid | grep $rootp)
-    uuid=${line#*UUID=\"}
-    uuid=${uuid%%\"*}
-    sed -i "s|UUID=614e0000-0000-4b53-8000-1d28000054a9|UUID=${uuid}|g" ${boot_mnt}/extlinux/extlinux.conf
+    if [ "x${board}" == "xraspberrypi" ]; then
+        if [ -d ${rootfs_dir}/boot/grub2 ]; then
+            rm -rf ${rootfs_dir}/boot/grub2
+        fi
+        cp -rfp ${rootfs_dir}/boot/* ${boot_mnt}/ || LOG "no file in ${rootfs_dir}/boot/"
+        cp ${config_dir}/config.txt ${boot_mnt}/
+
+        partuuid=${line#*PARTUUID=\"}
+        partuuid=${partuuid%%\"*}
+        echo "console=serial0,115200 console=tty1 root=PARTUUID=${partuuid} rootfstype=ext4 elevator=deadline rootwait net.ifnames=0" > ${boot_mnt}/cmdline.txt
+    else
+        uuid=${line#*UUID=\"}
+        uuid=${uuid%%\"*}
+        sed -i "s|UUID=614e0000-0000-4b53-8000-1d28000054a9|UUID=${uuid}|g" ${boot_mnt}/extlinux/extlinux.conf
+    fi
 
     rsync -avHAXq ${rootfs_dir}/* ${root_mnt}
     sync
     sleep 10
     LOG "copy openEuler-root done."
 
-    if [ -d ${root_mnt}/lib/modules ];then rm -rf ${root_mnt}/lib/modules; fi
-    cp -rfp $workdir/kernel/kernel-modules/lib/modules ${root_mnt}/lib
-    LOG "install kernel modules done."
+    if [ -d ${workdir}/kernel/kernel-modules/lib/modules ]; then
+        if [ -d ${root_mnt}/lib/modules ];then rm -rf ${root_mnt}/lib/modules; fi
+        cp -rfp ${workdir}/kernel/kernel-modules/lib/modules ${root_mnt}/lib
+        LOG "install kernel modules done."
+    fi
 
     umount $rootp
     umount $bootp
@@ -230,7 +259,7 @@ make_img(){
             ERROR "allwinner u-boot file can not be found!"
             exit 2
         fi
-    else
+    elif [ "${platform}" != "broadcom" ];then
         echo "Unsupported platform"
     fi
     
@@ -241,18 +270,12 @@ make_img(){
 }
 
 outputd(){
-    cd $workdir
-
-    if [ -f $outputdir ];then
-        img_name_check=$(ls $outputdir | grep $name)
-        if [ "x$img_name_check" != "x" ]; then
-            rm ${name}.img*
-            rm ${name}.tar.gz*
-        fi
+    if [ -d ${outputdir} ];then
+        find ${outputdir} -name "${name}.img" -o -name "${name}.tar.gz" -o -name "${name}.img.xz" -delete
     else
         mkdir -p $outputdir
     fi
-    mv ${name}.img ${outputdir}
+    mv ${workdir}/${name}.img ${outputdir}
     LOG "xz openEuler image begin..."
     xz ${outputdir}/${name}.img
     if [ ! -f ${outputdir}/${name}.img.xz ]; then
@@ -264,11 +287,11 @@ outputd(){
 
     if [[ "x$soc_name" == "xrk3399" && "x$platform" == "xrockchip" ]]; then
         LOG "tar openEuler image begin..."
-        cp $workdir/../bin/rk3399_loader.bin $workdir
-        cp $workdir/../bin/rk3399_parameter.gpt $workdir
-        cp $workdir/u-boot/idbloader.img $workdir
-        cp $workdir/u-boot/u-boot.itb $workdir
-        cd $workdir
+        cp ${nonfree_bin_dir}/rk3399_loader.bin ${workdir}
+        cp ${nonfree_bin_dir}/rk3399_parameter.gpt ${workdir}
+        cp ${workdir}/u-boot/idbloader.img ${workdir}
+        cp ${workdir}/u-boot/u-boot.itb ${workdir}
+        pushd ${workdir}
         tar -zcvf ${outputdir}/${name}.tar.gz \
         rk3399_loader.bin \
         rk3399_parameter.gpt \
@@ -276,24 +299,27 @@ outputd(){
         u-boot.itb \
         boot.img \
         rootfs.img
+        popd
         if [ ! -f ${outputdir}/${name}.tar.gz ]; then
             ERROR "tar openEuler image failed!"
             exit 2
         else
             LOG "tar openEuler image success."
         fi
-        rm $workdir/rk3399_loader.bin
-        rm $workdir/rk3399_parameter.gpt
-        rm $workdir/idbloader.img
-        rm $workdir/u-boot.itb
+        rm ${workdir}/rk3399_loader.bin
+        rm ${workdir}/rk3399_parameter.gpt
+        rm ${workdir}/idbloader.img
+        rm ${workdir}/u-boot.itb
 
-        cd $outputdir
+        pushd $outputdir
         sha256sum ${name}.tar.gz >> ${name}.tar.gz.sha256sum
+        popd
     fi
-    cd $outputdir
+    pushd $outputdir
     sha256sum ${name}.img.xz >> ${name}.img.xz.sha256sum
+    popd
 
-    LOG "The target images are generated in the ${outputdir}."
+    LOG "The target images: ${outputdir}/${name}.img.xz."
 }
 
 set -e
@@ -301,18 +327,22 @@ cur_dir=$(cd $(dirname $0);pwd)
 default_param
 parseargs "$@" || help $?
 
-if [ ! -d $workdir ]; then
-    mkdir $workdir
+if [ "x${board}" == "xraspberrypi" ]; then
+    config_dir=${cur_dir}/configs-rpi
 fi
 
-source $cur_dir/boards/${board}.conf
+if [ ! -d ${workdir} ]; then
+    mkdir ${workdir}
+fi
+
+source ${cur_dir}/boards/${board}.conf
 
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
-if [ ! -f $workdir/.done ];then
-    touch $workdir/.done
+if [ ! -f ${workdir}/.done ];then
+    touch ${workdir}/.done
 fi
-sed -i 's/image//g' $workdir/.done
+sed -i 's/image//g' ${workdir}/.done
 LOG "gen image..."
 make_img
 outputd
-echo "image" >> $workdir/.done
+echo "image" >> ${workdir}/.done

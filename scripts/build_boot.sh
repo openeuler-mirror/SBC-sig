@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+set -x
 
 __usage="
 Usage: build_boot [OPTIONS]
@@ -21,30 +23,30 @@ help()
 }
 
 default_param() {
-    workdir=$cur_dir/build
+    workdir=${cur_dir}/build
     branch=openEuler-20.03-LTS
     default_defconfig=openeuler_rockchip_defconfig
     board=firefly-rk3399
     dtb_name=rk3399-firefly
     platform=rockchip
     kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
-    boot_dir=$workdir/boot
-    log_dir=$workdir/log
+    boot_dir=${workdir}/boot
+    log_dir=${workdir}/log
     make_cores=$(nproc)
 }
 
 local_param(){
-    if [ -f $workdir/.param ]; then
-        branch=$(cat $workdir/.param | grep branch)
+    if [ -f ${workdir}/.param ]; then
+        branch=$(cat ${workdir}/.param | grep branch)
         branch=${branch:7}
 
-        default_defconfig=$(cat $workdir/.param | grep default_defconfig)
+        default_defconfig=$(cat ${workdir}/.param | grep default_defconfig)
         default_defconfig=${default_defconfig:18}
 
-        board=$(cat $workdir/.param | grep board)
+        board=$(cat ${workdir}/.param | grep board)
         board=${board:6}
 
-        kernel_url=$(cat $workdir/.param | grep kernel_url)
+        kernel_url=$(cat ${workdir}/.param | grep kernel_url)
         kernel_url=${kernel_url:11}
     fi
 }
@@ -101,50 +103,50 @@ LOG(){
 
 LOSETUP_D_IMG(){
     set +e
-    if [ -d $workdir/boot_emmc ]; then
-        if grep -q "$workdir/boot_emmc " /proc/mounts ; then
-            umount $workdir/boot_emmc
+    if [ -d ${workdir}/boot_emmc ]; then
+        if grep -q "${workdir}/boot_emmc " /proc/mounts ; then
+            umount ${workdir}/boot_emmc
         fi
     fi
-    if [ -d $workdir/boot_emmc ]; then
-        rm -rf $workdir/boot_emmc
+    if [ -d ${workdir}/boot_emmc ]; then
+        rm -rf ${workdir}/boot_emmc
     fi
     set -e
 }
 
 clone_and_check_kernel_source() {
-    cd $workdir
+    pushd ${workdir}
     if [ -d kernel ]; then
-        if [ -f $workdir/.param_last ]; then
-            last_branch=$(cat $workdir/.param_last | grep branch)
+        if [ -f ${workdir}/.param_last ]; then
+            last_branch=$(cat ${workdir}/.param_last | grep branch)
             last_branch=${last_branch:7}
 
-            last_default_defconfig=$(cat $workdir/.param_last | grep default_defconfig)
+            last_default_defconfig=$(cat ${workdir}/.param_last | grep default_defconfig)
             last_default_defconfig=${last_default_defconfig:18}
 
-            last_dtb_name=$(cat $workdir/.param_last | grep dtb_name)
+            last_dtb_name=$(cat ${workdir}/.param_last | grep dtb_name)
             last_dtb_name=${last_dtb_name:9}
             
-            last_platform_name=$(cat $workdir/.param_last | grep platform)
-            last_platform_name=${last_dtb_name:9}
+            last_platform_name=$(cat ${workdir}/.param_last | grep platform)
+            last_platform_name=${last_platform_name:9}
 
-            last_kernel_url=$(cat $workdir/.param_last | grep kernel_url)
+            last_kernel_url=$(cat ${workdir}/.param_last | grep kernel_url)
             last_kernel_url=${last_kernel_url:11}
 
-            cd $workdir/kernel
+            pushd ${workdir}/kernel
             git remote -v update
             lastest_kernel_version=$(git rev-parse @{u})
             local_kernel_version=$(git rev-parse @)
-            cd $workdir
+            popd
 
             if [[ ${last_branch} != ${branch} || \
             ${last_default_defconfig} != ${default_defconfig} || \
             ${last_dtb_name} != ${dtb_name} || \
             ${last_kernel_url} != ${kernel_url} || \
             ${lastest_kernel_version} != ${local_kernel_version} ]]; then
-                if [ -d $workdir/kernel ];then rm -rf $workdir/kernel; fi
-                if [ -d $workdir/boot ];then rm -rf $workdir/boot; fi
-                if [ -f $workdir/boot.img ];then rm $workdir/boot.img; fi
+                if [ -d ${workdir}/kernel ];then rm -rf ${workdir}/kernel; fi
+                if [ -d ${workdir}/boot ];then rm -rf ${workdir}/boot; fi
+                if [ -f ${workdir}/boot.img ];then rm ${workdir}/boot.img; fi
                 git clone --depth=1 -b $branch $kernel_url kernel
                 LOG "clone kernel source done."
             fi
@@ -153,94 +155,146 @@ clone_and_check_kernel_source() {
         git clone --depth=1 -b $branch $kernel_url kernel
         LOG "clone kernel source done."
     fi
+    popd
 }
 
 make_kernel(){
     LOG "make kernel(${default_defconfig}) begin..."
     kernel_dir_tmp=$1
-    cd "${kernel_dir_tmp}"
-    if [ "x${kernel_defconfig:0:1}" != "x/" ]; then
-        if [ ! -f arch/arm64/configs/${kernel_defconfig} ]; then
-            ERROR "config file ${kernel_defconfig} can not be found in kernel source".
-            exit 2
+    pushd "${kernel_dir_tmp}"
+    if [ -n "${kernel_defconfig}" ]; then
+        if [ "x${kernel_defconfig:0:1}" != "x/" ]; then
+            if [ ! -f arch/arm64/configs/${kernel_defconfig} ]; then
+                ERROR "config file ${kernel_defconfig} can not be found in kernel source".
+                exit 2
+            fi
+            kernel_defconfig=arch/arm64/configs/${kernel_defconfig}
         fi
-        kernel_defconfig=arch/arm64/configs/${kernel_defconfig}
     fi
 
     if [ ! -z "${cross_compile}" ]; then
         export CROSS_COMPILE=${cross_compile}
     fi
     make distclean
+    kernel_ver=""
+    if [ "x${board}" == "xraspberrypi" ]; then
+        kernel_ver=$(awk '/^VERSION = / {v=$3} /^PATCHLEVEL = / {p=$3} /^SUBLEVEL = / {s=$3} /^EXTRAVERSION = / {e=$3} END {print v"."p"."s (e ? "-" e : "") "+"}' Makefile)
+        if [ -z "${kernel_defconfig}" ]; then
+            if [ "x${branch}" == "xOLK-6.6" ]; then
+                make ARCH=arm64 -j${make_cores} O=output/v8 bcm2711_defconfig
+                make ARCH=arm64 -j${make_cores} O=output/v8 KERNELRELEASE=${kernel_ver}-v8
+
+                make ARCH=arm64 -j${make_cores} O=output/2712 bcm2712_defconfig
+                make ARCH=arm64 -j${make_cores} O=output/2712 KERNELRELEASE=${kernel_ver}-2712
+
+                cp output/2712/arch/arm64/boot/Image arch/arm64/boot/Image
+                cp output/2712/arch/arm64/boot/dts/${platform}/${dtb_name}.dtb arch/arm64/boot/dts/${platform}/${dtb_name}.dtb
+                LOG "make kernel(bcm2711_defconfig, bcm2712_defconfig) for Raspberry Pi end."
+                return
+            else
+                kernel_defconfig="arch/arm64/configs/bcm2711_defconfig"
+            fi
+        fi
+    fi
     cp ${kernel_defconfig} .config
     make ARCH=arm64 olddefconfig
     kernel_defconfig=${kernel_defconfig##*/}
     make ARCH=arm64 -j${make_cores}
     LOG "make kernel(${default_defconfig}) end."
+    popd
 }
 
 install_kernel() {
-    if [ ! -f $workdir/kernel/arch/arm64/boot/Image ]; then
+    if [ ! -f ${workdir}/kernel/arch/arm64/boot/Image ]; then
         ERROR "kernel Image can not be found!"
         exit 2
     else
         LOG "make kernel done."
     fi
-    if [ -d $workdir/kernel/kernel-modules ];then rm -rf $workdir/kernel/kernel-modules; fi
+    if [ -d ${workdir}/kernel/kernel-modules ];then rm -rf ${workdir}/kernel/kernel-modules; fi
     if [ -d ${boot_dir} ];then rm -rf ${boot_dir}; fi
     mkdir -p ${boot_dir}
-    mkdir -p $workdir/kernel/kernel-modules
-    cd $workdir/kernel
+    mkdir -p ${workdir}/kernel/kernel-modules
+    pushd ${workdir}/kernel
 
     if [ ! -z "${cross_compile}" ]; then
         export CROSS_COMPILE=${cross_compile}
     fi
-    make ARCH=arm64 install INSTALL_PATH=${boot_dir}
-    make ARCH=arm64 modules_install INSTALL_MOD_PATH=$workdir/kernel/kernel-modules
-    LOG "device tree name is ${dtb_name}.dtb"
-    cp arch/arm64/boot/dts/${platform}/${dtb_name}.dtb ${boot_dir}
-    cp arch/arm64/boot/Image ${boot_dir}
+    if [ "x${board}" == "xraspberrypi" ]; then
+        mkdir -p ${boot_dir}/overlays
+        if [ -z "${kernel_defconfig}" ] && [ "x${branch}" == "xOLK-6.6" ]; then
+            rpi_version=("v8" "2712")
+            for rpi in "${rpi_version[@]}"; do
+                pushd output/${rpi}
+                make ARCH=arm64 -j${make_cores} modules_install INSTALL_MOD_PATH=${workdir}/kernel/kernel-modules
+                cp arch/arm64/boot/Image ${boot_dir}/Image-${rpi}
+                cp .config ${boot_dir}/config-${rpi}
+                cp System.map ${boot_dir}/System.map-${rpi}
+                popd
+            done
+            mv ${boot_dir}/Image-v8 ${boot_dir}/kernel8.img
+            mv ${boot_dir}/Image-2712 ${boot_dir}/kernel_2712.img
+            cp output/2712/arch/arm64/boot/dts/${platform}/*.dtb ${boot_dir}
+            cp output/2712/arch/arm64/boot/dts/overlays/*.dtb* ${boot_dir}/overlays/
+        else
+            make ARCH=arm64 -j${make_cores} modules_install INSTALL_MOD_PATH=${workdir}/kernel/kernel-modules
+            cp arch/arm64/boot/Image ${boot_dir}/kernel8.img
+            cp .config ${boot_dir}/config
+            cp System.map ${boot_dir}/System.map
+            cp arch/arm64/boot/dts/${platform}/*.dtb ${boot_dir}
+            cp arch/arm64/boot/dts/overlays/*.dtb* ${boot_dir}/overlays/
+        fi
+    else
+        make ARCH=arm64 install INSTALL_PATH=${boot_dir}
+        make ARCH=arm64 -j${make_cores} modules_install INSTALL_MOD_PATH=${workdir}/kernel/kernel-modules
+        cp arch/arm64/boot/Image ${boot_dir}
+        cp arch/arm64/boot/dts/${platform}/*.dtb ${boot_dir}
+    fi
+    rm -rf ${workdir}/kernel/kernel-modules/lib/modules/*/source ${workdir}/kernel/kernel-modules/lib/modules/*/build
     LOG "prepare kernel done."
+    popd
 }
 
 mk_boot() {
     LOG "start make bootimg..."
-    mkdir -p ${boot_dir}/extlinux
+    if [ "x${board}" != "xraspberrypi" ]; then
+        mkdir -p ${boot_dir}/extlinux
 
-    LOG "start gen initrd..."
-    dracut --no-kernel ${boot_dir}/initrd.img
-    LOG "gen initrd done."
+        LOG "start gen initrd..."
+        dracut --no-kernel ${boot_dir}/initrd.img
+        LOG "gen initrd done."
 
-    dtb_name=$(ls $boot_dir | grep dtb)
-    LOG "gen extlinux config for $dtb_name"
-    if [ "${platform}" == "rockchip" ];then
-        bootargs=${rockchip_bootargs}
-    elif [ "${platform}" == "phytium" ];then
-        bootargs=${phytium_bootargs}
-    elif [ "${platform}" == "allwinner" ];then
-        bootargs=${allwinner_bootargs}
-    else
-        echo "Unsupported platform"
-        exit 2
+        dtb_name=$(ls ${boot_dir} | grep dtb)
+        LOG "gen extlinux config for $dtb_name"
+        if [ "${platform}" == "rockchip" ];then
+            bootargs=${rockchip_bootargs}
+        elif [ "${platform}" == "phytium" ];then
+            bootargs=${phytium_bootargs}
+        elif [ "${platform}" == "allwinner" ];then
+            bootargs=${allwinner_bootargs}
+        else
+            echo "Unsupported platform"
+            exit 2
+        fi
+        echo "label openEuler
+        kernel /Image
+        initrd /initrd.img
+        fdt /${dtb_name}
+        append  ${bootargs}" \
+        > ${boot_dir}/extlinux/extlinux.conf
+
+        LOG "gen extlinux config done."
     fi
-    echo "label openEuler
-    kernel /Image
-    initrd /initrd.img
-    fdt /${dtb_name}
-    append  ${bootargs}" \
-    > ${boot_dir}/extlinux/extlinux.conf
+    dd if=/dev/zero of=${workdir}/boot.img bs=1M count=240 status=progress
+    mkfs.vfat -n boot ${workdir}/boot.img
+    if [ -d ${workdir}/boot_emmc ];then rm -rf ${workdir}/boot_emmc; fi
+    mkdir ${workdir}/boot_emmc
+    mount ${workdir}/boot.img ${workdir}/boot_emmc/
+    cp -r ${boot_dir}/* ${workdir}/boot_emmc/
+    umount ${workdir}/boot.img
+    rmdir ${workdir}/boot_emmc
 
-    LOG "gen extlinux config done."
-
-    dd if=/dev/zero of=$workdir/boot.img bs=1M count=240 status=progress
-    mkfs.vfat -n boot $workdir/boot.img
-    if [ -d $workdir/boot_emmc ];then rm -rf $workdir/boot_emmc; fi
-    mkdir $workdir/boot_emmc
-    mount $workdir/boot.img $workdir/boot_emmc/
-    cp -r ${boot_dir}/* $workdir/boot_emmc/
-    umount $workdir/boot.img
-    rmdir $workdir/boot_emmc
-
-    if [ -f $workdir/boot.img ]; then
+    if [ -f ${workdir}/boot.img ]; then
         LOG "make boot image done."
     else
         ERROR "make boot image failed!"
@@ -257,19 +311,23 @@ cur_dir=$(cd $(dirname $0);pwd)
 default_param
 local_param
 parseargs "$@" || help $?
-set -e
 
 rockchip_bootargs="earlyprintk console=ttyS2,1500000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 init=/sbin/init rootwait"
 phytium_bootargs="console=ttyAMA1,115200 earlycon=pl011,0x2800d000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait cma=256m"
 allwinner_bootargs="console=tty0 console=ttyS0,115200 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait earlycon clk_gnore_unused"
 
-if [ ! -f $default_defconfig ] ; then
-    LOG "kernel defconfig is : ${default_defconfig}"
-    kernel_defconfig=$default_defconfig
-elif [ -f $default_defconfig ]; then
-    LOG "use local kernel defconfig..."
-    cp $default_defconfig ${workdir}/
-    kernel_defconfig=${workdir}/${default_defconfig##*/}
+if [ -n "${default_defconfig}" ]; then
+    if [ ! -f $default_defconfig ] ; then
+        LOG "kernel defconfig is : ${default_defconfig}"
+        kernel_defconfig=$default_defconfig
+    else
+        LOG "use local kernel defconfig..."
+        cp $default_defconfig ${workdir}/
+        kernel_defconfig=${workdir}/${default_defconfig##*/}
+    fi
+elif [ "x${board}" != "xraspberrypi" ]; then
+    LOG "default_defconfig is missing"
+    exit 1
 fi
 
 cross_compile=""
@@ -282,26 +340,37 @@ else
     LOG "You are running this script on a ${host_arch} mechine, progress...."
 fi
 
-if [ ! -d $workdir ]; then
-    mkdir $workdir
+if [ ! -d ${workdir} ]; then
+    mkdir ${workdir}
 fi
 
-source $cur_dir/boards/${board}.conf
+source ${cur_dir}/boards/${board}.conf
 
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
-if [ ! -f $workdir/.done ];then
-    touch $workdir/.done
+if [ ! -f ${workdir}/.done ];then
+    touch ${workdir}/.done
 fi
-sed -i 's/bootimg//g' $workdir/.done
+sed -i 's/bootimg//g' ${workdir}/.done
 LOG "build boot..."
+
+if [ "x${board}" == "xraspberrypi" ] && [ -z "${kernel_url}"  ]; then
+    LOG "build an empty boot.img for Raspberry Pi."
+    rm -rf ${workdir}/kernel || LOG "remove kernel source."
+    dd if=/dev/zero of=${workdir}/boot.img bs=1M count=10 status=progress
+    mkfs.vfat -n boot ${workdir}/boot.img
+    LOG "The boot.img is generated in the ${workdir}."
+    echo "bootimg" >> ${workdir}/.done
+    exit 0
+fi
+
 clone_and_check_kernel_source
 
-if [[ -f $workdir/kernel/arch/arm64/boot/dts/${platform}/${dtb_name}.dtb && -f $workdir/kernel/arch/arm64/boot/Image ]];then
+if [[ -f ${workdir}/kernel/arch/arm64/boot/dts/${platform}/${dtb_name}.dtb && -f ${workdir}/kernel/arch/arm64/boot/Image ]];then
     LOG "kernel is the latest"
 else
-    make_kernel $workdir/kernel
+    make_kernel ${workdir}/kernel
 fi
-if [[ -f $workdir/boot.img && $(cat $workdir/.done | grep bootimg) == "bootimg" ]];then
+if [[ -f ${workdir}/boot.img && $(cat ${workdir}/.done | grep bootimg) == "bootimg" ]]; then
     LOG "boot is the latest"
 else
     trap 'LOSETUP_D_IMG' EXIT
@@ -310,4 +379,4 @@ else
     mk_boot
 fi
 LOG "The boot.img is generated in the ${workdir}."
-echo "bootimg" >> $workdir/.done
+echo "bootimg" >> ${workdir}/.done

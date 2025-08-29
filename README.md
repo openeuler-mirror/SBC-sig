@@ -69,17 +69,13 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
     - [openEuler 适配指南](documents/rockchip/openEuler适配指南.md)
     - [在openEuler上使用RKNPU](documents/rockchip/在openEuler上使用RKNPU.md)
     - [在openEuler上运行RKLLM](documents/rockchip/在openEuler上运行RKLLM.md)
-- [scripts](./scripts/): 镜像构建脚本
-    - [树莓派](./scripts/raspberrypi): 构建 openEuler 树莓派镜像的脚本
-      - [快速构建（不编译内核）](scripts/raspberrypi/build-image.sh)
-      - [主机上构建（编译内核）](scripts/raspberrypi/build-image-common.sh)
-      - [Docker 容器中构建（编译内核）](scripts/raspberrypi/build-image-docker.sh)
-    - [瑞芯微等开发板](./scripts/rockchip): 构建 openEuler RK3399 等开发板镜像的脚本
-      - [一次构建脚本](scripts/rockchip/build.sh)
-      - [boot 镜像构建脚本](scripts/build_boot.sh)
-      - [rootfs 镜像构建脚本](scripts/build_rootfs.sh)
-      - [u-boot 编译脚本](scripts/rockchip/build_u-boot.sh)
-      - [可启动镜像生成脚本](scripts/rockchip/gen_image.sh)
+- [scripts](./scripts/): openEuler 镜像构建脚本
+      - [构建完整镜像](scripts/build.sh)
+      - [使用 Docker 构建完整镜像](./scripts/build-image-docker.sh)
+      - [构建 boot 镜像](scripts/build_boot.sh)
+      - [构建 rootfs 镜像](scripts/build_rootfs.sh)
+      - [编译 u-boot](scripts/build_u-boot.sh)
+      - [将 u-boot、boot、rootfs 合并成一个完整镜像](scripts/gen_image.sh)
 
 ## 最新镜像
 
@@ -305,37 +301,6 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 其他架构可以使用 [QEMU](https://www.qemu.org/) 模拟器搭建 AArch64 运行环境。
 
 ### 构建镜像
-
-可以使用树莓派或瑞芯微等开发板各自的脚本构建镜像，具体文档参考：
+镜像构建使用统一入口 [build.sh](./scripts/build.sh) 或 [build-image-docker.sh](./scripts/build-image-docker.sh) 在宿主机或者启动 Docker 容器构建树莓派或瑞芯微等开发板镜像。具体参考以下文档：
 - [树莓派镜像构建](./documents/树莓派.md#构建镜像)
 - [瑞芯微等开发板镜像构建](./documents/瑞芯微等开发板.md#镜像构建)
-
-也可以使用统一入口 [build.sh](./scripts/build.sh) 构建树莓派或瑞芯微等开发板镜像，执行命令：
-
-`sudo bash scripts/build.sh --board BOARD_TYPE --in-docker [other_args...]`
-
-各个参数含义：
-
-1. --in-docker
-   使用 Docker 容器构建镜像，参考链接：
-   - [使用 Docker 容器构建树莓派镜像](./documents/树莓派.md#docker-容器内构建)
-   - [使用 Docker 容器构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#docker-容器内构建)
-
-2. --board BOARD_TYPE
-   开发板类型和构建方式。当前支持的参数有：
-   - rpi，无需编译内核直接构建树莓派镜像，其他参数请参考 [无需编译内核快速构建树莓派镜像](./documents/树莓派.md#快速构建无需编译内核推荐)。
-   - rpi-custom，编译内核并构建树莓派镜像，其他参数请参考 [编译内核构建树莓派镜像](./documents/树莓派.md#完全构建包括编译内核)。
-   - firefly-itx-3588j，构建 Firefly ITX-3588J 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - firefly-rk3399，构建 Firefly RK3399 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - firefly-roc-rk3566-pc，构建 Firefly ROC-RK3566-PC 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - firefly-roc-rk3568-pc，构建 Firefly ROC-RK3568-PC 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - firefly-roc-rk3568-pc-se，构建 Firefly ROC-RK3568-PC-SE 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - firefly-roc-rk3588s-pc，构建 Firefly ROC-RK3588S-PC 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - phytiumpi-4gb，构建 Phytium Pi 4GB 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - radxa-rock5b，构建 Radxa Rock-5B 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - radxa-rockpi-4a，构建 Radxa RockPi-4A 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - orangepi-zero2，构建 Orange Pi Zero2 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-   - longanpi-3h，构建 Sipeed Longan Pi 3H 开发板镜像，其他参数请参考 [构建瑞芯微等开发板镜像](./documents/瑞芯微等开发板.md#一次构建)。
-
-3. -h, --help
-   显示帮助信息。

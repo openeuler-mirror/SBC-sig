@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+set -x
 
 __usage="
 Usage: build_u-boot [OPTIONS]
@@ -19,17 +21,17 @@ help()
 
 default_param() {
     board=firefly-rk3399
-    workdir=$cur_dir/build
+    workdir=${cur_dir}/build
     u_boot_url="https://gitlab.arm.com/systemready/firmware-build/u-boot.git"
     rk3399_bl31_url="https://github.com/rockchip-linux/rkbin/raw/master/bin/rk33/rk3399_bl31_v1.36.elf"
-    log_dir=$workdir/log
-    nonfree_bin_dir=${workdir}/../bin
+    log_dir=${workdir}/log
+    nonfree_bin_dir=${cur_dir}/bin
     make_cores=$(nproc)
 }
 
 local_param(){
-    if [ -f $workdir/.param ]; then
-        board=$(cat $workdir/.param | grep board)
+    if [ -f ${workdir}/.param ]; then
+        board=$(cat ${workdir}/.param | grep board)
         board=${board:6}
     fi
 }
@@ -73,14 +75,14 @@ LOG(){
 }
 
 build_u-boot() {
-    cd $workdir
-    if [ -d u-boot ];then
-        cd u-boot
+    pushd ${workdir}
+    if [ -d ${workdir}/u-boot ];then
+        pushd ${workdir}/u-boot
         remote_url_exist=`git remote -v | grep "origin"`
         remote_url=`git ls-remote --get-url origin`
+        popd
         if [[ ${remote_url_exist} = "" || ${remote_url} != ${u_boot_url} ]]; then
-            cd ../
-            rm -rf $workdir/u-boot
+            rm -rf ${workdir}/u-boot
             git clone --depth=1 -b ${u_boot_ver} ${u_boot_url}
             if [[ $? -eq 0 ]]; then
                 LOG "clone u-boot done."
@@ -93,8 +95,9 @@ build_u-boot() {
         git clone --depth=1 -b ${u_boot_ver} ${u_boot_url}
         LOG "clone u-boot done."
     fi
-    cd $workdir/u-boot
-    if [[ -f $workdir/u-boot/u-boot.itb && -f $workdir/u-boot/idbloader.img ]];then
+    popd
+    pushd ${workdir}/u-boot
+    if [[ -f ${workdir}/u-boot/u-boot.itb && -f ${workdir}/u-boot/idbloader.img ]];then
         LOG "u-boot is the latest"
     else
         if [ -f bl31.elf ];then rm bl31.elf; fi
@@ -116,23 +119,24 @@ build_u-boot() {
         ERROR "make u-boot failed!"
         exit 2
     fi
+    popd
 
 }
 
 use_prebuild_u-boot() {
-    if [ -d $workdir/u-boot ]; then
-        rm -rf $workdir/u-boot
+    if [ -d ${workdir}/u-boot ]; then
+        rm -rf ${workdir}/u-boot
     fi
 
-    mkdir $workdir/u-boot
+    mkdir ${workdir}/u-boot
     if [[ "x${platform}" == "xrockchip" ]]; then
-        cp ${local_uboot_dir}/* $workdir/u-boot
+        cp ${local_uboot_dir}/* ${workdir}/u-boot
     elif [[ "x${platform}" == "xphytium" ]]; then
-        cp ${local_uboot_dir}/fip-all-sd-boot.bin $workdir/u-boot
-        mkenvimage -s 0x1000 -o $workdir/u-boot/env.bin ${local_uboot_dir}/env.txt
-        dd if=$workdir/u-boot/env.bin of=$workdir/u-boot/fip-all-sd-boot.bin bs=1k seek=1472 conv=notrunc
+        cp ${local_uboot_dir}/fip-all-sd-boot.bin ${workdir}/u-boot
+        mkenvimage -s 0x1000 -o ${workdir}/u-boot/env.bin ${local_uboot_dir}/env.txt
+        dd if=${workdir}/u-boot/env.bin of=${workdir}/u-boot/fip-all-sd-boot.bin bs=1k seek=1472 conv=notrunc
     elif [[ "x${platform}" == "xallwinner" ]]; then
-        cp ${local_uboot_dir}/* $workdir/u-boot
+        cp ${local_uboot_dir}/* ${workdir}/u-boot
     else
         echo "target u-boot can not found!"
         exit 2
@@ -156,24 +160,28 @@ else
     LOG "You are running this script on a ${host_arch} mechine, progress...."
 fi
 
-if [ ! -d $workdir ]; then
-    mkdir $workdir
+if [ ! -d ${workdir} ]; then
+    mkdir ${workdir}
 fi
 
-source $cur_dir/boards/${board}.conf
+source ${cur_dir}/boards/${board}.conf
 
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
-if [ ! -f $workdir/.done ];then
-    touch $workdir/.done
+if [ ! -f ${workdir}/.done ];then
+    touch ${workdir}/.done
 fi
-sed -i 's/u-boot//g' $workdir/.done
+sed -i 's/u-boot//g' ${workdir}/.done
 LOG "build u-boot..."
 
-if [ "x$ubootconfig" == "xnone" ]; then
-    use_prebuild_u-boot
+if [ "x${board}" == "xraspberrypi" ]; then
+    LOG "Skip build u-boot for Raspberry Pi."
 else
-    build_u-boot
+    if [ "x$ubootconfig" == "x" ]; then
+        use_prebuild_u-boot
+    else
+        build_u-boot
+    fi
+    LOG "The bootloader files are generated in the ${workdir}/u-boot."
 fi
 
-LOG "The bootloader files are generated in the ${workdir}/u-boot."
-echo "u-boot" >> $workdir/.done
+echo "u-boot" >> ${workdir}/.done

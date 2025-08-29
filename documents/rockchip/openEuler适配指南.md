@@ -36,7 +36,7 @@
 
 ### 使用 BSP 内核
 
-如果想使用 BSP 内核进行测试，可以在构建指令中指定 BSP 内核的仓库地址及对应分支，参考[一次构建](../瑞芯微等开发板.md#一次构建)。
+如果想使用 BSP 内核进行测试，可以在构建指令中指定 BSP 内核的仓库地址及对应分支，参考 [构建完整镜像](../瑞芯微等开发板.md#构建完整镜像)。
 
 ## 准备 u-boot
 
@@ -46,17 +46,17 @@
 
   - RK35xx
 
-    需要将编译好的 u-boot 二进制文件放到 [u-boot 目录](../../scripts/rockchip/bin/u-boot/)下，并在版型文件中增加文件路径。
+    需要将编译好的 u-boot 二进制文件放到 [u-boot 目录](../../scripts/bin/u-boot/)下，并在版型文件中增加文件路径。
 
 ## 准备 firmware 文件
    
-这里提到的 firmware 是开发板的板载蓝牙和 WiFi 的驱动固件，可参考[本框架储存的的 firmware 文件](../../scripts/rockchip/bin/linux-firmware/)。
+这里提到的 firmware 是开发板的板载蓝牙和 WiFi 的驱动固件，可参考[本框架储存的的 firmware 文件](../../scripts/bin/linux-firmware/)。
 
 请确定开发板所使用的 firmware，并提交至仓库的相应目录下。
 
 ## 编写版型文件
 
-适用的开发板的版型配置文件在 [boards](../../scripts/rockchip/boards/) 文件夹中，版型文件示例如下：
+适用的开发板的版型配置文件在 [boards](../../scripts/boards/) 文件夹中，版型文件示例如下：
 
 ```
 ubootconfig=firefly-rk3399_defconfig  #Required! The name of defconfig file when compiling u-boot, which defaults to firefly-rk3399_defconfig.
@@ -77,13 +77,13 @@ POST_BOARD_OVERLAY() {
 
   1.  ubootconfig=UBOOT_DEFCONFIG
 
-      开发板对应的 defconfig 的文件名称，对应 [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs) 下 `UBOOT_DEFCONFIG` 文件，默认为 `firefly-rk3399_defconfig`；如需在 RK3568/RK3588 开发板上使用预编译的 u-boot，可以将此项设置为 `none`。
+      开发板对应的 defconfig 的文件名称，对应 [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs) 下 `UBOOT_DEFCONFIG` 文件，默认为 `firefly-rk3399_defconfig`；如需在 RK3568/RK3588 开发板上使用预编译的 u-boot，可以将此项设置为空：`ubootconfig=`。
       
-      如果设置为 `none`，则还需添加以下附属配置参数：
+      如果设置为空 ``，则还需添加以下附属配置参数：
 
         - local_uboot_dir
 
-          开发板 u-boot 配置设置为 `none` 时，本地预编译的 u-boot 二进制文件的位置。
+          开发板 u-boot 配置设置为空时，本地预编译的 u-boot 二进制文件的位置。
 
   2.  dtb_name=DTB_NAME
 
@@ -114,11 +114,11 @@ POST_BOARD_OVERLAY() {
 
   6.  POST_BOARD_OVERLAY()
 
-      `POST_BOARD_OVERLAY()` 是执行复制 firmware 文件到根目录以及对目标开发板根目录执行特定操作的函数，其使用的变量与 [build_rootfs.sh](../../scripts/rockchip/build_rootfs.sh) 相同，通常包含以下两个变量：
+      `POST_BOARD_OVERLAY()` 是执行复制 firmware 文件到根目录以及对目标开发板根目录执行特定操作的函数，其使用的变量与 [build_rootfs.sh](../../scripts/build_rootfs.sh) 相同，通常包含以下两个变量：
 
       - nonfree_bin_dir
 
-        该参数为储存 firmware 的文件夹，默认为 [${workdir}/../bin](../../scripts/rockchip/bin/)。
+        该参数为储存 firmware 的文件夹，默认为 [../../scripts/bin/](../../scripts/bin/)。
 
       - rootfs_dir
 
@@ -126,4 +126,4 @@ POST_BOARD_OVERLAY() {
     
 ## 运行测试
 
-通过运行脚本[一次构建](../瑞芯微等开发板.md#一次构建)，将 `--board` 参数设置为新增开发板的版型文件来运行测试。
+通过运行脚本 [构建完整镜像](../瑞芯微等开发板.md#构建完整镜像)，将 `--board` 参数设置为新增开发板的版型文件来运行测试。

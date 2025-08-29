@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+set +x
 
 __usage="
 Usage: build_rootfs [OPTIONS]
@@ -10,7 +12,7 @@ Options:
   --board, BOARD_CONFIG         Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   -r, --repo REPO_INFO          The URL/path of target repo file or list of repo's baseurls which should be a space separated list.
   -b, --branch KERNEL_BRANCH    The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
-  -s, --spec SPEC               The image's specification: headless, xfce, ukui, dde or the file path of rpmlist. The default is headless.
+  -s, --spec SPEC               The image's specification: headless, xfce, ukui, dde, gnome, devstation or the file path of rpmlist. The default is headless.
   -h, --help                    Show command help.
 "
 
@@ -23,28 +25,33 @@ help()
 default_param() {
     board=firefly-rk3399
     repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
+    workdir=${cur_dir}/build
     tmp_dir=${workdir}/tmp
-    workdir=$cur_dir/build
     branch=openEuler-20.03-LTS
     rootfs_arch=aarch64
-    nonfree_bin_dir=${workdir}/../bin
+    nonfree_bin_dir=${cur_dir}/bin
+    config_dir=${cur_dir}/configs
     rootfs_dir=${workdir}/rootfs
     log_dir=${workdir}/log
+    rootfs_mnt=${workdir}/rootfs_tmp
 }
 
 local_param(){
-    if [ -f $workdir/.param ]; then
-        board=$(cat $workdir/.param | grep board)
+    if [ -f ${workdir}/.param ]; then
+        board=$(cat ${workdir}/.param | grep board)
         board=${board:6}
 
-        repo_file=$(cat $workdir/.param | grep repo_file)
+        repo_file=$(cat ${workdir}/.param | grep repo_file)
         repo_file=${repo_file:10}
 
-        branch=$(cat $workdir/.param | grep branch)
+        branch=$(cat ${workdir}/.param | grep branch)
         branch=${branch:7}
 
-        spec_param=$(cat $workdir/.param | grep spec_param)
+        spec_param=$(cat ${workdir}/.param | grep spec_param)
         spec_param=${spec_param:11}
+
+        kernel_url=$(cat ${workdir}/.param | grep kernel_url)
+        kernel_url=${kernel_url:11}
     fi
 }
 
@@ -96,13 +103,13 @@ LOG(){
 
 LOSETUP_D_IMG(){
     set +e
-    if [ -d ${workdir}/rootfs_tmp ]; then
-        if grep -q "${workdir}/rootfs_tmp " /proc/mounts ; then
-            umount ${workdir}/rootfs_tmp
+    if [ -d ${rootfs_mnt} ]; then
+        if grep -q "${rootfs_mnt} " /proc/mounts ; then
+            umount ${rootfs_mnt}
         fi
     fi
-    if [ -d ${workdir}/rootfs_tmp ]; then
-        rm -rf ${workdir}/rootfs_tmp
+    if [ -d ${rootfs_mnt} ]; then
+        rm -rf ${rootfs_mnt}
     fi
     set -e
 }
@@ -140,14 +147,17 @@ INSTALL_PACKAGES(){
             ERROR can not install $item.
         fi
     done
+    if [ "x${board}" == "xraspberrypi" ] && [ -z "${kernel_url}"  ]; then
+        chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y raspberrypi-kernel --nogpgcheck
+        if [ $? == 0 ]; then
+            LOG install raspberrypi-kernel.
+        else
+            ERROR can not install raspberrypi-kernel.
+        fi
+    fi
 }
 
 build_rootfs() {
-    trap 'UMOUNT_ALL' EXIT
-    cd $workdir
-    if [ -d rootfs ];then rm -rf rootfs; fi
-    mkdir rootfs
-
     if [ ! -d ${tmp_dir} ]; then
         mkdir -p ${tmp_dir}
     else
@@ -156,8 +166,8 @@ build_rootfs() {
 
     if [ "x$spec_param" == "xheadless" ] || [ "x$spec_param" == "x" ]; then
         :
-    elif [ "x$spec_param" == "xxfce" ] || [ "x$spec_param" == "xukui" ] || [ "x$spec_param" == "xdde" ]; then
-        CONFIG_RPM_LIST=$workdir/../configs/rpmlist-${spec_param}
+    elif [ "x$spec_param" == "xxfce" ] || [ "x$spec_param" == "xukui" ] || [ "x$spec_param" == "xdde" ] || [ "x$spec_param" == "xgnome" ] || [ "x$spec_param" == "xdevstation" ]; then
+        CONFIG_RPM_LIST=${config_dir}/rpmlist-${spec_param}
     elif [ -f ${spec_param} ]; then
         cp ${spec_param} ${tmp_dir}/
         spec_file_name=${spec_param##*/}
@@ -166,16 +176,13 @@ build_rootfs() {
         echo `date` - ERROR, please check your params in option -s or --spec.
         exit 2
     fi
-
-    mkdir -p ${rootfs_dir}/var/lib/rpm
-    rpm --root  ${rootfs_dir}/ --initdb
+    echo $(pwd)
 
     if [ "x$repo_file" == "x" ] ; then
         echo `date` - ERROR, \"-r REPO_INFO or --repo REPO_INFO\" missing.
         help 2
     elif [ "x${repo_file:0:4}" == "xhttp" ]; then
         if [ "x${repo_file:0-5}" == "x.repo" ]; then
-            repo_url=${repo_file}
             wget ${repo_file} -P ${tmp_dir}/
             repo_file_name=${repo_file##*/}
             repo_file=${tmp_dir}/${repo_file_name}
@@ -186,7 +193,7 @@ build_rootfs() {
             for baseurl in ${repo_file// / }
             do
                 echo [repo${index}] >> ${repo_file_tmp}
-                echo name=repo${index} to build rk3399 image >> ${repo_file_tmp}
+                echo name=repo${index} to build ${board} image >> ${repo_file_tmp}
                 echo baseurl=${baseurl} >> ${repo_file_tmp}
                 echo enabled=1 >> ${repo_file_tmp}
                 echo gpgcheck=0 >> ${repo_file_tmp}
@@ -222,12 +229,12 @@ build_rootfs() {
     done
     
     os_release_name="openEuler-release"
-    dnf ${repo_info} --disablerepo="*" --downloaddir=${workdir}/ download ${os_release_name} --forcearch ${rootfs_arch}
+    dnf ${repo_info} --disablerepo="*" --downloaddir=${tmp_dir}/ download ${os_release_name} --forcearch ${rootfs_arch}
     if [ $? != 0 ]; then
         ERROR "Fail to download ${os_release_name}!"
         exit 2
     fi
-    os_release_name=`ls -r ${workdir}/${os_release_name}*.rpm 2>/dev/null| head -n 1`
+    os_release_name=`ls -r ${tmp_dir}/${os_release_name}*.rpm 2>/dev/null| head -n 1`
     if [ -z "${os_release_name}" ]; then
         ERROR "${os_release_name} can not be found!"
         exit 2
@@ -235,6 +242,16 @@ build_rootfs() {
         LOG "Success to download ${os_release_name}."
     fi
 
+    LOG "make rootfs for ${repo_file} begin..."
+    trap 'UMOUNT_ALL' EXIT
+    if [ -d ${rootfs_dir} ]; then
+        UMOUNT_ALL
+        rm -rf ${rootfs_dir}
+    fi
+    mkdir ${rootfs_dir}
+
+    mkdir -p ${rootfs_dir}/var/lib/rpm
+    rpm --root  ${rootfs_dir}/ --initdb
     rpm -ivh --nodeps --root ${rootfs_dir}/ ${os_release_name} --ignorearch
 
     mkdir -p ${rootfs_dir}/etc/rpm
@@ -248,52 +265,41 @@ build_rootfs() {
     mount --bind /dev ${rootfs_dir}/dev
     mount -t proc /proc ${rootfs_dir}/proc
     mount -t sysfs /sys ${rootfs_dir}/sys
-    
-    INSTALL_PACKAGES ${CONFIG_RPM_LIST} "${repo_info}"
-
-    rm -rf ${rootfs_dir}/*.core
-    rm ${workdir}/*rpm
-    
-    for dns in $default_dns
-    do
-        echo "   nameserver ${dns}" >> "${rootfs_dir}/etc/resolv.conf"
-    done
-
-    if [ ! -d ${rootfs_dir}/etc/sysconfig/network-scripts ]; then mkdir "${rootfs_dir}/etc/sysconfig/network-scripts"; fi
-    echo "   TYPE=Ethernet
-   PROXY_METHOD=none
-   BROWSER_ONLY=no
-   BOOTPROTO=dhcp
-   DEFROUTE=yes
-   IPV4_FAILURE_FATAL=no
-   IPV6INIT=yes
-   IPV6_AUTOCONF=yes
-   IPV6_DEFROUTE=yes
-   IPV6_FAILURE_FATAL=no
-   IPV6_ADDR_GEN_MODE=stable-privacy
-   NAME=eth0
-   UUID=851a6f36-e65c-3a43-8f4a-78fd0fc09dc9
-   ONBOOT=yes
-   AUTOCONNECT_PRIORITY=-999
-   DEVICE=eth0" > "${rootfs_dir}/etc/sysconfig/network-scripts/ifup-eth0"
-    
-    LOG "Configure network done."
-
-    cp $nonfree_bin_dir/../bin/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
-    chmod +x ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
-
     set +e
-    sed -i -e '/^#NTP=/cNTP=0.cn.pool.ntp.org' ${rootfs_dir}/etc/systemd/timesyncd.conf
-    sed -i -e 's/#FallbackNTP=/FallbackNTP=1.asia.pool.ntp.org 2.asia.pool.ntp.org /g' ${rootfs_dir}/etc/systemd/timesyncd.conf
+    INSTALL_PACKAGES ${CONFIG_RPM_LIST} "${repo_info}"
+    cat ${rootfs_dir}/etc/systemd/timesyncd.conf | grep "^NTP=*"
+    if [ $? -ne 0 ]; then
+        sed -i -e '/^#NTP=/cNTP=0.cn.pool.ntp.org' ${rootfs_dir}/etc/systemd/timesyncd.conf
+        sed -i -e 's/#FallbackNTP=/FallbackNTP=1.asia.pool.ntp.org 2.asia.pool.ntp.org /g' ${rootfs_dir}/etc/systemd/timesyncd.conf
+    fi
     set -e
 
-    cat << EOF | chroot ${rootfs_dir}  /bin/bash
-    echo 'openeuler' | passwd --stdin root
-    echo openEuler > /etc/hostname
-    ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-    chkconfig --add extend-root.sh
-    chkconfig extend-root.sh on
-EOF
+    rm -rf ${rootfs_dir}/*.core
+    
+    cp -Lp ${config_dir}/resolv.conf ${rootfs_dir}/etc/resolv.conf
+
+    if [ ! -d ${rootfs_dir}/etc/sysconfig/network-scripts ]; then mkdir "${rootfs_dir}/etc/sysconfig/network-scripts"; fi
+    cp -Lp ${config_dir}/ifcfg-eth0 ${rootfs_dir}/etc/sysconfig/network-scripts/ifcfg-eth0
+
+    LOG "Configure network done."
+
+    if [ "x${board}" == "xraspberrypi" ]; then
+        mkdir -p ${rootfs_dir}/lib/udev/rules.d
+        if [ ! -d ${rootfs_dir}/usr/share/licenses/raspi ]; then mkdir -p ${rootfs_dir}/usr/share/licenses/raspi; fi
+        cp ${config_dir}/hosts ${rootfs_dir}/etc/hosts
+        cp ${config_dir}/*.rules ${rootfs_dir}/lib/udev/rules.d/
+        cp ${config_dir}/LICENCE.* ${rootfs_dir}/usr/share/licenses/raspi/
+    fi
+
+    if [ ! -d ${rootfs_dir}/etc/rc.d/init.d ]; then mkdir -p ${rootfs_dir}/etc/rc.d/init.d; fi
+    cp -Lp ${config_dir}/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
+    chmod +x ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
+    echo net.ipv4.conf.wlan0.rp_filter=0 >> ${rootfs_dir}/etc/sysctl.conf
+
+    cp -Lp ${config_dir}/chroot.sh ${rootfs_dir}/chroot.sh
+    chmod +x ${rootfs_dir}/chroot.sh
+
+    chroot ${rootfs_dir} /bin/bash -c "echo 'Y' | /chroot.sh ${spec_param}"
 
     LOG "Set NTP and auto expand rootfs done."
 
@@ -304,11 +310,13 @@ EOF
     POST_BOARD_OVERLAY
 
     UMOUNT_ALL
+    rm ${rootfs_dir}/chroot.sh
+    LOG "make rootfs for ${repo_file} end."
+
 }
 
 mk_rootfsimg() {
     trap 'LOSETUP_D_IMG' EXIT
-    cd $workdir
     rootfs_size=`du -sh --block-size=1MiB ${rootfs_dir} | cut -f 1 | xargs`
     mod_size=`du -sh --block-size=1MiB ${workdir}/kernel/kernel-modules/lib/modules | cut -f 1 | xargs`
     size=$(($rootfs_size+$mod_size+100))
@@ -316,17 +324,17 @@ mk_rootfsimg() {
     dd if=/dev/zero of=${rootfs_img} bs=1MiB count=$size status=progress && sync
     mkfs.ext4 -L rootfs ${workdir}/rootfs.img
 
-    if [ -d ${workdir}/rootfs_tmp ];then rm -rf ${workdir}/rootfs_tmp; fi
-    mkdir ${workdir}/rootfs_tmp
-    mount ${workdir}/rootfs.img ${workdir}/rootfs_tmp
+    if [ -d ${rootfs_mnt} ];then rm -rf ${rootfs_mnt}; fi
+    mkdir ${rootfs_mnt}
+    mount ${workdir}/rootfs.img ${rootfs_mnt}
 
-    rsync -avHAXq ${rootfs_dir}/* ${workdir}/rootfs_tmp
+    rsync -avHAXq ${rootfs_dir}/* ${rootfs_mnt}
     sync
     sleep 10
 
     LOSETUP_D_IMG
 
-    if [ -f $workdir/rootfs.img ]; then
+    if [ -f ${workdir}/rootfs.img ]; then
         LOG "make rootfs image done."
     else
         ERROR "make rootfs image failed!"
@@ -343,7 +351,10 @@ default_param
 local_param
 parseargs "$@" || help $?
 
-CONFIG_RPM_LIST=$workdir/../configs/rpmlist
+if [ "x${board}" == "xraspberrypi" ]; then
+    config_dir=${cur_dir}/configs-rpi
+fi
+CONFIG_RPM_LIST=${config_dir}/rpmlist
 
 POST_BOARD_OVERLAY() {
     echo "Initial POST_BOARD_OVERLAY function" # It will be overwritten by board.conf.
@@ -353,44 +364,39 @@ if [[ "x$arch" == "arm64" ]]; then
     rootfs_arch="aarch64"
 fi
 
-default_dns="8.8.8.8 8.8.4.4 114.114.114.114"
-
-if [ ! -d $workdir ]; then
-    mkdir $workdir
+if [ ! -d ${workdir} ]; then
+    mkdir ${workdir}
 fi
 
-source $cur_dir/boards/${board}.conf
+source ${cur_dir}/boards/${board}.conf
 
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
-if [ ! -f $workdir/.done ];then
-    touch $workdir/.done
+if [ ! -f ${workdir}/.done ];then
+    touch ${workdir}/.done
 fi
-cd $workdir
-sed -i 's/rootfs//g' $workdir/.done
+sed -i 's/rootfs//g' ${workdir}/.done
 LOG "build rootfs..."
-if [ -d rootfs ]; then
-    if [[ -f $workdir/rootfs.img && $(cat $workdir/.done | grep rootfs) == "rootfs" ]];then
-        if [ -f $workdir/.param_last ];then
-            last_branch=$(cat $workdir/.param_last | grep branch)
+if [ -d ${rootfs_dir} ]; then
+    if [[ -f ${workdir}/rootfs.img && $(cat ${workdir}/.done | grep rootfs) == "rootfs" ]];then
+        if [ -f ${workdir}/.param_last ];then
+            last_branch=$(cat ${workdir}/.param_last | grep branch)
             last_branch=${last_branch:7}
 
-            last_board=$(cat $workdir/.param_last | grep board)
+            last_board=$(cat ${workdir}/.param_last | grep board)
             last_board=${last_board:6}
 
-            last_repo_file=$(cat $workdir/.param_last | grep repo_file)
+            last_repo_file=$(cat ${workdir}/.param_last | grep repo_file)
             last_repo_file=${last_repo_file:10}
 
-            last_spec_param=$(cat $workdir/.param_last | grep spec_param)
+            last_spec_param=$(cat ${workdir}/.param_last | grep spec_param)
             last_spec_param=${last_spec_param:11}
 
             if [[ ${last_branch} != ${branch} || ${last_board} != ${board} || ${last_repo_file} != ${repo_file} || ${last_spec_param} != ${spec_param} ]]; then
-                rm -rf rootfs
                 build_rootfs
                 mk_rootfsimg
             fi
         fi
     else
-        rm -rf rootfs
         build_rootfs
         mk_rootfsimg
     fi
@@ -399,4 +405,4 @@ else
     mk_rootfsimg
 fi
 LOG "The rootfs.img is generated in the ${workdir}."
-echo "rootfs" >> $workdir/.done
+echo "rootfs" >> ${workdir}/.done
