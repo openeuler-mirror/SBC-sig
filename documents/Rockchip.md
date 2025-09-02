@@ -91,7 +91,7 @@
 
 各个参数意义：
 
-1. --board BOARD_CONFIG
+1.  --board BOARD_CONFIG
 
     适用的开发板的版型配置文件在 [boards](../scripts/boards) 文件夹中，示例文件 [sample.conf](../scripts/boards/sample.conf)，默认为 `firefly-rk3399`。
     
@@ -109,15 +109,15 @@
 
         开发板对应的 defconfig 的文件名称，对应 [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs) 下 `UBOOT_DEFCONFIG` 文件，默认为 `firefly-rk3399_defconfig`；如需在 RK3588 开发板上使用预编译的 u-boot，可以将此项设置为空：`ubootconfig=`。
 
-2. -n, --name IMAGE_NAME
+2.  -n, --name IMAGE_NAME
 
     构建的镜像名称，例如：`openEuler-20.03-LTS-Firefly-RK3399-aarch64-alpha1` 或 `openEuler-21.09-Firefly-RK3399-aarch64-alpha1`。
 
-3. -k, --kernel KERNEL_URL
+3.  -k, --kernel KERNEL_URL
 
-   内核源码仓库的项目地址，默认为 `https://gitee.com/openeuler/rockchip-kernel.git`。可根据需要设置为 `git@gitee.com:openeuler/rockchip-kernel.git` 或 `git@gitee.com:openeuler/kernel.git`。
+    内核源码仓库的项目地址，默认为 `https://gitee.com/openeuler/rockchip-kernel.git`。可根据需要设置为 `git@gitee.com:openeuler/rockchip-kernel.git` 或 `git@gitee.com:openeuler/kernel.git`。
 
-4. -b, --branch KERNEL_BRANCH
+4.  -b, --branch KERNEL_BRANCH
 
     内核源码的对应分支，默认为 openEuler-20.03-LTS。根据 -k 参数有以下选择：
 
@@ -130,7 +130,7 @@
 
     内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 arch/arm64/configs 下。
 
-6. -r, --repo REPO_INFO
+6.  -r, --repo REPO_INFO
 
     软件源 repo 文件的 URL 或者路径，也可以是软件源中资源库的 baseurl 列表。注意，如果该参数为资源库的 baseurl 列表，该参数需要使用双引号，各个 baseurl 之间以空格隔开。
     下面分别举例：
@@ -261,7 +261,7 @@
 
 #### 使用脚本构建镜像需执行命令：
 
-`sudo bash build-image-docker.sh --board BOARD_CONFIG -d DOCKER_FILE -n IMAGE_NAME -k KERNEL_URL -b KERNEL_BRANCH -c KERNEL_DEFCONFIG -r REPO --cores N`
+`sudo bash build-image-docker.sh -d DOCKER_FILE --board BOARD_CONFIG -n NAME -k KERNEL_URL -b KERNEL_BRANCH -c KERNEL_DEFCONFIG -r REPO_INFO -s SPEC --cores N`
 
 脚本运行结束后，镜像默认保存在脚本运行所在目录的 `build/YYYY-MM-DD` 下。
 

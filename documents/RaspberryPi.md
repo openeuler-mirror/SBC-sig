@@ -13,7 +13,7 @@
         - [构建镜像](#构建镜像)
             - [无需编译内核构建镜像](#无需编译内核构建镜像)
             - [使用自定义内核构建镜像](#使用自定义内核构建镜像)
-            - [Docker 容器内构建](#docker-容器内构建)
+            - [Docker 容器内构建镜像](#docker-容器内构建镜像)
 
 <!-- /TOC -->
 
@@ -87,7 +87,7 @@
 
 各个参数意义：
 
-1. --board BOARD_CONFIG
+1.  --board BOARD_CONFIG
 
     适用的开发板的版型配置文件在 [boards](../scripts/boards) 文件夹中，示例文件 [sample.conf](../scripts/boards/sample.conf)。构建树莓派镜像需要设置为 `raspberrypi`，对应文件 [raspberrypi.conf](../scripts/boards/raspberrypi.conf)。
 
@@ -105,24 +105,19 @@
 
         开发板对应的 defconfig 的文件名称，对应 [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs) 下 `UBOOT_DEFCONFIG` 文件，默认为 `firefly-rk3399_defconfig`。构建树莓派镜像无需这部分内容，默认为空：`ubootconfig=`。
 
-2. -n, --name IMAGE_NAME
+2.  -n, --name IMAGE_NAME
 
     构建的镜像名称，例如：`openEuler-24.03-LTS-raspi-aarch64-alpha1`。
 
-3. -k, --kernel KERNEL_URL
+3.  -k, --kernel KERNEL_URL
 
-   内核源码仓库的项目地址，如 `https://gitee.com/openeuler/raspberrypi-kernel.git`。可根据需要设置为 `git@gitee.com:openeuler/raspberrypi-kernel.git` 或 `git@gitee.com:openeuler/kernel.git`。
+    内核源码仓库的项目地址，如 `https://gitee.com/openeuler/raspberrypi-kernel.git`。可根据需要设置为 `git@gitee.com:openeuler/raspberrypi-kernel.git` 或 `git@gitee.com:openeuler/kernel.git`。
 
-   注意，如果本参数为空，则不会编译内核源码，默认使用软件源中的内核包。
+    注意，如果本参数为空，则不会编译内核源码，默认使用软件源中的内核包。
 
-4. -b, --branch KERNEL_BRANCH
+4.  -b, --branch KERNEL_BRANCH
 
-    内核源码的对应分支，例如：OLK-6.6。根据 -k 参数有以下选择：
-
-    - -k https://gitee.com/openeuler/rockchip-kernel.git
-        - openEuler-20.03-LTS
-    - -k https://gitee.com/openeuler/kernel.git
-        - openEuler-21.09
+    内核源码的对应分支，例如：OLK-6.6。详细信息可参考 [使用自定义内核构建镜像](#使用自定义内核构建镜像) 章节。
 
 5.  -c, --config KERNEL_DEFCONFIG
 
@@ -130,14 +125,15 @@
 
     注意，如果 `--branch` 参数为 `OLK-6.6` 且本参数 `--config` 为空，则默认编译出同时支持树莓派 5 和树莓派 4B 的内核映像。
 
-6. -r, --repo REPO_INFO
+6.  -r, --repo REPO_INFO
 
     软件源 repo 文件的 URL 或者路径，也可以是软件源中资源库的 baseurl 列表。注意，如果该参数为资源库的 baseurl 列表，该参数需要使用双引号，各个 baseurl 之间以空格隔开。
 
     下面分别举例：
     - 软件源 repo 文件的 URL，如 `https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS-SP1/generic.repo`
     - 软件源的 repo 文件路径：
-        - `./openEuler-20.03-LTS-SP1.repo`：生成 openEuler 20.03 LTS SP1 版本的镜像，该文件内容参考 <https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS-SP1/generic.repo>。
+
+        `./openEuler-20.03-LTS-SP1.repo`：生成 openEuler 20.03 LTS SP1 版本的镜像，该文件内容参考 <https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS-SP1/generic.repo>。
     - 资源库的 baseurl 列表，如 `"http://repo.openeuler.org/openEuler-20.03-LTS-SP1/OS/aarch64/ http://repo.openeuler.org/openEuler-20.03-LTS-SP1/EPOL/aarch64/"`。
 
 7.  -s, --spec SPEC
@@ -226,7 +222,7 @@
 >    -  openEuler 25.03：需要选择 [openEuler-RaspberryPi 内核](https://gitee.com/openeuler/raspberrypi-kernel) 的 [openEuler-25.03](https://gitee.com/openeuler/raspberrypi-kernel/tree/openEuler-25.03/) 分支，即将参数 `-k/--kernel` 设置为 `git@gitee.com:openeuler/raspberrypi-kernel.git`，`-b/--branch` 设置为 `openEuler-25.03`，`-c/--config` 设置为空 `""`。
 >6. 根据需要设置 -s/--spec，其具体意义见该参数的介绍部分。
 
-#### Docker 容器内构建
+#### Docker 容器内构建镜像
 
 构建镜像需执行命令：
 

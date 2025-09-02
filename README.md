@@ -16,6 +16,8 @@
     - [镜像构建](#镜像构建)
         - [准备环境](#准备环境)
         - [构建镜像](#构建镜像)
+            - [宿主机上构建镜像](#宿主机上构建镜像)
+            - [Docker 容器内构建镜像](#docker-容器内构建镜像)
 
 <!-- /TOC -->
 ## To Do List
@@ -302,6 +304,101 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 其他架构可以使用 [QEMU](https://www.qemu.org/) 模拟器搭建 AArch64 运行环境。
 
 ### 构建镜像
-镜像构建使用统一入口 [build.sh](./scripts/build.sh) 或 [build-image-docker.sh](./scripts/build-image-docker.sh) 在宿主机或者启动 Docker 容器构建树莓派或瑞芯微等开发板镜像。具体参考以下文档：
+镜像构建使用统一入口 [build.sh](./scripts/build.sh) 或 [build-image-docker.sh](./scripts/build-image-docker.sh) 在宿主机或者启动 Docker 容器构建树莓派或瑞芯微等开发板镜像。
+具体参考以下文档：
 - [树莓派镜像构建](./documents/RaspberryPi.md#构建镜像)
 - [瑞芯微等开发板镜像构建](./documents/Rockchip.md#镜像构建)
+
+#### 宿主机上构建镜像
+
+构建镜像需执行命令：
+
+`sudo bash build.sh --board BOARD_CONFIG -n NAME -k KERNEL_URL -b KERNEL_BRANCH -c KERNEL_DEFCONFIG -r REPO_INFO -s SPEC --cores N`
+
+脚本运行结束后，会提示镜像的存储位置，镜像默认保存在脚本运行所在目录的 build/YYYY-MM-DD/ 下。
+
+**说明: 基于 build.sh 提供的默认参数，执行 sudo bash build.sh 可构建 Firefly-RK3399 的 openEuler-20.03-LTS 镜像。**
+
+**参数意义**
+
+1.  --board BOARD_CONFIG
+
+    适用的开发板的版型配置文件在 [boards](scripts/boards) 文件夹中，示例文件 [sample.conf](scripts/boards/sample.conf)，默认为 `firefly-rk3399`。
+
+    其包括的配置参数意义如下：
+
+    - platform=PLATFORM
+
+        开发板所使用的平台，目前支持的平台有：broadcom、rockchip、phytium，默认为 `rockchip`。
+
+    - device-tree=DTB_NAME
+
+        内核设备树中的设备名称，和开发板名称有一点区别，对应 [kernel/arch/arm64/boot/dts/rockchip](https://gitee.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip) 下的 `DTB_NAME.dts` 文件，默认为 `rk3399-firefly`。
+
+    - ubootconfig=UBOOT_DEFCONFIG
+
+        开发板对应的 defconfig 的文件名称，对应 [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs) 下 `UBOOT_DEFCONFIG` 文件，默认为 `firefly-rk3399_defconfig`；如需在 RK3588 开发板上使用预编译的 u-boot，可以将此项设置为空：`ubootconfig=`。
+
+2.  -n, --name IMAGE_NAME
+
+    构建的镜像名称，例如：`openEuler-20.03-LTS-Firefly-RK3399-aarch64-alpha1` 或 `openEuler-24.03-LTS-raspi-aarch64-alpha1`。
+
+3.  -k, --kernel KERNEL_URL
+
+    内核源码仓库的项目地址，默认为 `https://gitee.com/openeuler/rockchip-kernel.git`。可根据需要设置为 `git@gitee.com:openeuler/rockchip-kernel.git` 或 `git@gitee.com:openeuler/kernel.git`。
+
+4.  -b, --branch KERNEL_BRANCH
+
+    内核源码的对应分支，默认为 openEuler-20.03-LTS。
+
+5.  -c, --config KERNEL_DEFCONFIG
+
+    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 `arch/arm64/configs` 下。
+
+6.  -r, --repo REPO_INFO
+
+    软件源 repo 文件的 URL 或者路径，也可以是软件源中资源库的 baseurl 列表。注意，如果该参数为资源库的 baseurl 列表，该参数需要使用双引号，各个 baseurl 之间以空格隔开。
+
+    下面分别举例：
+    - 软件源 repo 文件的 URL，如 `https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
+    - 软件源的 repo 文件路径：
+
+        `./openEuler-20.03-LTS.repo`：生成 openEuler 20.03 LTS 版本的镜像，该文件内容参考 <https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo>。
+
+    - 资源库的 baseurl 列表，如 `http://repo.openeuler.org/openEuler-20.03-LTS/OS/aarch64/ http://repo.openeuler.org/openEuler-20.03-LTS/EPOL/aarch64/`。
+
+7.  -s, --spec SPEC
+
+    构建的镜像版本：
+    - `headless`，无图形界面版的镜像。
+    - `xfce`，带 Xfce 桌面以及中文字体、输入法等全部配套软件。
+    - `ukui`，带 UKUI 桌面以及中文字体、输入法等全部配套软件。
+    - `dde`，带 DDE 桌面以及中文字体、输入法等全部配套软件。
+    - `gnome`，带 GNOME 桌面以及中文字体、输入法等全部配套软件。
+    - `devstation`，带 GNOME 桌面、中文字体、输入法、大量开发工具和 IDE 等配套软件。
+    -  rpmlist 文件路径，其中包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs/rockchip//rpmlist)。
+
+    默认使用 `headless` 选项。
+
+8.  --cores N
+
+    并行编译的数量，根据运行脚本的宿主机 CPU 实际数目设定，默认为可用的 CPU 总数。
+
+9.  -h, --help
+
+    显示帮助信息。
+
+#### Docker 容器内构建镜像
+构建镜像需执行命令：
+
+`sudo bash build-image-docker.sh -d DOCKER_FILE --board BOARD_CONFIG -n NAME -k KERNEL_URL -b KERNEL_BRANCH -c KERNEL_DEFCONFIG -r REPO_INFO -s SPEC --cores N`
+
+脚本运行结束后，会提示镜像的存储位置，镜像默认保存在脚本运行所在目录的 `build/YYYY-MM-DD/` 下。
+
+注意！！！运行该脚本前，需安装 Docker 运行环境。该脚本会自动将 `-d DOCKER_FILE` 参数对应的 Docker 镜像导入本机系统中。
+
+除参数 `-d DOCKER_FILE` 外，其余参数与 [宿主机上构建镜像](#宿主机上构建镜像) 中 [build.sh](scripts/build.sh) 对应参数一致：
+
+1.  -d, --docker DOCKER_FILE
+
+    Docker 镜像的 URL 或者路径， 默认为 `https://repo.openeuler.org/openEuler-20.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz`。使用该默认参数时，脚本会自动下载 openEuler 20.03 LTS SP1 的 Docker 镜像，并导入本机系统中。

@@ -328,7 +328,7 @@ default_param
 parseargs "$@" || help $?
 
 if [ "x${board}" == "xraspberrypi" ]; then
-    config_dir=${cur_dir}/configs-raspberrypi
+    config_dir=${cur_dir}/configs/raspberrypi
 fi
 
 if [ ! -d ${workdir} ]; then

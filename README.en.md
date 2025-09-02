@@ -16,6 +16,8 @@ This repository is the main repository of the openEuler SBC (Single-Board Comput
     - [How to build image](#how-to-build-image)
         - [Prepare the environment](#prepare-the-environment)
         - [Run the scripts to build image](#run-the-scripts-to-build-image)
+            - [Build on host](#build-on-host)
+            - [Build in a Docker container](#build-in-a-docker-container)
 
 <!-- /TOC -->
 
@@ -306,3 +308,95 @@ For other architecture hardware, you can use [QEMU](https://www.qemu.org/) to bu
 You can use the unified build scripts [build.sh](./scripts/build.sh) or [build-image-docker.sh](./scripts/build-image-docker.sh) to build images for Raspberry Pi, Rockchip, and other development boards, either directly on the host machine or by launching a Docker container. For details, please refer to the documentation below:
 - [Build Raspberry Pi images](./documents/RaspberryPi.md#构建镜像)
 - [Build images for Rochchip and other SoCs](./documents/Rockchip.md#镜像构建)
+
+#### Build on host
+Run the following command to build images on the host machine:
+
+`sudo bash build.sh --board BOARD_CONFIG -n NAME -k KERNEL_URL -b KERNEL_BRANCH -c KERNEL_DEFCONFIG -r REPO_INFO -s SPEC --cores N`
+
+After building the image, you can find the image in `build/YYYY-MM-DD` of the directory in which the script resides as shown in the script output.
+
+**NOTE: You can directly execute "sudo bash build.sh" to build an openEuler 20.03 LTS image for Firefly-RK3399 with the script's default parameters.**
+
+**Parameter Descriptions**
+
+1.  --board BOARD_CONFIG
+    The board configuration files are located in the [boards](scripts/boards) directory. See the example file [sample.conf](scripts/boards/sample.conf). The default is `firefly-rk3399`.
+
+    Configuration parameters included:
+    - platform=PLATFORM
+
+        The Hardware platform used by the board. Currently supported platforms are: broadcom, rockchip, phytium. Default is `rockchip`.
+
+    - device-tree=DTB_NAME
+
+        The device name in the kernel device tree (slightly different from the board name). Corresponds to the `DTB_NAME.dts` file under [kernel/arch/arm64/boot/dts/rockchip](https://gitee.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip). Default is `rk3399-firefly`.
+
+    - ubootconfig=UBOOT_DEFCONFIG
+
+        The defconfig file name for the development board. Corresponds to the `UBOOT_DEFCONFIG` file under [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs). Default is `firefly-rk3399_defconfig`. To use a precompiled u-boot (e.g., on RK3588), set this to empty: ubootconfig=.
+
+2.  -n, --name IMAGE_NAME
+
+    The image name to be built. For example, `openEuler-20.03-LTS-Firefly-RK3399-aarch64-alpha1` or `openEuler-24.03-LTS-raspi-aarch64-alpha1`.
+
+3.  -k, --kernel KERNEL_URL
+
+    The URL of kernel source repository, which defaults to `https://gitee.com/openeuler/raspberrypi-kernel.git`. You can set the parameter as `git@gitee.com:openeuler/raspberrypi-kernel.git` or `git@gitee.com:openeuler/kernel.git` according to the requirement.
+
+4.  -b, --branch KERNEL_BRANCH
+
+    The branch name of kernel source repository, which defaults to openEuler-20.03-LTS.
+
+5.  -c, --config KERNEL_DEFCONFIG
+
+    The filename/path of configuration for compiling kernel, which defaults to `openeuler-raspi_defconfig`. If this parameter is the filename of configuration, please make sure the configuration file in `arch/arm64/configs` of the kernel source.
+
+6.  -r, --repo REPO_INFO
+
+    The URL/path of target repo file, or the list of repositories' baseurls. Note that, the baseurls should be separated by space and enclosed in double quotes.
+    Examples are as follows:
+
+    - The URL of target repo file: `https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`.
+
+    - The path of target repo file:
+
+        `./openEuler-20.03-LTS.repo`：for building openEuler 20.03 LTS image, refer to <https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo> for details.
+
+    - List of repo's baseurls: `http://repo.openeuler.org/openEuler-20.03-LTS/OS/aarch64/ http://repo.openeuler.org/openEuler-20.03-LTS/EPOL/aarch64/`.
+
+7.  -s, --spec SPEC
+
+    Specify the image version:
+    - `headless`, image without desktop environments.
+    - `xfce`, image with Xfce desktop environment and related software including CJK fonts and IME.
+    - `ukui`, image with UKUI desktop environment and fundamental software including CJK fonts and IME.
+    - `dde`, image with DDE desktop environment and fundamental software including CJK fonts and IME.
+    - `gnome`，image with GNOME desktop environment and fundamental software including CJK fonts and IME.
+    - `devstation`，image with GNOME desktop environment and fundamental software including CJK fonts, IME, development tools and IDEs.
+    - The file path of rpmlist, the file contains a list of the software to be installed in the image, refer to [rpmlist](./scripts/configs/rpmlist) for details.
+
+    The default is `headless`.
+
+8.  --cores N
+
+    The number of parallel compilations, according to the actual number of CPU of the host running the script. The default is the number of processing units available.
+
+9.  -h, --help
+
+    Displays help information.
+
+#### Build in a Docker container
+Run the following command to build an image in a Docker container:
+
+`sudo bash build-image-docker.sh -d DOCKER_FILE --board BOARD_CONFIG -n NAME -k KERNEL_URL -b KERNEL_BRANCH -c KERNEL_DEFCONFIG -r REPO_INFO -s SPEC --cores N`
+
+After building the image, you can find the image in `build/YYYY-MM-DD` of the directory in which the script resides.
+
+Caution, before running the script, you need to install Docker. The script will automatically import the Docker image into the local system according to the script's parameter: DOCKER_FILE.
+
+In addition to the parameter DOCKER_FILE, the other parameters are the same as the corresponding parameters in [Build on host](#build-on-host):
+
+1.  -d, --docker DOCKER_FILE
+
+    The URL/path of the Docker image, which defaults to `https://repo.openeuler.org/openEuler-20.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz`. With the default parameter, the script will automatically download the Docker image of openEuler 20.03 LTS SP1 and import it into the local system.
