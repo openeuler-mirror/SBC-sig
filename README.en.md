@@ -51,15 +51,16 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
 >- Recommendation: use the latest images provided in the chapter [How to download latest image](#how-to-download-latest-image) of this documentation.
 
 - [documents](./documents/):
-  - [Raspberry Pi](documents/树莓派.md)
-    - [Getting started with Raspberry Pi](documents/树莓派.md)
+  - [How to contribute](documents/贡献指南.md)
+  - [Raspberry Pi](documents/RaspberryPi.md)
+    - [Getting started with Raspberry Pi](documents/RaspberryPi.md)
     - [Install openEuler on an SD card](documents/raspberrypi/刷写镜像.md)
     - [How to use Raspberry Pi](documents/raspberrypi/树莓派使用.md)
     - [Building openEuler image for Raspberry Pi](documents/raspberrypi/openEuler镜像的构建.md)
     - [Cross-compile the kernel](documents/raspberrypi/交叉编译内核.md)
     - [Emulate Raspberry Pi with QEMU](documents/raspberrypi/QEMU启动树莓派.md)
-  - [Rockchip and other SoCs](documents/瑞芯微等开发板.md)  
-    - [Getting started with Rockchip and other SoCs](documents/瑞芯微等开发板.md)
+  - [Rockchip and other SoCs](documents/Rockchip.md)
+    - [Getting started with Rockchip and other SoCs](documents/Rockchip.md)
     - [Building openEuler image for Rockchip development boards](documents/rockchip/openEuler镜像的构建.md)
     - [Install an Image on an EMMC](documents/rockchip/刷写EMMC镜像.md)
     - [Build images sequentially](documents/rockchip/顺序构建.md)
@@ -303,5 +304,5 @@ For other architecture hardware, you can use [QEMU](https://www.qemu.org/) to bu
 
 ### Run the scripts to build image
 You can use the unified build scripts [build.sh](./scripts/build.sh) or [build-image-docker.sh](./scripts/build-image-docker.sh) to build images for Raspberry Pi, Rockchip, and other development boards, either directly on the host machine or by launching a Docker container. For details, please refer to the documentation below:
-- [Build Raspberry Pi images](./documents/树莓派.md#构建镜像)
-- [Build images for Rochchip and other SoCs](./documents/瑞芯微等开发板.md#镜像构建)
+- [Build Raspberry Pi images](./documents/RaspberryPi.md#构建镜像)
+- [Build images for Rochchip and other SoCs](./documents/Rockchip.md#镜像构建)

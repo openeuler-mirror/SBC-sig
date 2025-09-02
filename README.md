@@ -50,15 +50,16 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 >- 建议直接使用本文档 [最新镜像](#最新镜像) 章节中给出的 openEuler 的树莓派/RK3399等镜像。
 
 - [documents](./documents/): 使用文档
-  - [树莓派](documents/树莓派.md)
-    - [树莓派快速入门](documents/树莓派.md)
+  - [贡献指南](documents/贡献指南.md)
+  - [树莓派](documents/RaspberryPi.md)
+    - [树莓派快速入门](documents/RaspberryPi.md)
     - [刷写镜像](documents/raspberrypi/刷写镜像.md)
     - [树莓派使用](documents/raspberrypi/树莓派使用.md)
     - [openEuler 镜像的构建](documents/raspberrypi/openEuler镜像的构建.md)
     - [交叉编译内核](documents/raspberrypi/交叉编译内核.md)
     - [QEMU 启动树莓派](documents/raspberrypi/QEMU启动树莓派.md)
-  - [瑞芯微等其他开发板](documents/瑞芯微等开发板.md)
-    - [瑞芯微等快速入门](documents/瑞芯微等开发板.md)
+  - [瑞芯微等其他开发板](documents/Rockchip.md)
+    - [瑞芯微等快速入门](documents/Rockchip.md)
     - [openEuler镜像的构建](documents/rockchip/openEuler镜像的构建.md)
     - [刷写EMMC镜像](documents/rockchip/刷写EMMC镜像.md)
     - [顺序构建](documents/rockchip/顺序构建.md)
@@ -302,5 +303,5 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 
 ### 构建镜像
 镜像构建使用统一入口 [build.sh](./scripts/build.sh) 或 [build-image-docker.sh](./scripts/build-image-docker.sh) 在宿主机或者启动 Docker 容器构建树莓派或瑞芯微等开发板镜像。具体参考以下文档：
-- [树莓派镜像构建](./documents/树莓派.md#构建镜像)
-- [瑞芯微等开发板镜像构建](./documents/瑞芯微等开发板.md#镜像构建)
+- [树莓派镜像构建](./documents/RaspberryPi.md#构建镜像)
+- [瑞芯微等开发板镜像构建](./documents/Rockchip.md#镜像构建)
