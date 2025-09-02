@@ -149,7 +149,7 @@
     - `xfce`，带 Xfce 桌面以及中文字体、输入法等全部配套软件。
     - `ukui`，带 UKUI 桌面及必要的配套软件（不包括中文字体以及输入法）。
     - `dde`，带 DDE 桌面及必要的配套软件（不包括中文字体以及输入法）。
-    -  rpmlist 文件路径，其中包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs/rpmlist)。
+    -  rpmlist 文件路径，其中包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs/rockchip//rpmlist)。
 
     默认使用 `headless` 选项。
 

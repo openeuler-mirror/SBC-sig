@@ -45,6 +45,7 @@ default_param() {
     branch=openEuler-20.03-LTS
     repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
     kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
+    nonfree_bin_dir=${cur_dir}/bin/rockchip
     workdir=${cur_dir}/build
     name=${branch}-${board}-aarch64-alpha1
     make_cores=$(nproc)
@@ -195,7 +196,7 @@ fi
 if [[ $(cat ${workdir}/.done | grep rootfs) != "rootfs" ]];then
     if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
         LOG "You are running this script on a ${host_arch} mechine, installing qemu-user-static...."
-        sudo rpm -ivh ${cur_dir}/bin/qemu-user-static-aarch64-x86_64.rpm
+        sudo rpm -ivh ${nonfree_bin_dir}/qemu-user-static-aarch64-x86_64.rpm
     fi
     LOG "You are running this script on a ${host_arch} mechine, start building rootfs...."
     bash ${cur_dir}/build_rootfs.sh

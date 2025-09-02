@@ -19,8 +19,8 @@ help()
 }
 
 default_param() {
-    workdir=$cur_dir/build
-    bindir=$cur_dir/bin/rk3588-pack
+    workdir=${cur_dir}/build
+    bindir=${cur_dir}/bin/rockchip/rk3588-pack
     outputdir=${workdir}/$(date +'%Y-%m-%d')
     name=openEuler-22.03-LTS-RK3588
     rootfs_dir=${workdir}/rootfs

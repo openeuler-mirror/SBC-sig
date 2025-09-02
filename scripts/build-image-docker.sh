@@ -101,9 +101,9 @@ make_cores=$(nproc)
 log_dir=${workdir}/log
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ "x${board}" == "xraspberrypi" ]; then
-    config_dir=${cur_dir}/configs-rpi
+    config_dir=${cur_dir}/configs/raspberrypi
 else
-    config_dir=${cur_dir}/configs
+    config_dir=${cur_dir}/configs/rockchip
 fi
 
 parseargs "$@" || help $?

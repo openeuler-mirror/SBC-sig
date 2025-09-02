@@ -29,8 +29,8 @@ default_param() {
     tmp_dir=${workdir}/tmp
     branch=openEuler-20.03-LTS
     rootfs_arch=aarch64
-    nonfree_bin_dir=${cur_dir}/bin
-    config_dir=${cur_dir}/configs
+    nonfree_bin_dir=${cur_dir}/bin/rockchip
+    config_dir=${cur_dir}/configs/rockchip
     rootfs_dir=${workdir}/rootfs
     log_dir=${workdir}/log
     rootfs_mnt=${workdir}/rootfs_tmp
@@ -352,7 +352,7 @@ local_param
 parseargs "$@" || help $?
 
 if [ "x${board}" == "xraspberrypi" ]; then
-    config_dir=${cur_dir}/configs-rpi
+    config_dir=${cur_dir}/configs/raspberrypi
 fi
 CONFIG_RPM_LIST=${config_dir}/rpmlist
 

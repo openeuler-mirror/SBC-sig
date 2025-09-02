@@ -149,7 +149,7 @@
     - `dde`，带 DDE 桌面以及中文字体、输入法等全部配套软件。
     - `gnome`，带 GNOME 桌面以及中文字体、输入法等全部配套软件。
     - `devstation`，带 GNOME 桌面、中文字体、输入法、大量开发工具和 IDE 等配套软件。
-    -  rpmlist 文件路径，该文件包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs-rpi/rpmlist)。
+    -  rpmlist 文件路径，该文件包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs/raspberrypi/rpmlist)。
 
     默认使用 `headless` 选项。
 

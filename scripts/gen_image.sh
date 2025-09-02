@@ -26,8 +26,8 @@ default_param() {
     board=firefly-rk3399
     soc_name=rk3399
     platform=rockchip
-    nonfree_bin_dir=${cur_dir}/bin
-    config_dir=${cur_dir}/configs
+    nonfree_bin_dir=${cur_dir}/bin/rockchip
+    config_dir=${cur_dir}/configs/rockchip
     rootfs_dir=${workdir}/rootfs
     boot_dir=${workdir}/boot
     uboot_dir=${workdir}/u-boot
@@ -328,7 +328,7 @@ default_param
 parseargs "$@" || help $?
 
 if [ "x${board}" == "xraspberrypi" ]; then
-    config_dir=${cur_dir}/configs-rpi
+    config_dir=${cur_dir}/configs-raspberrypi
 fi
 
 if [ ! -d ${workdir} ]; then

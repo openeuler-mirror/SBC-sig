@@ -46,11 +46,11 @@
 
   - RK35xx
 
-    需要将编译好的 u-boot 二进制文件放到 [u-boot 目录](../../scripts/bin/u-boot/)下，并在版型文件中增加文件路径。
+    需要将编译好的 u-boot 二进制文件放到 [u-boot 目录](../../scripts/bin/rockchip/u-boot/)下，并在版型文件中增加文件路径。
 
 ## 准备 firmware 文件
    
-这里提到的 firmware 是开发板的板载蓝牙和 WiFi 的驱动固件，可参考[本框架储存的的 firmware 文件](../../scripts/bin/linux-firmware/)。
+这里提到的 firmware 是开发板的板载蓝牙和 WiFi 的驱动固件，可参考[本框架储存的的 firmware 文件](../../scripts/bin/rockchip/linux-firmware/)。
 
 请确定开发板所使用的 firmware，并提交至仓库的相应目录下。
 
@@ -118,7 +118,7 @@ POST_BOARD_OVERLAY() {
 
       - nonfree_bin_dir
 
-        该参数为储存 firmware 的文件夹，默认为 [../../scripts/bin/](../../scripts/bin/)。
+        该参数为储存 firmware 的文件夹，默认为 [../../scripts/bin/rockchip/](../../scripts/bin/rockchip/)。
 
       - rootfs_dir
 
