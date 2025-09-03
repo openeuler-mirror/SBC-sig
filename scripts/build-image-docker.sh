@@ -61,14 +61,47 @@ parseargs()
             default_defconfig=`echo $2`
             shift
             shift
+            if [ "x$default_defconfig" != "x" ]; then
+                if [ -f $default_defconfig ]; then
+                    cp $default_defconfig ${params_dir}/
+                    defconfig_name=${default_defconfig##*/}
+                    default_defconfig=${params_dir_indocker}/${defconfig_name}
+                elif [ "$default_defconfig" == */* ]; then
+                    echo `date` - ERROR, config file $default_defconfig can not be found.
+                    exit 2
+                fi
+            fi
         elif [ "x$1" == "x-r" -o "x$1" == "x--repo" ]; then
             repo_file=`echo $2`
             shift
             shift
+            if [ "x$repo_file" != "x" -a "x${repo_file:0:4}" != "xhttp" ]; then
+                if [ -f $repo_file ]; then
+                    cp $repo_file ${params_dir}/
+                    repo_file_name=${repo_file##*/}
+                    repo_file=${params_dir_indocker}/${repo_file_name}
+                else
+                    echo `date` - ERROR, repo file $repo_file can not be found.
+                    exit 2
+                fi
+            fi
         elif [ "x$1" == "x-s" -o "x$1" == "x--spec" ]; then
             spec_param=`echo $2`
             shift
             shift
+            if [ "x$spec_param" == "xheadless" ] || [ "x$spec_param" == "x" ] \
+                || [ "x$spec_param" == "xxfce" ] || [ "x$spec_param" == "xukui" ] \
+                || [ "x$spec_param" == "xdde" ] || [ "x$spec_param" == "xgnome" ] \
+                || [ "x$spec_param" == "xdevstation" ]; then
+                :
+            elif [ -f $spec_param ]; then
+                cp $spec_param ${params_dir}/
+                spec_file_name=${spec_param##*/}
+                spec_param=${params_dir_indocker}/${spec_file_name}
+            else
+                echo `date` - ERROR, please check your params in option -s or --spec.
+                exit 2
+            fi
         elif [ "x$1" == "x--cores" ]; then
             make_cores=`echo $2`
             shift
@@ -106,12 +139,19 @@ else
     config_dir=${cur_dir}/configs/rockchip
 fi
 
+params_dir=${workdir}/params
+params_dir_indocker=/work/build/params
+if [ -d ${params_dir} ]; then
+    rm -rf ${params_dir}
+fi
+mkdir -p ${params_dir}
+
 parseargs "$@" || help $?
 
 if [ "x${docker_file:0:4}" == "xhttp" ]; then
-    wget ${docker_file} -P ${workdir}/
+    wget ${docker_file} -P ${params_dir}/
 elif [ -f $docker_file ]; then
-    cp ${docker_file} ${workdir}/
+    cp ${docker_file} ${params_dir}/
 else
     echo `date` - ERROR, docker file $docker_file can not be found.
     exit 2
@@ -123,7 +163,7 @@ if [ "x$repo_file" == "x" ] ; then
 fi
 
 docker_file_name=${docker_file##*/}
-docker_img_name=`docker load --input ${workdir}/${docker_file_name}`
+docker_img_name=`docker load --input ${params_dir}/${docker_file_name}`
 docker_img_name=${docker_img_name##*: }
 
 LOG build board image with docker: ${docker_file}.
