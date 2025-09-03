@@ -177,84 +177,83 @@
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 20.03 LTS, openEuler 22.03 LTS SP2, openEuler 22.03 LTS SP3, openEuler 24.03 LTS</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#firefly-rk3399">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Radxa Rock Pi 4A</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://docs.radxa.com/rock4/rock4ab">Radxa Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3399</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 20.03 LTS, openEuler 22.03 LTS</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#radxa-rockpi-4a">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Firefly ROC-RK3566-PC</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://wiki.t-firefly.com/zh_CN/ROC-RK3566-PC/">Firefly Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3566</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP2, openEuler 22.03 LTS SP3, openEuler 24.03 LTS</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#firefly-roc-rk3566-pc">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Firefly ROC-RK3568-PC-SE</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://wiki.t-firefly.com/zh_CN/ROC-RK3568-PC-SE/">Firefly Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3568</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP2, openEuler 22.03 LTS SP3</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#firefly-roc-rk3568-pc-se">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Firefly ROC-RK3568-PC</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://wiki.t-firefly.com/zh_CN/ROC-RK3568-PC/">Firefly Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3568</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP2, openEuler 22.03 LTS SP3</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#firefly-roc-rk3568-pc">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>BananaPi Armsom-Sige5</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://docs.armsom.org/armsom-sige5">Armsom Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3576</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP3</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#bananapi-armsom-sige5">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Firefly ITX-3588J</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://wiki.t-firefly.com/zh_CN/Core-3588J/index.html">Firefly Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3588</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP3</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#firefly-itx-3588j">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Firefly ROC-RK3588S-PC</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://wiki.t-firefly.com/zh_CN/ROC-RK3588S-PC/index.html">Firefly Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3588</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP2, openEuler 22.03 LTS SP3</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#firefly-roc-rk3588s-pc">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Radxa Rock-5B</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://docs.radxa.com/rock5/rock5b">Radxa Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3588</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP2, openEuler 22.03 LTS SP3</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#radxa-rock-5b">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Phytium Pi 4GB</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://www.phytium.com.cn/homepage/phytium_pie/">Phytium Website</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Phytium</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP3, openEuler 24.03 LTS</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#phytium-pi-4gb">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Orange Pi Zero 2</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="http://www.orangepi.cn/orangepiwiki/index.php/Orange_Pi_Zero_2">OrangePi Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Allwinner H616</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 20.03 LTS, openEuler 24.03 LTS</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#orange-pi-zero-2">构建完整镜像命令</a></td>
 </tr>
-<tbody><tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Longan Pi 3H</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://wiki.sipeed.com/hardware/zh/longan/h618/lpi3h/1_intro.html">Sipeed Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Allwinner H618</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#longan-pi-3h">构建完整镜像命令</a></td>
 </tr>
-
 </tbody></table>
 
 ### Docker 容器内构建

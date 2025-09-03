@@ -53,7 +53,7 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
 >- Recommendation: use the latest images provided in the chapter [How to download latest image](#how-to-download-latest-image) of this documentation.
 
 - [documents](./documents/):
-  - [How to contribute](documents/贡献指南.md)
+  - [How to contribute](documents/CONTRIBUTING.md)
   - [Raspberry Pi](documents/RaspberryPi.md)
     - [Getting started with Raspberry Pi](documents/RaspberryPi.md)
     - [Install openEuler on an SD card](documents/raspberrypi/刷写镜像.md)

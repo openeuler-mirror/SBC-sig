@@ -52,7 +52,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 >- 建议直接使用本文档 [最新镜像](#最新镜像) 章节中给出的 openEuler 的树莓派/RK3399等镜像。
 
 - [documents](./documents/): 使用文档
-  - [贡献指南](documents/贡献指南.md)
+  - [贡献指南](documents/CONTRIBUTING.md)
   - [树莓派](documents/RaspberryPi.md)
     - [树莓派快速入门](documents/RaspberryPi.md)
     - [刷写镜像](documents/raspberrypi/刷写镜像.md)
