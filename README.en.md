@@ -16,6 +16,8 @@ This repository is the main repository of the openEuler SBC (Single-Board Comput
     - [How to build image](#how-to-build-image)
         - [Prepare the environment](#prepare-the-environment)
         - [Run the scripts to build image](#run-the-scripts-to-build-image)
+            - [Build on host](#build-on-host)
+            - [Build in a Docker container](#build-in-a-docker-container)
 
 <!-- /TOC -->
 
@@ -51,15 +53,16 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
 >- Recommendation: use the latest images provided in the chapter [How to download latest image](#how-to-download-latest-image) of this documentation.
 
 - [documents](./documents/):
-  - [Raspberry Pi](documents/树莓派.md)
-    - [Getting started with Raspberry Pi](documents/树莓派.md)
+  - [How to contribute](documents/CONTRIBUTING.md)
+  - [Raspberry Pi](documents/RaspberryPi.md)
+    - [Getting started with Raspberry Pi](documents/RaspberryPi.md)
     - [Install openEuler on an SD card](documents/raspberrypi/刷写镜像.md)
     - [How to use Raspberry Pi](documents/raspberrypi/树莓派使用.md)
     - [Building openEuler image for Raspberry Pi](documents/raspberrypi/openEuler镜像的构建.md)
     - [Cross-compile the kernel](documents/raspberrypi/交叉编译内核.md)
     - [Emulate Raspberry Pi with QEMU](documents/raspberrypi/QEMU启动树莓派.md)
-  - [Rockchip and other SoCs](documents/瑞芯微等开发板.md)  
-    - [Getting started with Rockchip and other SoCs](documents/瑞芯微等开发板.md)
+  - [Rockchip and other SoCs](documents/Rockchip.md)
+    - [Getting started with Rockchip and other SoCs](documents/Rockchip.md)
     - [Building openEuler image for Rockchip development boards](documents/rockchip/openEuler镜像的构建.md)
     - [Install an Image on an EMMC](documents/rockchip/刷写EMMC镜像.md)
     - [Build images sequentially](documents/rockchip/顺序构建.md)
@@ -70,17 +73,13 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
     - [openEuler Adaptation Guide](documents/rockchip/openEuler适配指南.md)
     - [Using RKNPU on openEuler](documents/rockchip/在openEuler上使用RKNPU.md)
     - [Run RKLLM on openEuler](documents/rockchip/在openEuler上运行RKLLM.md)
-- [scripts](./scripts/):
-  - [Raspberry Pi](./scripts/raspberrypi): Script for building openEuler image for Raspberry Pi
-    - [Quickly Build (without kernel compilation)](scripts/raspberrypi/build-image.sh)
-    - [Build on host (with kernel compilation)](scripts/raspberrypi/build-image-common.sh)
-    - [Build in a Docker container (with kernel compilation)](scripts/raspberrypi/build-image-docker.sh)
-  - [Rockchip and other SoCs](./scripts/rockchip): Used to build openEuler images for Rockchip and other SoCs
-    - [One-time build images](scripts/rockchip/build.sh)
-    - [Build a boot Image](scripts/rockchip/build_boot.sh)
-    - [Build a rootfs Image](scripts/rockchip/build_rootfs.sh)
-    - [Compile u-boot](scripts/rockchip/build_u-boot.sh)
-    - [Generate a bootable image](scripts/rockchip/gen_image.sh)
+- [scripts](./scripts/): Script for building openEuler image
+    - [Build a unified system image](scripts/build.sh)
+    - [Build a unified system image using Docker](./scripts/build-image-docker.sh)
+    - [Build a boot Image](scripts/build_boot.sh)
+    - [Build a rootfs Image](scripts/build_rootfs.sh)
+    - [Compile u-boot](scripts/build_u-boot.sh)
+    - [Generate a bootable image](scripts/gen_image.sh)
 
 ## How to download latest image
 
@@ -306,38 +305,98 @@ To build openEuler AArch64 image for Raspberry Pi, Rockchip or other SoCs, the r
 For other architecture hardware, you can use [QEMU](https://www.qemu.org/) to build AArch64 system emulation.
 
 ### Run the scripts to build image
+You can use the unified build scripts [build.sh](./scripts/build.sh) or [build-image-docker.sh](./scripts/build-image-docker.sh) to build images for Raspberry Pi, Rockchip, and other development boards, either directly on the host machine or by launching a Docker container. For details, please refer to the documentation below:
+- [Build Raspberry Pi images](./documents/RaspberryPi.md#构建镜像)
+- [Build images for Rochchip and other SoCs](./documents/Rockchip.md#镜像构建)
 
-You can use the respective scripts of Raspberry Pi, Rockchip or other SoCs to build images. Refer to the specific documentation:
-- [Build Raspberry Pi images](./documents/树莓派.md#构建镜像)
-- [Build images for Rochchip and other SoCs](./documents/瑞芯微等开发板.md#镜像构建)
+#### Build on host
+Run the following command to build images on the host machine:
 
-Alternatively, you can use the unified entry point [build.sh](./scripts/build.sh) to build images for Raspberry Pi, Rockchip or other SoCs by executing the following command:
+`sudo bash build.sh --board BOARD_CONFIG -n NAME -k KERNEL_URL -b KERNEL_BRANCH -c KERNEL_DEFCONFIG -r REPO_INFO -s SPEC --cores N`
 
-`sudo bash scripts/build.sh --board BOARD_TYPE --in-docker [other_args...]`
+After building the image, you can find the image in `build/YYYY-MM-DD` of the directory in which the script resides as shown in the script output.
 
-Parameter Definitions & Meaning:
+**NOTE: You can directly execute "sudo bash build.sh" to build an openEuler 20.03 LTS image for Firefly-RK3399 with the script's default parameters.**
 
-1. `--in-docker`
-   Build the image using a Docker container. Refer to the links below:
-   - [Build Raspberry Pi images in Docker](./documents/树莓派.md#docker-容器内构建)
-   - [Build images for Rockchip or other SoCs in Docker](./documents/瑞芯微等开发板.md#docker-容器内构建)
+**Parameter Descriptions**
 
-2. `--board BOARD_TYPE`
-   Specifies the development board type. Currently supported parameters include:
+1.  --board BOARD_CONFIG
+    The board configuration files are located in the [boards](scripts/boards) directory. See the example file [sample.conf](scripts/boards/sample.conf). The default is `firefly-rk3399`.
 
-   - `rpi`: Build a Raspberry Pi image without compiling the kernel. For other parameters, refer to [Quick build for Raspberry Pi (no kernel compilation)](./documents/树莓派.md#快速构建无需编译内核推荐).
-   - `rpi-custom`: Build a Raspberry Pi image with kernel compilation. For other parameters, refer to [Build a Raspberry Pi image using a custom-compiled kernel](./documents/树莓派.md#完全构建包括编译内核).
-   - `firefly-itx-3588j`: Build a Firefly ITX-3588J image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `firefly-rk3399`: Build a Firefly RK3399 image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `firefly-roc-rk3566-pc`: Build a Firefly ROC-RK3566-PC image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `firefly-roc-rk3568-pc`: Build a Firefly ROC-RK3568-PC image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `firefly-roc-rk3568-pc-se`: Build a Firefly ROC-RK3568-PC-SE image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `firefly-roc-rk3588s-pc`: Build a Firefly ROC-RK3588S-PC image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `phytiumpi-4gb`: Build a Phytium Pi 4GB image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `radxa-rock5b`: Build a Radxa Rock-5B image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `radxa-rockpi-4a`: Build a Radxa RockPi-4A image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `orangepi-zero2`: Build a Orange Pi Zero2 image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
-   - `longanpi-3h`: Build a Sipeed Longan Pi 3H image. For other parameters, refer to [Build an image for Rockchip or other SoCs](./documents/瑞芯微等开发板.md#一次构建).
+    Configuration parameters included:
+    - platform=PLATFORM
 
-3. `-h`, `--help`
-   Display help information.
+        The Hardware platform used by the board. Currently supported platforms are: broadcom, rockchip, phytium. Default is `rockchip`.
+
+    - device-tree=DTB_NAME
+
+        The device name in the kernel device tree (slightly different from the board name). Corresponds to the `DTB_NAME.dts` file under [kernel/arch/arm64/boot/dts/rockchip](https://gitee.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip). Default is `rk3399-firefly`.
+
+    - ubootconfig=UBOOT_DEFCONFIG
+
+        The defconfig file name for the development board. Corresponds to the `UBOOT_DEFCONFIG` file under [u-boot/configs](https://github.com/u-boot/u-boot/tree/master/configs). Default is `firefly-rk3399_defconfig`. To use a precompiled u-boot (e.g., on RK3588), set this to empty: ubootconfig=.
+
+2.  -n, --name IMAGE_NAME
+
+    The image name to be built. For example, `openEuler-20.03-LTS-Firefly-RK3399-aarch64-alpha1` or `openEuler-24.03-LTS-raspi-aarch64-alpha1`.
+
+3.  -k, --kernel KERNEL_URL
+
+    The URL of kernel source repository, which defaults to `https://gitee.com/openeuler/raspberrypi-kernel.git`. You can set the parameter as `git@gitee.com:openeuler/raspberrypi-kernel.git` or `git@gitee.com:openeuler/kernel.git` according to the requirement.
+
+4.  -b, --branch KERNEL_BRANCH
+
+    The branch name of kernel source repository, which defaults to openEuler-20.03-LTS.
+
+5.  -c, --config KERNEL_DEFCONFIG
+
+    The filename/path of configuration for compiling kernel, which defaults to `openeuler-raspi_defconfig`. If this parameter is the filename of configuration, please make sure the configuration file in `arch/arm64/configs` of the kernel source.
+
+6.  -r, --repo REPO_INFO
+
+    The URL/path of target repo file, or the list of repositories' baseurls. Note that, the baseurls should be separated by space and enclosed in double quotes.
+    Examples are as follows:
+
+    - The URL of target repo file: `https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`.
+
+    - The path of target repo file:
+
+        `./openEuler-20.03-LTS.repo`：for building openEuler 20.03 LTS image, refer to <https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo> for details.
+
+    - List of repo's baseurls: `http://repo.openeuler.org/openEuler-20.03-LTS/OS/aarch64/ http://repo.openeuler.org/openEuler-20.03-LTS/EPOL/aarch64/`.
+
+7.  -s, --spec SPEC
+
+    Specify the image version:
+    - `headless`, image without desktop environments.
+    - `xfce`, image with Xfce desktop environment and related software including CJK fonts and IME.
+    - `ukui`, image with UKUI desktop environment and fundamental software including CJK fonts and IME.
+    - `dde`, image with DDE desktop environment and fundamental software including CJK fonts and IME.
+    - `gnome`，image with GNOME desktop environment and fundamental software including CJK fonts and IME.
+    - `devstation`，image with GNOME desktop environment and fundamental software including CJK fonts, IME, development tools and IDEs.
+    - The file path of rpmlist, the file contains a list of the software to be installed in the image, refer to [rpmlist](./scripts/configs/rpmlist) for details.
+
+    The default is `headless`.
+
+8.  --cores N
+
+    The number of parallel compilations, according to the actual number of CPU of the host running the script. The default is the number of processing units available.
+
+9.  -h, --help
+
+    Displays help information.
+
+#### Build in a Docker container
+Run the following command to build an image in a Docker container:
+
+`sudo bash build-image-docker.sh -d DOCKER_FILE --board BOARD_CONFIG -n NAME -k KERNEL_URL -b KERNEL_BRANCH -c KERNEL_DEFCONFIG -r REPO_INFO -s SPEC --cores N`
+
+After building the image, you can find the image in `build/YYYY-MM-DD` of the directory in which the script resides.
+
+Caution, before running the script, you need to install Docker. The script will automatically import the Docker image into the local system according to the script's parameter: DOCKER_FILE.
+
+In addition to the parameter DOCKER_FILE, the other parameters are the same as the corresponding parameters in [Build on host](#build-on-host):
+
+1.  -d, --docker DOCKER_FILE
+
+    The URL/path of the Docker image, which defaults to `https://repo.openeuler.org/openEuler-20.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz`. With the default parameter, the script will automatically download the Docker image of openEuler 20.03 LTS SP1 and import it into the local system.

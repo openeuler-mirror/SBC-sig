@@ -47,8 +47,8 @@
     1.  生成的刷写文件压缩包为 build 下或项目主页发布的的压缩后的 RAW 原始镜像（需要解压）：openEuler-VERSION-BOARD-RELEASE.img.xz。
 
     2.  项目主页 scripts/bin 目录下提供的：
-        - 如果是 RK3399，使用 [rk3399_loader.bin](../../scripts/rockchip/bin/rk3399_loader.bin)
-        - 如果是 RK3588，使用 [rk3588_loader.bin](../../scripts/rockchip/bin/rk3588_loader.bin)
+        - 如果是 RK3399，使用 [rk3399_loader.bin](../../scripts/bin/rockchip/rk3399_loader.bin)
+        - 如果是 RK3588，使用 [rk3588_loader.bin](../../scripts/bin/rockchip/rk3588_loader.bin)
 
 3.  下载版本不小于 2.92 的 [RKDevTool 工具](https://dl.radxa.com/tools/windows/windows_RKDevTool_Release_v2.92.zip)。
 
