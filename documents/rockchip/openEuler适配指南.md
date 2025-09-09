@@ -112,7 +112,11 @@ POST_BOARD_OVERLAY() {
        
         - msdos: allwinner
 
-  6.  POST_BOARD_OVERLAY()
+  6.  boot_size
+
+       开发板系统镜像的大小，单位为：MB。
+
+  7.  POST_BOARD_OVERLAY()
 
       `POST_BOARD_OVERLAY()` 是执行复制 firmware 文件到根目录以及对目标开发板根目录执行特定操作的函数，其使用的变量与 [build_rootfs.sh](../../scripts/build_rootfs.sh) 相同，通常包含以下两个变量：
 

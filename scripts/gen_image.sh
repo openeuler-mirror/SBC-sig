@@ -144,8 +144,8 @@ make_img(){
 
     device=""
     LOSETUP_D_IMG
-    size=`ls -l --block-size=1MiB ${workdir}/rootfs.img | awk '{ print $5 }'`
-    size=$(($size+1100))
+    root_size=`ls -l --block-size=1MiB ${workdir}/rootfs.img | awk '{ print $5 }'`
+    size=$((${root_size}+${boot_size}+880))
     losetup -D
     img_file=${workdir}/${name}.img
     LOG create ${img_file} size of ${size}MiB
@@ -154,11 +154,11 @@ make_img(){
     LOG "create ${part_table} partition table."
     if [ "x${board}" == "xraspberrypi" ]; then
         section1_start=16384
-        section1_end=1064959
     else
         section1_start=32768
-        section1_end=524287
     fi
+    section1_end=$((${section1_start}+(${boot_size}*2048)-1))
+
     parted ${img_file} mklabel ${part_table} mkpart primary fat32 ${section1_start}s ${section1_end}s
     parted ${img_file} -s set 1 boot on
     parted ${img_file} mkpart primary ext4 $(($section1_end+1))s 100%
