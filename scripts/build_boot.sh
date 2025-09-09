@@ -264,7 +264,6 @@ mk_boot() {
         dracut --no-kernel ${boot_dir}/initrd.img
         LOG "gen initrd done."
 
-        dtb_name=$(ls ${boot_dir} | grep dtb)
         LOG "gen extlinux config for $dtb_name"
         if [ "${platform}" == "rockchip" ];then
             bootargs=${rockchip_bootargs}
@@ -279,13 +278,13 @@ mk_boot() {
         echo "label openEuler
         kernel /Image
         initrd /initrd.img
-        fdt /${dtb_name}
+        fdt /${dtb_name}.dtb
         append  ${bootargs}" \
         > ${boot_dir}/extlinux/extlinux.conf
 
         LOG "gen extlinux config done."
     fi
-    dd if=/dev/zero of=${workdir}/boot.img bs=1M count=240 status=progress
+    dd if=/dev/zero of=${workdir}/boot.img bs=1M count=${boot_size} status=progress
     mkfs.vfat -n boot ${workdir}/boot.img
     if [ -d ${workdir}/boot_emmc ];then rm -rf ${workdir}/boot_emmc; fi
     mkdir ${workdir}/boot_emmc
