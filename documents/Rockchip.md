@@ -213,6 +213,13 @@
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#bananapi-armsom-sige5">构建完整镜像命令</a></td>
 </tr>
 <tr>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>100ASK DShanPi A1</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://wiki.dshanpi.org/docs/DshanPi-A1/intro">DShanPi Wiki</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3576</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP3</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#100ask-dshanpi-a1">构建完整镜像命令</a></td>
+</tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Firefly ITX-3588J</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://wiki.t-firefly.com/zh_CN/Core-3588J/index.html">Firefly Wiki</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Rockchip RK3588</p></td>
