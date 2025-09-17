@@ -53,6 +53,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 
 - [documents](./documents/): 使用文档
   - [贡献指南](documents/CONTRIBUTING.md)
+  - [开发板兼容性列表](documents/compatibility-list.md)
   - [树莓派](documents/RaspberryPi.md)
     - [树莓派快速入门](documents/RaspberryPi.md)
     - [刷写镜像](documents/raspberrypi/刷写镜像.md)

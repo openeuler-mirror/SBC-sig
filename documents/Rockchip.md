@@ -23,6 +23,8 @@
 
 ## 文件说明
 
+- [贡献指南](CONTRIBUTING.md)
+- [开发板兼容性列表](compatibility-list.md)
 - [documents](./rockchip): 使用文档
     - [openEuler镜像的构建](rockchip/openEuler镜像的构建.md)
     - [刷写EMMC镜像](rockchip/刷写EMMC镜像.md)

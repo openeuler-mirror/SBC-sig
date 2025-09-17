@@ -23,6 +23,8 @@
 >- 建议直接使用本文档 [最新镜像](#最新镜像) 章节中给出的 openEuler 的树莓派镜像。
 >- 如需根据自身需求定制镜像，可参考 [openEuler 镜像的构建](raspberrypi/openEuler镜像的构建.md) 和 [交叉编译内核](raspberrypi/交叉编译内核.md)。
 
+- [贡献指南](CONTRIBUTING.md)
+- [开发板兼容性列表](compatibility-list.md)
 - [树莓派](./raspberrypi): 使用文档
   - [刷写镜像](raspberrypi/刷写镜像.md)
   - [树莓派使用](raspberrypi/树莓派使用.md)
@@ -44,6 +46,7 @@
   - [构建 boot 镜像](scripts/build_boot.sh)
   - [构建 rootfs 镜像](scripts/build_rootfs.sh)
   - [将 u-boot、boot、rootfs 合并成一个完整镜像](scripts/gen_image.sh)
+
 
 ## 最新镜像
 
