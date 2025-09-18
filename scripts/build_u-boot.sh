@@ -107,9 +107,6 @@ build_u-boot() {
             exit 2
         fi
 
-        if [ ! -z "${cross_compile}" ]; then
-            export CROSS_COMPILE=${cross_compile}
-        fi
         make ARCH=arm ${ubootconfig}
         make ARCH=arm -j${make_cores}
         make ARCH=arm u-boot.itb -j${make_cores}
@@ -150,12 +147,13 @@ default_param
 local_param
 parseargs "$@" || help $?
 
-cross_compile=""
+source ${cur_dir}/boards/${board}.conf
+
 host_arch=$(arch)
 
 if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
     LOG "You are running this script on a ${host_arch} mechine, use cross compile...."
-    cross_compile="${workdir}/aarch64-toolchain/aarch64-none-linux-gnu-"
+    export CROSS_COMPILE="${workdir}/openeuler_gcc_arm64le/aarch64-openeuler-linux-gnu-"
 else
     LOG "You are running this script on a ${host_arch} mechine, progress...."
 fi
@@ -163,8 +161,6 @@ fi
 if [ ! -d ${workdir} ]; then
     mkdir ${workdir}
 fi
-
-source ${cur_dir}/boards/${board}.conf
 
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ ! -f ${workdir}/.done ];then

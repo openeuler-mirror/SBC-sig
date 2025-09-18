@@ -10,3 +10,4 @@
 /scripts/boot
 /scripts/rootfs*
 /scripts/img
+/scripts/build
