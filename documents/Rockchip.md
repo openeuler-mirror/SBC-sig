@@ -330,7 +330,51 @@
 
 2.  使用 x86_64 的主机进行构建时的注意事项：
 
-    - 由于 openEuler x86_64 软件仓库没有交叉编译工具链，在使用 x86_64 进行构建时，需要从 [Firefly 的 Gitlab 仓库](https://gitlab.com/firefly-linux/prebuilts/gcc/linux-x86/aarch64/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.git)下载交叉编译工具链，请确保网络状态良好。
+    (1) 由于 openEuler x86_64 软件仓库没有交叉编译工具链，在使用 x86_64 进行构建时，需要使用 [openEuler Embedded Toolchains](https://gitee.com/openeuler/yocto-meta-openeuler/releases/tag/toolchains-v0.1.8) 交叉编译工具链。
 
-    - 在使用 x86_64 进行构建时，需要构建主机支持 Qemu-User-Static 的运行条件。目前使用的 Qemu-User-Static 是基于 openEuler 24.03 LTS 预构建的软件包，使用其他版本跨架构构建时可能会出现问题。openEuler 软件仓库暂时还没有引进该软件包，目前正在将该软件包添加到 openEuler 软件仓库。
+    (2) 在使用 x86_64 进行构建时，需要构建主机支持 Qemu-User-Static 的运行条件。目前使用的 Qemu-User-Static 是基于 openEuler 24.03 LTS 预构建的软件包，使用其他版本跨架构构建时可能会出现问题。openEuler 软件仓库暂时还没有引进该软件包，目前正在将该软件包添加到 openEuler 软件仓库。
+
+    (3) 本框架支持在不同的操作系统（例如 Ubuntu、Fedora）以及不同的架构（x86_64）上构建 openEuler，经过测试的目标开发板及构建命令举例如下，其他开发板型号待测试：
+
+      - Rockchip: Firefly ROC-RK3588S-PC
+
+        ```
+        sudo bash build-image-docker.sh \
+             --board firefly-roc-rk3588s-pc \
+             -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -n openEuler-22.03-LTS-SP3-Station-M3-aarch64-alpha1 \
+             -k https://gitee.com/openeuler/rockchip-kernel.git \
+             -b openEuler-22.03-LTS-SP3 \
+             -c openeuler_rockchip_defconfig \
+             -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP3/generic.repo \
+             -s headless
+        ```
+
+      - Allwinner: Orange Pi Zero 2
+
+        ```
+        sudo bash build-image-docker.sh \
+             --board orangepi-zero2 \
+             -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -n openEuler-24.03-LTS-OrangePi-Zero2-aarch64-alpha1 \
+             -k https://gitee.com/openeuler/allwinner-kernel.git \
+             -b openEuler-24.03-LTS \
+             -c openeuler_allwinner_defconfig \
+             -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -s headless
+        ```
+
+      - Phytium: Phytium Pi 4GB
+
+        ```
+        sudo bash build-image-docker.sh \
+             --board phytiumpi-4gb \
+             -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -n openEuler-24.03-LTS-PhytiumPi-4GB-aarch64-alpha1 \
+             -k https://gitee.com/openeuler/phytium-kernel.git \
+             -b openEuler-24.03-LTS-Phytium \
+             -c phytium_defconfig \
+             -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -s headless
+        ```
 

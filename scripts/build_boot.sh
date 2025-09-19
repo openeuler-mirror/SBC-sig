@@ -172,9 +172,6 @@ make_kernel(){
         fi
     fi
 
-    if [ ! -z "${cross_compile}" ]; then
-        export CROSS_COMPILE=${cross_compile}
-    fi
     make distclean
     kernel_ver=""
     if [ "x${board}" == "xraspberrypi" ]; then
@@ -217,9 +214,6 @@ install_kernel() {
     mkdir -p ${workdir}/kernel/kernel-modules
     pushd ${workdir}/kernel
 
-    if [ ! -z "${cross_compile}" ]; then
-        export CROSS_COMPILE=${cross_compile}
-    fi
     if [ "x${board}" == "xraspberrypi" ]; then
         mkdir -p ${boot_dir}/overlays
         if [ -z "${kernel_defconfig}" ] && [ "x${branch}" == "xOLK-6.6" ]; then
@@ -311,6 +305,8 @@ default_param
 local_param
 parseargs "$@" || help $?
 
+source ${cur_dir}/boards/${board}.conf
+
 rockchip_bootargs="earlyprintk console=ttyS2,1500000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 init=/sbin/init rootwait"
 phytium_bootargs="console=ttyAMA1,115200 earlycon=pl011,0x2800d000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait cma=256m"
 allwinner_bootargs="console=tty0 console=ttyS0,115200 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait earlycon clk_gnore_unused"
@@ -329,12 +325,11 @@ elif [ "x${board}" != "xraspberrypi" ]; then
     exit 1
 fi
 
-cross_compile=""
 host_arch=$(arch)
 
 if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
     LOG "You are running this script on a ${host_arch} mechine, use cross compile...."
-    cross_compile="${workdir}/aarch64-toolchain/bin/aarch64-none-linux-gnu-"
+    export CROSS_COMPILE="${workdir}/openeuler_gcc_arm64le/bin/aarch64-openeuler-linux-gnu-"
 else
     LOG "You are running this script on a ${host_arch} mechine, progress...."
 fi
@@ -342,8 +337,6 @@ fi
 if [ ! -d ${workdir} ]; then
     mkdir ${workdir}
 fi
-
-source ${cur_dir}/boards/${board}.conf
 
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ ! -f ${workdir}/.done ];then

@@ -237,3 +237,16 @@
 1.  -d, --docker DOCKER_FILE
 
     Docker 镜像的 URL 或者路径， 默认为 `https://repo.openeuler.org/openEuler-20.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz`。使用该默认参数时，脚本会自动下载 openEuler 20.03 LTS SP1 的 Docker 镜像，并导入本机系统中。
+
+使用 Docker 构建镜像支持在不同的操作系统（例如 Ubuntu、Fedora）以及不同的架构（x86_64）上构建树莓派镜像，经过测试的版本构建命令举例如下，其他版本待测试：
+
+```
+sudo bash build.sh \
+    --board raspberrypi \
+    -n openEuler-24.03-LTS-RaspberryPi-aarch64-alpha1 \
+    -k https://gitee.com/openeuler/raspberrypi-kernel.git \
+    -b OLK-6.6 \
+    -c bcm2712_defconfig \
+    -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+    -s headless
+```

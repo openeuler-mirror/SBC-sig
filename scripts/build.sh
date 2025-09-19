@@ -156,7 +156,8 @@ if [ ! -d ${workdir} ]; then
 fi
 
 # Firefly Toolchain Repo
-aarch64_toolchain_bin_repo="https://gitlab.com/firefly-linux/prebuilts/gcc/linux-x86/aarch64/gcc-arm-10.3-2021.07-x86_64-aarch64-none-linux-gnu.git"
+aarch64_toolchain_base_url="https://gitee.com/openeuler/yocto-meta-openeuler/releases/download"
+aarch64_toolchain_verson="toolchains-v0.1.8"
 
 host_arch=$(arch)
 
@@ -177,8 +178,25 @@ else
     oe_deppkg_install
     if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
         LOG "Cloning linux arm64 cross compile toolchain for x86_64..."
-        if [ -d ${workdir}/aarch64-toolchain ];then rm -rf ${workdir}/aarch64-toolchain; fi
-        git clone --depth=1 ${aarch64_toolchain_bin_repo} ${workdir}/aarch64-toolchain
+        if [[ -d ${workdir}/openeuler_gcc_arm64le && ! -f ${workdir}/openeuler_gcc_arm64le/.done ]];then
+            rm -rf ${workdir}/openeuler_gcc_arm64le
+        fi
+        
+        cd ${workdir}
+
+        i=$((1))
+        get_toolchain() {
+            local block="$(printf $1)"
+            echo "${aarch64_toolchain_base_url}/${aarch64_toolchain_verson}/${block}_openeuler_gcc_arm64le.tar.gz"
+        }
+        while wget "$(get_toolchain "$i")"; do
+            i=$((i + 1))
+        done
+
+        cat *_openeuler_gcc_arm64le.tar.gz >> openeuler_gcc_arm64le.tar.gz
+        tar -zxvf openeuler_gcc_arm64le.tar.gz
+
+        rm *openeuler_gcc_arm64le.tar.gz
     else
         LOG "You are running this script on a ${host_arch} mechine, progress...."
     fi
