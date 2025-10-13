@@ -170,15 +170,6 @@ LOG build board image with docker: ${docker_file}.
 
 (echo "FROM $docker_img_name" && grep -v FROM ${config_dir}/Dockerfile) | \
     docker build -t ${docker_img_name}-${buildid} \
-    --build-arg board=${board} \
-    --build-arg docker_file=${docker_file} \
-    --build-arg name=${name} \
-    --build-arg kernel_url=${kernel_url} \
-    --build-arg branch=${branch} \
-    --build-arg default_defconfig=${default_defconfig} \
-    --build-arg repo_file=${repo_file} \
-    --build-arg spec_param=${spec_param} \
-    --build-arg make_cores=${make_cores} \
     --no-cache -f- ${config_dir}
     
 echo docker run --rm --privileged=true \
@@ -186,6 +177,15 @@ echo docker run --rm --privileged=true \
     ${docker_img_name}-${buildid}
 docker run --rm --privileged=true \
     -v ${cur_dir}:/work \
+    -e board=${board} \
+    -e docker_file=${docker_file} \
+    -e name=${name} \
+    -e kernel_url=${kernel_url} \
+    -e branch=${branch} \
+    -e default_defconfig=${default_defconfig} \
+    -e repo_file=${repo_file} \
+    -e spec_param=${spec_param} \
+    -e make_cores=${make_cores} \
     ${docker_img_name}-${buildid}
 chmod -R a+r ${workdir}
 docker image rm ${docker_img_name}-${buildid}
