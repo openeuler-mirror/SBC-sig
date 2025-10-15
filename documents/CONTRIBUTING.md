@@ -9,6 +9,8 @@ SBC SIG 交流方式可参考：
 
 本文将以树莓派为例，介绍向 SBC SIG 贡献代码和文档的要求与规范。
 
+另外，针对瑞芯微系列开发板适配指南参考文档有 [openEuler 适配指南](rockchip/openEuler适配指南.md)
+
 ### 内核源码
 SBC SIG 维护的内核源码仓库包括：
 - [树莓派内核](https://gitee.com/openeuler/raspberrypi-kernel)
