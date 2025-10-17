@@ -61,6 +61,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
     - [openEuler 镜像的构建](documents/raspberrypi/openEuler镜像的构建.md)
     - [交叉编译内核](documents/raspberrypi/交叉编译内核.md)
     - [QEMU 启动树莓派](documents/raspberrypi/QEMU启动树莓派.md)
+    - [Hailo AI](documents/raspberrypi/HailoAI.md)
   - [瑞芯微等其他开发板](documents/Rockchip.md)
     - [瑞芯微等快速入门](documents/Rockchip.md)
     - [openEuler镜像的构建](documents/rockchip/openEuler镜像的构建.md)

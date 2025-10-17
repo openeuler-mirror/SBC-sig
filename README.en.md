@@ -62,6 +62,7 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
     - [Building openEuler image for Raspberry Pi](documents/raspberrypi/openEuler镜像的构建.md)
     - [Cross-compile the kernel](documents/raspberrypi/交叉编译内核.md)
     - [Emulate Raspberry Pi with QEMU](documents/raspberrypi/QEMU启动树莓派.md)
+    - [Hailo AI](documents/raspberrypi/HailoAI.md)
   - [Rockchip and other SoCs](documents/Rockchip.md)
     - [Getting started with Rockchip and other SoCs](documents/Rockchip.md)
     - [Building openEuler image for Rockchip development boards](documents/rockchip/openEuler镜像的构建.md)
