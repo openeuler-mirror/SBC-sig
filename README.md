@@ -49,7 +49,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 ## 文件说明
 
 >![](documents/public_sys-resources/icon-note.gif) **说明：**   
->- 建议直接使用本文档 [最新镜像](#最新镜像) 章节中给出的 openEuler 的树莓派/RK3399等镜像。
+>- 建议直接使用本文档 [最新镜像](#最新镜像) 章节中给出的 openEuler 的树莓派/Rockchip 等镜像。
 
 - [documents](./documents/): 使用文档
   - [贡献指南](documents/CONTRIBUTING.md)
@@ -75,12 +75,12 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
     - [在openEuler上使用RKNPU](documents/rockchip/在openEuler上使用RKNPU.md)
     - [在openEuler上运行RKLLM](documents/rockchip/在openEuler上运行RKLLM.md)
 - [scripts](./scripts/): openEuler 镜像构建脚本
-      - [构建完整镜像](scripts/build.sh)
-      - [使用 Docker 构建完整镜像](./scripts/build-image-docker.sh)
-      - [构建 boot 镜像](scripts/build_boot.sh)
-      - [构建 rootfs 镜像](scripts/build_rootfs.sh)
-      - [编译 u-boot](scripts/build_u-boot.sh)
-      - [将 u-boot、boot、rootfs 合并成一个完整镜像](scripts/gen_image.sh)
+    - [构建完整镜像](scripts/build.sh)
+    - [使用 Docker 构建完整镜像](./scripts/build-image-docker.sh)
+    - [构建 boot 镜像](scripts/build_boot.sh)
+    - [构建 rootfs 镜像](scripts/build_rootfs.sh)
+    - [编译 u-boot](scripts/build_u-boot.sh)
+    - [将 u-boot、boot、rootfs 合并成一个完整镜像](scripts/gen_image.sh)
 
 ## 最新镜像
 

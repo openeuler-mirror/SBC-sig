@@ -76,6 +76,8 @@
 
     2.  点击路径右边的空白表格单元格选择：
         - 如果是 RK3399，选择 rk3399_loader.bin
+        - 如果是 RK3566/RK3568，选择 rk356x_loader.bin
+        - 如果是 RK3576，选择 rk3576_loader.bin
         - 如果是 RK3588，选择 rk3588_loader.bin
 
     3.  点击路径右边的空白表格单元格选择 openEuler-VERSION-BOARD-RELEASE.img。

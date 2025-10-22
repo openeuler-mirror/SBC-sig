@@ -37,7 +37,7 @@
     - [openEuler 适配指南](rockchip/openEuler适配指南.md)
     - [在openEuler上使用RKNPU](rockchip/在openEuler上使用RKNPU.md)
     - [在openEuler上运行RKLLM](rockchip/在openEuler上运行RKLLM.md)
-- [scripts](../scripts):  构建 openEuler 树莓派、RK3399 等开发板镜像的脚本
+- [scripts](../scripts):  构建 openEuler 树莓派、Rockchip 等开发板镜像的脚本
     - [构建完整镜像](scripts/build.sh)
     - [使用 Docker 构建完整镜像](./scripts/build-image-docker.sh)
     - [构建 boot 镜像](scripts/build_boot.sh)
