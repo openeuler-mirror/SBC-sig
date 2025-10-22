@@ -15,6 +15,60 @@ Basic information of the image is as follows:
 </tr></thead>
 <tbody>
 <tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>363 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-UKUI-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1 (UKUI desktop and Chinese input method)</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>1.7 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-DDE-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1 (DDE desktop and Chinese input method)</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>1.6 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-GNOME-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1 (GNOME desktop and Chinese input method)</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2.4 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-DevStation-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1 (DevStation and Chinese input method)</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>1.4 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-25.09/raspi_img/openEuler-25.09-raspi-aarch64.img.xz">openEuler 25.09</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root（openeuler）</li><li>pi（raspberry）</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2025/09/29</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>330.1 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+</tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-24.03-LTS-SP2-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP2 alpha1</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li><li>pi (raspberry)</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
