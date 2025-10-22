@@ -277,7 +277,8 @@ outputd(){
     fi
     mv ${workdir}/${name}.img ${outputdir}
     LOG "xz openEuler image begin..."
-    xz ${outputdir}/${name}.img
+    pushd $outputdir
+    xz -T 20 ${name}.img
     if [ ! -f ${outputdir}/${name}.img.xz ]; then
         ERROR "xz openEuler image failed!"
         exit 2
@@ -311,12 +312,10 @@ outputd(){
         rm ${workdir}/idbloader.img
         rm ${workdir}/u-boot.itb
 
-        pushd $outputdir
-        sha256sum ${name}.tar.gz >> ${name}.tar.gz.sha256sum
+        sha256sum ${name}.tar.gz > ${name}.tar.gz.sha256sum
         popd
     fi
-    pushd $outputdir
-    sha256sum ${name}.img.xz >> ${name}.img.xz.sha256sum
+    sha256sum ${name}.img.xz > ${name}.img.xz.sha256sum
     popd
 
     LOG "The target images: ${outputdir}/${name}.img.xz."

@@ -166,7 +166,8 @@ log_dir=${workdir}/log
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
 if [ -f ${workdir}/.done ];then
     LOG "Checking the previous build."
-    if [[ $(cat ${workdir}/.done | grep u-boot) == "u-boot" && \
+    if ! diff -q ${workdir}/.param_last ${workdir}/.param > /dev/null 2>&1 || \
+    [[ $(cat ${workdir}/.done | grep u-boot) == "u-boot" && \
     $(cat ${workdir}/.done | grep bootimg) == "bootimg" && \
     $(cat ${workdir}/.done | grep rootfs) == "rootfs" && \
     $(cat ${workdir}/.done | grep image) == "image" ]];then
