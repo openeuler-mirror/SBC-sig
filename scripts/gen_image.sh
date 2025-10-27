@@ -26,7 +26,7 @@ default_param() {
     board=firefly-rk3399
     soc_name=rk3399
     platform=rockchip
-    nonfree_bin_dir=${cur_dir}/bin/rockchip
+    nonfree_bin_dir=${cur_dir}/bin
     config_dir=${cur_dir}/configs/rockchip
     rootfs_dir=${workdir}/rootfs
     boot_dir=${workdir}/boot
@@ -288,8 +288,8 @@ outputd(){
 
     if [[ "x$soc_name" == "xrk3399" && "x$platform" == "xrockchip" ]]; then
         LOG "tar openEuler image begin..."
-        cp ${nonfree_bin_dir}/rk3399_loader.bin ${workdir}
-        cp ${nonfree_bin_dir}/rk3399_parameter.gpt ${workdir}
+        cp ${nonfree_bin_dir}/tools/rockchip/rk3399_loader.bin ${workdir}
+        cp ${nonfree_bin_dir}/tools/rockchip/rk3399_parameter.gpt ${workdir}
         cp ${workdir}/u-boot/idbloader.img ${workdir}
         cp ${workdir}/u-boot/u-boot.itb ${workdir}
         pushd ${workdir}
