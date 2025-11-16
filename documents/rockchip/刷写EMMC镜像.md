@@ -7,7 +7,7 @@
 
 # 描述
 
-本文档以为 Firefly ROC-RK3588S-PC 开发板刷写镜像为例，介绍了如何将 EMMC 刷写文件刷写入 EMMC。
+本文档以 Firefly ROC-RK3588S-PC 开发板刷写镜像为例，介绍了如何在 Rockchip 平台上将 openEuler 安装到 EMMC。
 
 # 使用 Windows 刷写
 
@@ -34,13 +34,15 @@
 
 6.  确保映像文件的路径和刷入地址正确，点击路径右边的空白表格单元格选择对应的文件。
 
+    以 boot.img 文件为例，起始偏移地址对应分区表配置文件 `rk3399_parameter.gpt` 中的 `0x00078000@0x00008000(boot:bootable)`，含义为：起始地址为 `0x00008000`，大小为 `0x00078000` 的分区，分区名为 `boot`，可启动。
+
     ![emmcaddress](images/rk3399-emmcaddress.png)
 
 7.  点击执行按钮开始升级，升级结束后开发板会自动重启。
 
 ## 使用压缩后的 RAW 原始镜像
 
-1.  本方法适用于 Rk3399/RK3588。
+1.  本方法适用于 Rk3399/RK356X/RK3576/RK3588。
 
 2.  刷写所需要的文件：
     
@@ -94,13 +96,9 @@
 
     ![completely](images/completely.png)
 
-# 使用 Linux 刷写
+# 使用 Linux/MacOS 刷写
 
-1.  本方法仅支持 RK3399。
-
-2.  生成的刷写文件压缩包为 build 下的 openEuler-VERSION-BOARD-RELEASE.tar.gz，将其解压。
-
-3.  编译安装 rkdeveloptool ，具体可以参考 [Rockchip 官方 wiki - rkdeveloptool](http://opensource.rock-chips.com/wiki_Rkdeveloptool)
+1.  编译安装 rkdeveloptool ，具体可以参考 [Rockchip 官方 wiki - rkdeveloptool](http://opensource.rock-chips.com/wiki_Rkdeveloptool)；MacOS 需要安装 `Xcode 命令行工具` 以及 `homebrew` 环境。
     
     1.  下载源码
 
@@ -119,30 +117,100 @@
         `make install`
 
 
-4.  开发板开机，登录到开发板后，清除 EMMC 上的引导程序，此时开发板会自动进入 maskrom 模式
+2.  设备进入 MASKROM 模式：
+
+    1. 如果是 Firefly-RK3399，开发板开机后，登录到开发板，需要清除 EMMC 上的引导程序，断电重启后开发板会自动进入 maskrom 模式
 
     ```
     dd if=/dev/zero of=/dev/mmcblk0 bs=1M count=8
     reboot
     ```
 
+    2. 如果是自带 MASKROM 按键的开发板，按下 MASKROM 按键，然后连接电脑，接上电源后，开发板会进入 MASKROM 模式。
+
     使用 Type-C data cable 连接好开发板和主机，使用 `lsusb` 命令看到以下信息即为成功进入 Maskrom Mode
 
     RK3399 显示如下
     ![rk3399-maskrommode](images/rk3399-maskrommode.png)
 
-5.  刷写镜像等文件到 EMMC，如下:
+3.  刷写 openEuler 到 EMMC:
 
-    ```
-    cd build
-    rkdeveloptool db rk3399_loader.bin
-    rkdeveloptool gpt rk3399_parameter.gpt
-    rkdeveloptool wl 0x40 idbloader.img
-    rkdeveloptool wl 0x4000 u-boot.itb
-    rkdeveloptool wl 0x8000 boot.img
-    rkdeveloptool wl 0x80000 rootfs.img
-    rkdeveloptool rd
-    ```
+    1. 如果使用打包后的 EMMC 刷写文件
+    
+       生成的刷写文件压缩包为 build 下的 openEuler-VERSION-BOARD-RELEASE.tar.gz，将其解压，刷写过程如下：
+
+       下载 loader 文件来初始化设备：
+
+       ```
+       rkdeveloptool db rk3399_loader.bin
+       ```
+
+       应用分区表配置文件：
+
+       ```
+       rkdeveloptool gpt rk3399_parameter.gpt
+       ```
+
+       刷入 idbloader 到 EMMC 起始偏移地址为 0x40（块大小为 512 的第 64 个块）的地方：
+
+       ```
+       rkdeveloptool wl 0x40 idbloader.img
+       ```
+
+       刷入 u-boot 到 EMMC 起始偏移地址为 0x4000（块大小为 512 的第 16384 个块）的地方：
+
+       ```
+       rkdeveloptool wl 0x4000 u-boot.itb
+       ```
+
+       刷入 boot.img，起始偏移地址对应分区表配置文件 `rk3399_parameter.gpt` 中的 `0x00078000@0x00008000(boot:bootable)`，含义为：起始地址为 `0x00008000`，大小为 `0x00078000` 的分区，分区名为 `boot`，可启动。
+
+       ```
+       rkdeveloptool wl 0x8000 boot.img
+       ```
+
+       刷入 rootfs.img，起始地址参考上文描述。
+
+       ```
+       rkdeveloptool wl 0x80000 rootfs.img
+       ```
+
+       然后重启设备
+
+       ```
+       rkdeveloptool rd
+       ```
+
+    2. 如果使用压缩后的 RAW 原始镜像
+
+       生成的刷写文件压缩包为 build 下或项目主页发布的的压缩后的 RAW 原始镜像（需要解压）：openEuler-VERSION-BOARD-RELEASE.img.xz，将其解压，刷写过程如下：
+
+       下载 loader 文件来初始化设备：
+
+       ```
+       rkdeveloptool db loader.bin
+       ```
+
+       其中，`loader.bin` 需要按照以下情况进行替换：
+
+        - 如果是 RK3399，替换为 rk3399_loader.bin
+        - 如果是 RK3566/RK3568，替换为 rk356x_loader.bin
+        - 如果是 RK3576，替换为 rk3576_loader.bin
+        - 如果是 RK3588，替换为 rk3588_loader.bin
+
+       刷写 RAW 原始镜像到 EMMC：
+
+       ```
+       rkdeveloptool wl 0  openEuler-VERSION-BOARD-RELEASE.img
+       ```
+
+       这里的 `openEuler-VERSION-BOARD-RELEASE.img` 需要替换为实际的镜像名称
+
+       重启设备
+
+       ```
+       rkdeveloptool rd
+       ```
 
 # 使用 SD 镜像启动后进入系统刷写
 
