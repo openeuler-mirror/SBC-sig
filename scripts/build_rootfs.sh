@@ -29,7 +29,7 @@ default_param() {
     tmp_dir=${workdir}/tmp
     branch=openEuler-20.03-LTS
     rootfs_arch=aarch64
-    nonfree_bin_dir=${cur_dir}/bin/rockchip
+    nonfree_bin_dir=${cur_dir}/bin
     config_dir=${cur_dir}/configs/rockchip
     rootfs_dir=${workdir}/rootfs
     log_dir=${workdir}/log

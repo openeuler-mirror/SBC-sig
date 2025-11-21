@@ -50,7 +50,7 @@
 
 ## 准备 firmware 文件
    
-这里提到的 firmware 是开发板的板载蓝牙和 WiFi 的驱动固件，可参考[本框架储存的的 firmware 文件](../../scripts/bin/rockchip/linux-firmware/)。
+这里提到的 firmware 是开发板的板载蓝牙和 WiFi 的驱动固件，可参考[本框架储存的的 firmware 文件](../../scripts/bin/linux-firmware/)。
 
 请确定开发板所使用的 firmware，并提交至仓库的相应目录下。
 
@@ -122,7 +122,7 @@ POST_BOARD_OVERLAY() {
 
       - nonfree_bin_dir
 
-        该参数为储存 firmware 的文件夹，默认为 [../../scripts/bin/rockchip/](../../scripts/bin/rockchip/)。
+        该参数为储存 firmware 的文件夹，默认为 [../../scripts/bin/rockchip/](../../scripts/bin/)。
 
       - rootfs_dir
 

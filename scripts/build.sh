@@ -45,7 +45,7 @@ default_param() {
     branch=openEuler-20.03-LTS
     repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
     kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
-    nonfree_bin_dir=${cur_dir}/bin/rockchip
+    nonfree_bin_dir=${cur_dir}/bin
     workdir=${cur_dir}/build
     name=${branch}-${board}-aarch64-alpha1
     make_cores=$(nproc)
