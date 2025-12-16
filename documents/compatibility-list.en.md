@@ -143,5 +143,12 @@ English | [简体中文](./compatibility-list.md)
 <td class="cellrowborder" valign="top" width="10%"><p style="color:yellow">Community Support</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#longan-pi-3h">Build a unified system image</a></td>
 </tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://docs.khadas.com/products/sbc/vim3/start">Khadas VIM3</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>Amlogic A311D</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS(<a href="https://gitee.com/openeuler/kernel/tree/OLK-6.6/">kernel version 6.6</a>)</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p style="color:yellow">Community Support</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#khadas-vim3">Build a unified system image</a></td>
+</tr>
 </tbody>
 </table>

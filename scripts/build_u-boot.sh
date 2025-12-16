@@ -134,6 +134,8 @@ use_prebuild_u-boot() {
         dd if=${workdir}/u-boot/env.bin of=${workdir}/u-boot/fip-all-sd-boot.bin bs=1k seek=1472 conv=notrunc
     elif [[ "x${platform}" == "xallwinner" ]]; then
         cp ${local_uboot_dir}/* ${workdir}/u-boot
+    elif [[ "x${platform}" == "xamlogic" ]]; then
+        cp ${local_uboot_dir}/* ${workdir}/u-boot
     else
         echo "target u-boot can not found!"
         exit 2

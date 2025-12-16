@@ -143,5 +143,12 @@
 <td class="cellrowborder" valign="top" width="10%"><p style="color:yellow">社区支持</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#longan-pi-3h">构建完整镜像</a></td>
 </tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://docs.khadas.com/products/sbc/vim3/start">Khadas VIM3</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>Amlogic A311D</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS（<a href="https://gitee.com/openeuler/kernel/tree/OLK-6.6/">内核版本 6.6</a>）</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p style="color:yellow">社区支持</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#khadas-vim3">构建完整镜像</a></td>
+</tr>
 </tbody>
 </table>

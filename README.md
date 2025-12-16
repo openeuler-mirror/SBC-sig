@@ -2,7 +2,7 @@
 
 [English](./README.en.md) | 简体中文
 
-本仓库是 openEuler 社区 SBC (Single-Board Computer) SIG 组的主仓库，提供 SIG 组相关信息以及适用于[树莓派](https://gitee.com/openeuler/raspberrypi-kernel)、[Rockchip](https://gitee.com/openeuler/rockchip-kernel)、[全志](https://gitee.com/openeuler/allwinner-kernel)等开发板的 openEuler 镜像的构建脚本和相关文档。
+本仓库是 openEuler 社区 SBC (Single-Board Computer) SIG 组的主仓库，提供 SIG 组相关信息以及适用于[树莓派](https://www.raspberrypi.org/)、[Rockchip](https://www.rock-chips.com/)、[全志](https://www.allwinnertech.com/)、[晶晨](https://www.amlogic.cn/)等开发板的 openEuler 镜像的构建脚本和相关文档。
 
 <!-- TOC -->
 
@@ -331,7 +331,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 
     - platform=PLATFORM
 
-        开发板所使用的平台，目前支持的平台有：broadcom、rockchip、phytium，默认为 `rockchip`。
+        开发板所使用的平台，目前支持的平台有：broadcom、rockchip、phytium、amlogic，默认为 `rockchip`。
 
     - device-tree=DTB_NAME
 
@@ -355,7 +355,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 
 5.  -c, --config KERNEL_DEFCONFIG
 
-    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 `arch/arm64/configs` 下。
+    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 `arch/arm64/configs` 或构建框架的 [scripts/configs/rockchip](./scripts/configs/rockchip/) 下。
 
 6.  -r, --repo REPO_INFO
 

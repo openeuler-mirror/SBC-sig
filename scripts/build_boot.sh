@@ -162,6 +162,12 @@ make_kernel(){
     LOG "make kernel(${default_defconfig}) begin..."
     kernel_dir_tmp=$1
     pushd "${kernel_dir_tmp}"
+
+    if [ -f ${cur_dir}/configs/rockchip/${kernel_defconfig} ];then
+        LOG "use local kernel defconfig: ${kernel_defconfig}"
+        cp ${cur_dir}/configs/rockchip/${kernel_defconfig} arch/arm64/configs
+    fi
+
     if [ -n "${kernel_defconfig}" ]; then
         if [ "x${kernel_defconfig:0:1}" != "x/" ]; then
             if [ ! -f arch/arm64/configs/${kernel_defconfig} ]; then
@@ -193,6 +199,7 @@ make_kernel(){
             fi
         fi
     fi
+
     cp ${kernel_defconfig} .config
     make ARCH=arm64 olddefconfig
     kernel_defconfig=${kernel_defconfig##*/}
@@ -265,6 +272,8 @@ mk_boot() {
             bootargs=${phytium_bootargs}
         elif [ "${platform}" == "allwinner" ];then
             bootargs=${allwinner_bootargs}
+        elif [ "${platform}" == "amlogic" ];then
+            bootargs=${amlogic_bootargs}
         else
             echo "Unsupported platform"
             exit 2
@@ -310,6 +319,7 @@ source ${cur_dir}/boards/${board}.conf
 rockchip_bootargs="earlyprintk console=ttyS2,1500000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 init=/sbin/init rootwait"
 phytium_bootargs="console=ttyAMA1,115200 earlycon=pl011,0x2800d000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait cma=256m"
 allwinner_bootargs="console=tty0 console=ttyS0,115200 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait earlycon clk_gnore_unused"
+amlogic_bootargs="console=ttyAML0,115200 console=tty1 consoleblank=0 root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootwait rootfstype=ext4 splash=verbose coherent_pool=2M loglevel=8"
 
 if [ -n "${default_defconfig}" ]; then
     if [ ! -f $default_defconfig ] ; then
