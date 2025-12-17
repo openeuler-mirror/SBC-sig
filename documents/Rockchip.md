@@ -130,7 +130,7 @@
 
 5.  -c, --config KERNEL_DEFCONFIG
 
-    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 arch/arm64/configs 下。
+    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 `arch/arm64/configs` 或构建框架的 [scripts/configs/rockchip](../scripts/configs/rockchip/) 下。
 
 6.  -r, --repo REPO_INFO
 
@@ -262,6 +262,12 @@
 <td class="cellrowborder" valign="top" width="10%"><p>Allwinner H618</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#longan-pi-3h">构建完整镜像命令</a></td>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>Khadas VIM3</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://docs.khadas.com/products/sbc/vim3/start">Khadas Wiki</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>Amlogic A311D</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#khadas-vim3">构建完整镜像命令</a></td>
 </tr>
 </tbody></table>
 
@@ -380,3 +386,16 @@
              -s headless
         ```
 
+      - Amlogic: Khadas VIM3
+
+        ```
+        sudo bash build-image-docker.sh \
+             --board khadas-vim3 \
+             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -n openEuler-24.03-LTS-Khadas-VIM3-aarch64-alpha1 \
+             -k https://gitee.com/openeuler/kernel.git \
+             -b OLK-6.6 \
+             -c amlogic-kernel-OLK-6.6.config \
+             -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -s headless
+        ```

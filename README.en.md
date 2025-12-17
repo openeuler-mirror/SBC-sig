@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.md)
 
-This repository is the main repository of the openEuler SBC (Single-Board Computer) SIG. It provides information related to SBC SIG, build scripts and documentation for openEuler images suitable for development boards such as [Raspberry Pi](https://gitee.com/openeuler/raspberrypi-kernel), [Rockchip](https://gitee.com/openeuler/rockchip-kernel) and [Allwinner](https://gitee.com/openeuler/allwinner-kernel).
+This repository is the main repository of the openEuler SBC (Single-Board Computer) SIG. It provides information related to SBC SIG, build scripts and documentation for openEuler images suitable for development boards such as [Raspberry Pi](https://www.raspberrypi.org/), [Rockchip](https://www.rock-chips.com/), [Allwinner](https://www.allwinnertech.com/) and [Amlogic](https://www.amlogic.cn/).
 
 <!-- TOC -->
 
