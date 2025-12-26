@@ -26,7 +26,7 @@
    
 1.  克隆代码。
 
-    `git clone --branch dev-4.19 https://gitee.com/openeuler/rockchip-kernel.git`
+    `git clone --branch dev-4.19 https://atomgit.com/openeuler/rockchip-kernel.git`
 
 2.  设置环境变量。
 

@@ -29,7 +29,7 @@ default_param() {
     board=firefly-rk3399
     dtb_name=rk3399-firefly
     platform=rockchip
-    kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
+    kernel_url="https://atomgit.com/openeuler/rockchip-kernel.git"
     boot_dir=${workdir}/boot
     log_dir=${workdir}/log
     make_cores=$(nproc)

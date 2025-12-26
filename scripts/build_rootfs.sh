@@ -24,7 +24,7 @@ help()
 
 default_param() {
     board=firefly-rk3399
-    repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
+    repo_file="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
     workdir=${cur_dir}/build
     tmp_dir=${workdir}/tmp
     branch=openEuler-20.03-LTS
