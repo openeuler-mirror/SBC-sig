@@ -1,10 +1,10 @@
 # 贡献指南
 openEuler SBC SIG —— 诚挚邀请您的加入。
 
-SBC（single-board computer）SIG 致力于将 openEuler 操作系统适配到各类单板计算机（SBC），包括但不限于树莓派（Raspberry Pi）、瑞芯微（Rockchip）等。其核心工作涵盖硬件适配、内核维护、镜像构建、社区协作及标准化推进，旨在确保 openEuler 在 SBC 设备上的稳定运行和生态扩展。更多信息请参阅 [openEuler SBC SIG 介绍](https://gitee.com/openeuler/community/blob/master/sig/sig-SBC/README.md)。
+SBC（single-board computer）SIG 致力于将 openEuler 操作系统适配到各类单板计算机（SBC），包括但不限于树莓派（Raspberry Pi）、瑞芯微（Rockchip）等。其核心工作涵盖硬件适配、内核维护、镜像构建、社区协作及标准化推进，旨在确保 openEuler 在 SBC 设备上的稳定运行和生态扩展。更多信息请参阅 [openEuler SBC SIG 介绍](https://atomgit.com/openeuler/community/blob/master/sig/sig-SBC/README.md)。
 
 SBC SIG 交流方式可参考：
-- [openEuler 社区贡献说明](https://gitee.com/openeuler/community/blob/master/zh/contributors/README.md)
+- [openEuler 社区贡献说明](https://atomgit.com/openeuler/community/blob/master/zh/contributors/README.md)
 - [如何参与 SBC SIG](../README.md#如何参与-sig-组)
 
 本文将以树莓派为例，介绍向 SBC SIG 贡献代码和文档的要求与规范。
@@ -13,10 +13,10 @@ SBC SIG 交流方式可参考：
 
 ### 内核源码
 SBC SIG 维护的内核源码仓库包括：
-- [树莓派内核](https://gitee.com/openeuler/raspberrypi-kernel)
-- [瑞芯微内核](https://gitee.com/openeuler/rockchip-kernel)
-- [飞腾内核](https://gitee.com/openeuler/phytium-kernel)
-- [全志内核](https://gitee.com/openeuler/allwinner-kernel)
+- [树莓派内核](https://atomgit.com/openeuler/raspberrypi-kernel)
+- [瑞芯微内核](https://atomgit.com/openeuler/rockchip-kernel)
+- [飞腾内核](https://atomgit.com/openeuler/phytium-kernel)
+- [全志内核](https://atomgit.com/openeuler/allwinner-kernel)
 
 内核源码贡献相关流程如下：
 1. 新增开发板适配需求：请在本仓库提交 ISSUE，待需求审核通过并在 openEuler 社区创建对应内核仓库后，方可接受相关内核适配的 PR。

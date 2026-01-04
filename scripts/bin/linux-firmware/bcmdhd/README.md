@@ -10,25 +10,25 @@ bcmdhd 和 brcmfmac 都是博通网卡的无线驱动。其中 brcmfmac 是由�
 
 1. Firefly-RK3399
 
-   - 内核仓库：https://gitee.com/openeuler/rockchip-kernel
+   - 内核仓库：https://atomgit.com/openeuler/rockchip-kernel
 
-   - 内核分支：[openEuler-20.03-LTS](https://gitee.com/openeuler/rockchip-kernel/tree/openEuler-20.03-LTS/)
+   - 内核分支：[openEuler-20.03-LTS](https://atomgit.com/openeuler/rockchip-kernel/tree/openEuler-20.03-LTS/)
 
-   - 无线驱动：[openEuler-20.03-LTS bcmdhd](https://gitee.com/openeuler/rockchip-kernel/tree/openEuler-20.03-LTS/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd)
+   - 无线驱动：[openEuler-20.03-LTS bcmdhd](https://atomgit.com/openeuler/rockchip-kernel/tree/openEuler-20.03-LTS/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd)
    
    &nbsp;
 
 2. ROC-RK3568-PC
 
-   - 内核仓库：https://gitee.com/openeuler/rockchip-kernel
+   - 内核仓库：https://atomgit.com/openeuler/rockchip-kernel
 
    - 内核分支：
-     - [openEuler-22.03-LTS-SP2](https://gitee.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP2/)
+     - [openEuler-22.03-LTS-SP2](https://atomgit.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP2/)
 
-     - [openEuler-22.03-LTS-SP3](https://gitee.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP3/)
+     - [openEuler-22.03-LTS-SP3](https://atomgit.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP3/)
 
    - 无线驱动：
 
-     - [openEuler-22.03-LTS-SP2 bcmdhd](https://gitee.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP2/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd)
+     - [openEuler-22.03-LTS-SP2 bcmdhd](https://atomgit.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP2/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd)
 
-     - [openEuler-22.03-LTS-SP3 bcmdhd](https://gitee.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP3/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd)
+     - [openEuler-22.03-LTS-SP3 bcmdhd](https://atomgit.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP3/drivers/net/wireless/rockchip_wlan/rkwifi/bcmdhd)

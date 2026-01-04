@@ -367,7 +367,7 @@
 
 ## PhytiumPi U-Boot
 
-PhytiumPi U-Boot 不开源，所使用的预编译二进制文件来自于 `飞腾嵌入式软件部` 开源仓库：<https://gitee.com/phytium_embedded/phytium-rogue-umlibs/tree/develop/phyuboot>
+PhytiumPi U-Boot 不开源，所使用的预编译二进制文件来自于 `飞腾嵌入式软件部` 开源仓库：<https://atomgit.com/phytium_embedded/phytium-rogue-umlibs/tree/develop/phyuboot>
 
 # 基于 openEuler 内核编译内核镜像
 
@@ -377,7 +377,7 @@ PhytiumPi U-Boot 不开源，所使用的预编译二进制文件来自于 `飞�
 
     ```
     cd $WORKDIR
-    git clone --branch openEuler-20.03-LTS https://gitee.com/openeuler/rockchip-kernel.git
+    git clone --branch openEuler-20.03-LTS https://atomgit.com/openeuler/rockchip-kernel.git
     ```
 
 2.  编译内核，生成内核映像文件 Image 和设备树文件
@@ -473,7 +473,7 @@ rpm -ivh --nodeps --root $WORKDIR/rootfs/ http://repo.openeuler.org/openEuler-20
 
 ```
 mkdir $WORKDIR/rootfs/etc/yum.repos.d`
-curl -o $WORKDIR/rootfs/etc/yum.repos.d/openEuler-20.03-LTS.repo https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo
+curl -o $WORKDIR/rootfs/etc/yum.repos.d/openEuler-20.03-LTS.repo https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo
 ```
 
 ![addrepo](images/addrepo.png)

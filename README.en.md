@@ -23,19 +23,19 @@ This repository is the main repository of the openEuler SBC (Single-Board Comput
 
 ## To Do List
 1. Raspberry Pi
-   1. [Migrate openEuler to Raspberry Pi CM4](https://gitee.com/openeuler/raspberrypi/issues/I5CHSV)
+   1. [Migrate openEuler to Raspberry Pi CM4](https://atomgit.com/openeuler/raspberrypi/issues/119)
 2. Rockchip
-   1. [Migrate openEuler 22.09 to RK3399 SoCs](https://gitee.com/openeuler/rockchip/issues/I5CHNJ)
-   2. [Migrate openEuler 22.03 LTS (Next) to Rockchip SoCs](https://gitee.com/openeuler/rockchip/issues/I5CHO9)
-   3. [Migrate openEuler 22.03 LTS (Next) to ITX-3588J SoCs](https://gitee.com/openeuler/rockchip-kernel/issues/I5XTK1)
+   1. [Migrate openEuler 22.09 to RK3399 SoCs](https://atomgit.com/openeuler/rockchip/issues/5)
+   2. [Migrate openEuler 22.03 LTS (Next) to Rockchip SoCs](https://atomgit.com/openeuler/rockchip/issues/20)
+   3. [Migrate openEuler 22.03 LTS (Next) to ITX-3588J SoCs](https://atomgit.com/openeuler/rockchip-kernel/issues/6)
 3. Allwinner
-   1. [Migrate openEuler 5.10 kernel to Allwinner SoCs](https://gitee.com/openeuler/allwinner-kernel/issues/I5CHOF)
+   1. [Migrate openEuler 5.10 kernel to Allwinner SoCs](https://atomgit.com/openeuler/allwinner-kernel/issues/1)
 
 ## How to collaborate
 
-You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/openeuler/community/tree/master/sig/sig-SBC).
+You can get introduction of openEuler SBC SIG from [sig-SBC](https://atomgit.com/openeuler/community/tree/master/sig/sig-SBC).
 
-- Issues: welcome to collaborate with us by creating new issues or reply opened issues. You can get repository list from [sig-SBC](https://gitee.com/openeuler/community/tree/master/sig/sig-SBC).
+- Issues: welcome to collaborate with us by creating new issues or reply opened issues. You can get repository list from [sig-SBC](https://atomgit.com/openeuler/community/tree/master/sig/sig-SBC).
 - Join Slack workspace: [openeuler-sbc](https://openeuler-sbc.slack.com)
   - [Invite link](https://join.slack.com/t/openeuler-sbc/shared_invite/zt-uh95ug4n-yX7a~c7VrTEU64tZlX3Djw)
 - Weekly meeting schedule
@@ -44,7 +44,7 @@ You can get introduction of openEuler SBC SIG from [sig-SBC](https://gitee.com/o
     - Log in to the [openEuler Community](https://openeuler.org/) website, then view the booking information of `sig-SBC例会` in the meeting calendar.
     - Search `openEuler` in mini programs of WeChat, add `OpenAtom openEuler mini program`. Then click `会议` and view the booking information of `sig-SBC例会`.
   - [Meeting Agenda](https://etherpad.openeuler.org/p/sig-SBC-meetings)
-  - [Meeting Minutes](https://gitee.com/openeuler/SBC-sig/issues/IB2WFJ)
+  - [Meeting Minutes](https://atomgit.com/openeuler/SBC-sig/issues/5)
 - Warmly welcome to submit Pull Requests.
 
 ## File description
@@ -107,7 +107,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>363 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-UKUI-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1 (UKUI desktop and Chinese input method)</a></td>
@@ -115,7 +115,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.7 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-DDE-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1 (DDE desktop and Chinese input method)</a></td>
@@ -123,7 +123,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.6 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-GNOME-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1 (GNOME desktop and Chinese input method)</a></td>
@@ -131,7 +131,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>2.4 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-DevStation-raspi-aarch64-alpha1.img.xz">openEuler 25.09 alpha1 (DevStation and Chinese input method)</a></td>
@@ -139,7 +139,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.4 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-25.09/raspi_img/openEuler-25.09-raspi-aarch64.img.xz">openEuler 25.09</a></td>
@@ -147,7 +147,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2025/09/29</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>330.1 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 alpha1</a></td>
@@ -155,7 +155,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>235 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-UKUI-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 alpha1 (UKUI desktop and Chinese input method)</a></td>
@@ -163,7 +163,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.5 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-DDE-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 alpha1 (DDE desktop and Chinese input method)</a></td>
@@ -171,7 +171,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.4 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-Xfce-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 alpha1 (Xfce desktop and Chinese input method)</a></td>
@@ -179,7 +179,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>2.0 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-UEFI-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 alpha1 (EFI boot)</a></td>
@@ -187,7 +187,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>255 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-217.0.0.22</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://repo.openeuler.org/openEuler-22.03-LTS-SP4/raspi_img/openEuler-22.03-LTS-SP4-raspi-aarch64.img.xz">openEuler 22.03 LTS SP4</a></td>
@@ -195,7 +195,7 @@ Basic information of the images for Raspberry Pi is as follows. [more images](do
 <td class="cellrowborder" valign="top" width="10%"><p>2024/06/29</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>229 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
 </tr>
 </tbody></table>
 
@@ -218,7 +218,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>288 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>4.19.90</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
@@ -227,7 +227,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>493 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>4.19.90</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed image for the EMMC</p></td>
 </tr>
 <tbody><tr>
@@ -236,7 +236,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>295 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>4.19.90</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
@@ -245,7 +245,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>420 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
@@ -254,7 +254,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>717 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed image for the EMMC</p></td>
 </tr>
 <tbody><tr>
@@ -263,7 +263,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>717 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
@@ -272,7 +272,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2023/7/11</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>494 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
@@ -281,7 +281,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2023/7/11</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.9 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
@@ -290,7 +290,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2024/1/23</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>450 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP3/generic.repo">openEuler 22.03 LTS SP3 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP3/generic.repo">openEuler 22.03 LTS SP3 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 </tbody></table>
@@ -332,7 +332,7 @@ After building the image, you can find the image in `build/YYYY-MM-DD` of the di
 
     - device-tree=DTB_NAME
 
-        The device name in the kernel device tree (slightly different from the board name). Corresponds to the `DTB_NAME.dts` file under [kernel/arch/arm64/boot/dts/rockchip](https://gitee.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip). Default is `rk3399-firefly`.
+        The device name in the kernel device tree (slightly different from the board name). Corresponds to the `DTB_NAME.dts` file under [kernel/arch/arm64/boot/dts/rockchip](https://atomgit.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip). Default is `rk3399-firefly`.
 
     - ubootconfig=UBOOT_DEFCONFIG
 
@@ -344,7 +344,7 @@ After building the image, you can find the image in `build/YYYY-MM-DD` of the di
 
 3.  -k, --kernel KERNEL_URL
 
-    The URL of kernel source repository, which defaults to `https://gitee.com/openeuler/raspberrypi-kernel.git`. You can set the parameter as `git@gitee.com:openeuler/raspberrypi-kernel.git` or `git@gitee.com:openeuler/kernel.git` according to the requirement.
+    The URL of kernel source repository, which defaults to `https://atomgit.com/openeuler/raspberrypi-kernel.git`. You can set the parameter as `git@atomgit.com:openeuler/raspberrypi-kernel.git` or `git@atomgit.com:openeuler/kernel.git` according to the requirement.
 
 4.  -b, --branch KERNEL_BRANCH
 
@@ -359,11 +359,11 @@ After building the image, you can find the image in `build/YYYY-MM-DD` of the di
     The URL/path of target repo file, or the list of repositories' baseurls. Note that, the baseurls should be separated by space and enclosed in double quotes.
     Examples are as follows:
 
-    - The URL of target repo file: `https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`.
+    - The URL of target repo file: `https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`.
 
     - The path of target repo file:
 
-        `./openEuler-20.03-LTS.repo`：for building openEuler 20.03 LTS image, refer to <https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo> for details.
+        `./openEuler-20.03-LTS.repo`：for building openEuler 20.03 LTS image, refer to <https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo> for details.
 
     - List of repo's baseurls: `http://repo.openeuler.org/openEuler-20.03-LTS/OS/aarch64/ http://repo.openeuler.org/openEuler-20.03-LTS/EPOL/aarch64/`.
 

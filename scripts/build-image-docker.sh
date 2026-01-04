@@ -10,7 +10,7 @@ Options:
   --board BOARD_CONFIG             Required! The config of target board in the boards folder.
   -d, --docker DOCKER_FILE         The URL/path of the Docker image, which defaults to https://repo.openeuler.org/openEuler-20.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz
   -n, --name IMAGE_NAME            The board image name to be built.
-  -k, --kernel KERNEL_URL          The URL of kernel source's repository, which defaults to https://gitee.com/openeuler/rockchip-kernel.git.
+  -k, --kernel KERNEL_URL          The URL of kernel source's repository, which defaults to https://atomgit.com/openeuler/rockchip-kernel.git.
   -b, --branch KERNEL_BRANCH       The branch name of kernel source's repository, which defaults to openEuler-22.03-LTS-SP3.
   -c, --config KERNEL_DEFCONFIG    The name/path of defconfig file when compiling kernel, which defaults to openeuler_rockchip_defconfig.
   -r, --repo REPO_INFO             Required! The URL/path of target repo file or list of repo's baseurls which should be a space separated list.

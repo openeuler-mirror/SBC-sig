@@ -48,7 +48,7 @@
 
 1.  下载 openEuler 的树莓派镜像
 
-    openEuler 的树莓派镜像下载链接详见 [SBC SIG 主仓库](https://gitee.com/openeuler/SBC-sig)。这里我们以 openEuler 社区发布的 openEuler 20.03 LTS SP1 版本的树莓派镜像为例，执行命令：
+    openEuler 的树莓派镜像下载链接详见 [SBC SIG 主仓库](https://atomgit.com/openeuler/SBC-sig)。这里我们以 openEuler 社区发布的 openEuler 20.03 LTS SP1 版本的树莓派镜像为例，执行命令：
 
     `wget https://repo.openeuler.org/openEuler-20.03-LTS-SP1/raspi_img/aarch64/openEuler-20.03-LTS-SP1-raspi-aarch64.img.xz`
 

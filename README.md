@@ -23,19 +23,19 @@
 ## To Do List
 
 1. 树莓派
-   1. [树莓派 CM4 核心板适配、测试](https://gitee.com/openeuler/raspberrypi/issues/I5CHSV)
+   1. [树莓派 CM4 核心板适配、测试](https://atomgit.com/openeuler/raspberrypi/issues/119)
 2. Rockchip
-   1. [openEuler 22.09 适配到 RK3399](https://gitee.com/openeuler/rockchip/issues/I5CHNJ)
-   2. [openEuler 22.03 LTS (Next) 适配到 Rockchip 开发板](https://gitee.com/openeuler/rockchip/issues/I5CHO9)
-   3. [openEuler 22.03 LTS (Next) 适配到 ITX-3588J 开发板](https://gitee.com/openeuler/rockchip-kernel/issues/I5XTK1)
+   1. [openEuler 22.09 适配到 RK3399](https://atomgit.com/openeuler/rockchip/issues/5)
+   2. [openEuler 22.03 LTS (Next) 适配到 Rockchip 开发板](https://atomgit.com/openeuler/rockchip/issues/20)
+   3. [openEuler 22.03 LTS (Next) 适配到 ITX-3588J 开发板](https://atomgit.com/openeuler/rockchip-kernel/issues/6)
 3. 全志
-   1. [openEuler 5.10 内核适配到全志开发板](https://gitee.com/openeuler/allwinner-kernel/issues/I5CHOF)
+   1. [openEuler 5.10 内核适配到全志开发板](https://atomgit.com/openeuler/allwinner-kernel/issues/1)
 
 ## 如何参与 SIG 组
 
-SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/master/sig/sig-SBC)。
+SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree/master/sig/sig-SBC)。
 
-- 建立或回复 issue：欢迎通过建立或回复 issue 来讨论，此 SIG 组维护的仓库列表可在 [sig-SBC](https://gitee.com/openeuler/community/tree/master/sig/sig-SBC) 中查看。
+- 建立或回复 issue：欢迎通过建立或回复 issue 来讨论，此 SIG 组维护的仓库列表可在 [sig-SBC](https://atomgit.com/openeuler/community/tree/master/sig/sig-SBC) 中查看。
 - 加入 Slack 群组：[openeuler-sbc](https://openeuler-sbc.slack.com)
   - [加入群组链接](https://join.slack.com/t/openeuler-sbc/shared_invite/zt-uh95ug4n-yX7a~c7VrTEU64tZlX3Djw)
 - SIG 组会议：每个月的第一个和第三个周三下午 17:00 - 17:30 会进行一次讨论会议
@@ -43,7 +43,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
     - [openEuler 社区网站](https://openeuler.org/)下的会议日历中查看 `sig-SBC例会` 预定信息。
     - 微信小程序搜索 `openEuler`，添加 `OpenAtom openEuler` 小程序，可在其`会议`栏目查看 `sig-SBC例会` 预定信息。
   - [会议议题](https://etherpad.openeuler.org/p/sig-SBC-meetings)：每次会议前填写要讨论的议题，我们也会从 issue 列表中提取本周讨论的内容。
-  - [会议记录](https://gitee.com/openeuler/SBC-sig/issues/IB2WFJ)：每次会议结束后会议结论会更新在此 issue 中。
+  - [会议记录](https://atomgit.com/openeuler/SBC-sig/issues/5)：每次会议结束后会议结论会更新在此 issue 中。
 - 重要的事说三遍：**欢迎提交 PR！欢迎提交 PR！欢迎提交 PR！**
 
 ## 文件说明
@@ -106,7 +106,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>363 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-UKUI-raspi-aarch64-alpha1.img.xz">openEuler 25.09 内测版（UKUI 桌面、中文输入法）</a></td>
@@ -114,7 +114,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.7 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-DDE-raspi-aarch64-alpha1.img.xz">openEuler 25.09 内测版（DDE 桌面、中文输入法）</a></td>
@@ -122,7 +122,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.6 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-GNOME-raspi-aarch64-alpha1.img.xz">openEuler 25.09 内测版（GNOME 桌面、中文输入法）</a></td>
@@ -130,7 +130,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>2.4 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-25.09-DevStation-raspi-aarch64-alpha1.img.xz">openEuler 25.09 内测版（DevStation 开发者工作站、中文输入法）</a></td>
@@ -138,7 +138,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2025/10/17</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.4 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-25.09/raspi_img/openEuler-25.09-raspi-aarch64.img.xz">openEuler 25.09</a></td>
@@ -146,7 +146,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2025/09/29</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>330.1 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>6.6.0-102.0.0.1</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-25.09/generic.repo">openEuler 25.09 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 内测版</a></td>
@@ -154,7 +154,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>235 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-UKUI-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 内测版（UKUI 桌面、中文输入法）</a></td>
@@ -162,7 +162,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.5 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-DDE-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 内测版（DDE 桌面、中文输入法）</a></td>
@@ -170,7 +170,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.4 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-Xfce-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 内测版（Xfce 桌面、中文输入法）</a></td>
@@ -178,7 +178,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>2.0 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/eulixos/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-SP4-UEFI-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 内测版（EFI 引导启动）</a></td>
@@ -186,7 +186,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2024/07/06</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>255 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-217.0.0.22</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://repo.openeuler.org/openEuler-22.03-LTS-SP4/raspi_img/openEuler-22.03-LTS-SP4-raspi-aarch64.img.xz">openEuler 22.03 LTS SP4</a></td>
@@ -194,7 +194,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2024/06/29</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>229 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-209.0.0.21</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
 </tr>
 </tbody></table>
 
@@ -217,7 +217,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>288 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>4.19.90</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
@@ -226,7 +226,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>493 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>4.19.90</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>打包后的 EMMC 刷写文件</p></td>
 </tr>
 <tbody><tr>
@@ -235,7 +235,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>295 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>4.19.90</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo">openEuler 20.03 LTS repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
@@ -244,7 +244,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>420 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
@@ -253,7 +253,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>717 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>打包后的 EMMC 刷写文件</p></td>
 </tr>
 <tbody><tr>
@@ -262,7 +262,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2021/12/20</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>717 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-21.09/generic.repo">openEuler 21.09 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
@@ -271,7 +271,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2023/7/11</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>494 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
@@ -280,7 +280,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2023/7/11</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.9 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
@@ -289,7 +289,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 <td class="cellrowborder" valign="top" width="10%"><p>2024/1/24</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>450 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP3/generic.repo">openEuler 22.03 LTS SP3 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP3/generic.repo">openEuler 22.03 LTS SP3 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 </tbody></table>
@@ -335,7 +335,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 
     - device-tree=DTB_NAME
 
-        内核设备树中的设备名称，和开发板名称有一点区别，对应 [kernel/arch/arm64/boot/dts/rockchip](https://gitee.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip) 下的 `DTB_NAME.dts` 文件，默认为 `rk3399-firefly`。
+        内核设备树中的设备名称，和开发板名称有一点区别，对应 [kernel/arch/arm64/boot/dts/rockchip](https://atomgit.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip) 下的 `DTB_NAME.dts` 文件，默认为 `rk3399-firefly`。
 
     - ubootconfig=UBOOT_DEFCONFIG
 
@@ -347,7 +347,7 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
 
 3.  -k, --kernel KERNEL_URL
 
-    内核源码仓库的项目地址，默认为 `https://gitee.com/openeuler/rockchip-kernel.git`。可根据需要设置为 `git@gitee.com:openeuler/rockchip-kernel.git` 或 `git@gitee.com:openeuler/kernel.git`。
+    内核源码仓库的项目地址，默认为 `https://atomgit.com/openeuler/rockchip-kernel.git`。可根据需要设置为 `git@atomgit.com:openeuler/rockchip-kernel.git` 或 `git@atomgit.com:openeuler/kernel.git`。
 
 4.  -b, --branch KERNEL_BRANCH
 
@@ -362,10 +362,10 @@ SIG 组基本信息位于 [sig-SBC](https://gitee.com/openeuler/community/tree/m
     软件源 repo 文件的 URL 或者路径，也可以是软件源中资源库的 baseurl 列表。注意，如果该参数为资源库的 baseurl 列表，该参数需要使用双引号，各个 baseurl 之间以空格隔开。
 
     下面分别举例：
-    - 软件源 repo 文件的 URL，如 `https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
+    - 软件源 repo 文件的 URL，如 `https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
     - 软件源的 repo 文件路径：
 
-        `./openEuler-20.03-LTS.repo`：生成 openEuler 20.03 LTS 版本的镜像，该文件内容参考 <https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo>。
+        `./openEuler-20.03-LTS.repo`：生成 openEuler 20.03 LTS 版本的镜像，该文件内容参考 <https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo>。
 
     - 资源库的 baseurl 列表，如 `http://repo.openeuler.org/openEuler-20.03-LTS/OS/aarch64/ http://repo.openeuler.org/openEuler-20.03-LTS/EPOL/aarch64/`。
 

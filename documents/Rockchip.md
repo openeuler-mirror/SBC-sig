@@ -105,7 +105,7 @@
 
     - device-tree=DTB_NAME
 
-        内核设备树中的设备名称，和开发板名称有一点区别，对应 [kernel/arch/arm64/boot/dts/rockchip](https://gitee.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip) 下的 `DTB_NAME.dts` 文件，默认为 `rk3399-firefly`。
+        内核设备树中的设备名称，和开发板名称有一点区别，对应 [kernel/arch/arm64/boot/dts/rockchip](https://atomgit.com/openeuler/kernel/tree/master/arch/arm64/boot/dts/rockchip) 下的 `DTB_NAME.dts` 文件，默认为 `rk3399-firefly`。
 
     - ubootconfig=UBOOT_DEFCONFIG
 
@@ -117,15 +117,15 @@
 
 3.  -k, --kernel KERNEL_URL
 
-    内核源码仓库的项目地址，默认为 `https://gitee.com/openeuler/rockchip-kernel.git`。可根据需要设置为 `git@gitee.com:openeuler/rockchip-kernel.git` 或 `git@gitee.com:openeuler/kernel.git`。
+    内核源码仓库的项目地址，默认为 `https://atomgit.com/openeuler/rockchip-kernel.git`。可根据需要设置为 `git@atomgit.com:openeuler/rockchip-kernel.git` 或 `git@atomgit.com:openeuler/kernel.git`。
 
 4.  -b, --branch KERNEL_BRANCH
 
     内核源码的对应分支，默认为 openEuler-20.03-LTS。根据 -k 参数有以下选择：
 
-    - -k https://gitee.com/openeuler/rockchip-kernel.git
+    - -k https://atomgit.com/openeuler/rockchip-kernel.git
         - openEuler-20.03-LTS
-    - -k https://gitee.com/openeuler/kernel.git
+    - -k https://atomgit.com/openeuler/kernel.git
         - openEuler-21.09
 
 5.  -c, --config KERNEL_DEFCONFIG
@@ -137,10 +137,10 @@
     软件源 repo 文件的 URL 或者路径，也可以是软件源中资源库的 baseurl 列表。注意，如果该参数为资源库的 baseurl 列表，该参数需要使用双引号，各个 baseurl 之间以空格隔开。
     下面分别举例：
 
-    - 软件源 repo 文件的 URL，如 `https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
+    - 软件源 repo 文件的 URL，如 `https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
     - 软件源的 repo 文件路径：
 
-        `./openEuler-20.03-LTS.repo`：生成 openEuler 20.03 LTS 版本的镜像，该文件内容参考 <https://gitee.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo>。
+        `./openEuler-20.03-LTS.repo`：生成 openEuler 20.03 LTS 版本的镜像，该文件内容参考 <https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo>。
 
     - 资源库的 baseurl 列表，如 `http://repo.openeuler.org/openEuler-20.03-LTS/OS/aarch64/ http://repo.openeuler.org/openEuler-20.03-LTS/EPOL/aarch64/`。
 
@@ -338,7 +338,7 @@
 
 2.  使用 x86_64 的主机进行构建时的注意事项：
 
-    (1) 由于 openEuler x86_64 软件仓库没有交叉编译工具链，在使用 x86_64 进行构建时，需要使用 [openEuler Embedded Toolchains](https://gitee.com/openeuler/yocto-meta-openeuler/releases/tag/toolchains-v0.1.8) 交叉编译工具链。
+    (1) 由于 openEuler x86_64 软件仓库没有交叉编译工具链，在使用 x86_64 进行构建时，需要使用 [openEuler Embedded Toolchains](https://atomgit.com/openeuler/yocto-meta-openeuler/releases/tag/toolchains-v0.1.8) 交叉编译工具链。
 
     (2) 在使用 x86_64 进行构建时，需要构建主机支持 Qemu-User-Static 的运行条件。目前使用的 Qemu-User-Static 是基于 openEuler 24.03 LTS 预构建的软件包，使用其他版本跨架构构建时可能会出现问题。openEuler 软件仓库暂时还没有引进该软件包，目前正在将该软件包添加到 openEuler 软件仓库。
 
@@ -351,10 +351,10 @@
              --board firefly-roc-rk3588s-pc \
              -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
              -n openEuler-22.03-LTS-SP3-Station-M3-aarch64-alpha1 \
-             -k https://gitee.com/openeuler/rockchip-kernel.git \
+             -k https://atomgit.com/openeuler/rockchip-kernel.git \
              -b openEuler-22.03-LTS-SP3 \
              -c openeuler_rockchip_defconfig \
-             -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP3/generic.repo \
+             -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP3/generic.repo \
              -s headless
         ```
 
@@ -365,10 +365,10 @@
              --board orangepi-zero2 \
              -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
              -n openEuler-24.03-LTS-OrangePi-Zero2-aarch64-alpha1 \
-             -k https://gitee.com/openeuler/allwinner-kernel.git \
+             -k https://atomgit.com/openeuler/allwinner-kernel.git \
              -b openEuler-24.03-LTS \
              -c openeuler_allwinner_defconfig \
-             -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
              -s headless
         ```
 
@@ -379,10 +379,10 @@
              --board phytiumpi-4gb \
              -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
              -n openEuler-24.03-LTS-PhytiumPi-4GB-aarch64-alpha1 \
-             -k https://gitee.com/openeuler/phytium-kernel.git \
+             -k https://atomgit.com/openeuler/phytium-kernel.git \
              -b openEuler-24.03-LTS-Phytium \
              -c phytium_defconfig \
-             -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
              -s headless
         ```
 
@@ -393,9 +393,9 @@
              --board khadas-vim3 \
              -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
              -n openEuler-24.03-LTS-Khadas-VIM3-aarch64-alpha1 \
-             -k https://gitee.com/openeuler/kernel.git \
+             -k https://atomgit.com/openeuler/kernel.git \
              -b OLK-6.6 \
              -c amlogic-kernel-OLK-6.6.config \
-             -r https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
              -s headless
         ```

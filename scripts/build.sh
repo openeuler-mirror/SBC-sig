@@ -10,7 +10,7 @@ The target bootable compressed images will be generated in the build/YYYY-MM-DD 
 Options: 
   --board BOARD_CONFIG                 Required! The config of target board in the boards folder, which defaults to firefly-rk3399.
   -n, --name IMAGE_NAME                The openEuler image name to be built.
-  -k, --kernel KERNEL_URL              The URL of kernel source's repository, which defaults to https://gitee.com/openeuler/rockchip-kernel.git.
+  -k, --kernel KERNEL_URL              The URL of kernel source's repository, which defaults to https://atomgit.com/openeuler/rockchip-kernel.git.
   -b, --branch KERNEL_BRANCH           The branch name of kernel source's repository, which defaults to openEuler-20.03-LTS.
   -c, --config KERNEL_DEFCONFIG        The name/path of defconfig file when compiling kernel, which defaults to openeuler_rockchip_defconfig.
   -r, --repo REPO_INFO                 The URL/path of target repo file or list of repo's baseurls which should be a space separated list.
@@ -43,8 +43,8 @@ default_param() {
     dtb_name=rk3399-firefly
     platform=rockchip
     branch=openEuler-20.03-LTS
-    repo_file="https://gitee.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
-    kernel_url="https://gitee.com/openeuler/rockchip-kernel.git"
+    repo_file="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
+    kernel_url="https://atomgit.com/openeuler/rockchip-kernel.git"
     nonfree_bin_dir=${cur_dir}/bin
     workdir=${cur_dir}/build
     name=${branch}-${board}-aarch64-alpha1
@@ -156,7 +156,7 @@ if [ ! -d ${workdir} ]; then
 fi
 
 # Firefly Toolchain Repo
-aarch64_toolchain_base_url="https://gitee.com/openeuler/yocto-meta-openeuler/releases/download"
+aarch64_toolchain_base_url="https://atomgit.com/openeuler/yocto-meta-openeuler/releases/download"
 aarch64_toolchain_verson="toolchains-v0.1.8"
 
 host_arch=$(arch)

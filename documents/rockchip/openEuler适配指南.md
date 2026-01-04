@@ -22,15 +22,15 @@
 
        - 瑞芯微：
 
-         https://gitee.com/openeuler/rockchip-kernel.git
+         https://atomgit.com/openeuler/rockchip-kernel.git
 
        - 飞腾：
 
-         https://gitee.com/openeuler/phytium-kernel.git
+         https://atomgit.com/openeuler/phytium-kernel.git
 
        - 全志：
        
-         https://gitee.com/openeuler/allwinner-kernel.git
+         https://atomgit.com/openeuler/allwinner-kernel.git
 
   2.  如果内核仓库中已经存在相关驱动，则只需要在相应内核仓库提交对应开发板的内核设备树即可。
 
@@ -87,7 +87,7 @@ POST_BOARD_OVERLAY() {
 
   2.  dtb_name=DTB_NAME
 
-      内核设备树中的设备名称，和开发板名称有一点区别，对应 [kernel/arch/arm64/boot/dts/rockchip](https://gitee.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP3/arch/arm64/boot/dts/rockchip) 下的 `DTB_NAME.dts` 文件。
+      内核设备树中的设备名称，和开发板名称有一点区别，对应 [kernel/arch/arm64/boot/dts/rockchip](https://atomgit.com/openeuler/rockchip-kernel/tree/openEuler-22.03-LTS-SP3/arch/arm64/boot/dts/rockchip) 下的 `DTB_NAME.dts` 文件。
 
   3.  platform=PLATFORM
 
