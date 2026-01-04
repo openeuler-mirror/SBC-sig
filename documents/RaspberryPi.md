@@ -134,7 +134,7 @@
     软件源 repo 文件的 URL 或者路径，也可以是软件源中资源库的 baseurl 列表。注意，如果该参数为资源库的 baseurl 列表，该参数需要使用双引号，各个 baseurl 之间以空格隔开。
 
     下面分别举例：
-    - 软件源 repo 文件的 URL，如 `https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS-SP1/generic.repo`
+    - 软件源 repo 文件的 URL，如 `https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS-SP1/generic.repo`
     - 软件源的 repo 文件路径：
 
         `./openEuler-20.03-LTS-SP1.repo`：生成 openEuler 20.03 LTS SP1 版本的镜像，该文件内容参考 <https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS-SP1/generic.repo>。
@@ -163,7 +163,7 @@
 
 
 #### 无需编译内核构建镜像
-例如，使用软件源中的内核包构建 openEuler 24.03 LTS SP2 版本 openEuler 树莓派镜像，执行命令：`sudo bash build.sh --board raspberrypi --kernel "" --branch "" --config "" --repo https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS-SP2/generic.repo --name openEuler-24.03-LTS-raspi-aarch64-alpha1`
+例如，使用软件源中的内核包构建 openEuler 24.03 LTS SP2 版本 openEuler 树莓派镜像，执行命令：`sudo bash build.sh --board raspberrypi --kernel "" --branch "" --config "" --repo https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS-SP2/generic.repo --name openEuler-24.03-LTS-raspi-aarch64-alpha1`
 
 
 >![](public_sys-resources/icon-notice.gif) **须知：**  
@@ -177,7 +177,7 @@
 
 
 #### 使用自定义内核构建镜像
-例如，使用软件源中的内核包构建 openEuler 24.03 LTS SP2 版本 openEuler 树莓派镜像，执行命令：`sudo bash build.sh --board raspberrypi --kernel "https://atomgit.com/openeuler/raspberrypi-kernel.git" --branch "OLK-6.6" --config "" --repo https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS-SP2/generic.repo --name openEuler-24.03-LTS-raspi-aarch64-alpha1`
+例如，使用软件源中的内核包构建 openEuler 24.03 LTS SP2 版本 openEuler 树莓派镜像，执行命令：`sudo bash build.sh --board raspberrypi --kernel "https://atomgit.com/openeuler/raspberrypi-kernel.git" --branch "OLK-6.6" --config "" --repo https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS-SP2/generic.repo --name openEuler-24.03-LTS-raspi-aarch64-alpha1`
 
 >![](public_sys-resources/icon-notice.gif) **须知：**  
 >使用自定义内核，当前支持版本有 20.03 LTS、20.09、20.03 LTS SP1、21.03、20.03 LTS SP2、21.09、20.03 LTS SP3、22.03 LTS、22.09、22.03 LTS SP1、23.03、22.03 LTS SP2、22.03 LTS SP3、24.03 LTS、22.03 LTS SP4、24.09、24.03 LTS SP1、25.03、24.03 LTS SP2、25.09。
@@ -254,6 +254,6 @@ sudo bash build.sh \
     -k https://atomgit.com/openeuler/raspberrypi-kernel.git \
     -b OLK-6.6 \
     -c bcm2712_defconfig \
-    -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+    -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
     -s headless
 ```

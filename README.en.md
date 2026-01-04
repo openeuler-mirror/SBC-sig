@@ -272,7 +272,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2023/7/11</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>494 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
@@ -281,7 +281,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2023/7/11</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.9 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
@@ -359,7 +359,7 @@ After building the image, you can find the image in `build/YYYY-MM-DD` of the di
     The URL/path of target repo file, or the list of repositories' baseurls. Note that, the baseurls should be separated by space and enclosed in double quotes.
     Examples are as follows:
 
-    - The URL of target repo file: `https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`.
+    - The URL of target repo file: `https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`.
 
     - The path of target repo file:
 

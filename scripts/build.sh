@@ -43,7 +43,7 @@ default_param() {
     dtb_name=rk3399-firefly
     platform=rockchip
     branch=openEuler-20.03-LTS
-    repo_file="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
+    repo_file="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo"
     kernel_url="https://atomgit.com/openeuler/rockchip-kernel.git"
     nonfree_bin_dir=${cur_dir}/bin
     workdir=${cur_dir}/build

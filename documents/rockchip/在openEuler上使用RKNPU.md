@@ -28,7 +28,7 @@ sudo bash build.sh --board armsom-sige5 \
             -k https://github.com/armbian/linux-rockchip.git \
             -b rk-6.1-rkr5.1 \
             -c rockchip_linux_defconfig \
-            -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP3/generic.repo \
+            -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP3/generic.repo \
             -s headless
 ```
 

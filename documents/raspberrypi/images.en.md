@@ -696,7 +696,7 @@ Basic information of the image is as follows:
 <td class="cellrowborder" valign="top" width="10%"><p>2022/09/30</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>237 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0-106.18.0.13</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.09/generic.repo">openEuler 22.09 repository</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.09/generic.repo">openEuler 22.09 repository</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://isrc.iscas.ac.cn/eulixos/repo/others/openeuler-raspberrypi/images/openEuler-22.03-LTS-raspi-aarch64-alpha1.img.xz">openEuler 22.03 LTS alpha1</a></td>
