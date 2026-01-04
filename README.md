@@ -271,7 +271,7 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
 <td class="cellrowborder" valign="top" width="10%"><p>2023/7/11</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>494 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
@@ -280,7 +280,7 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
 <td class="cellrowborder" valign="top" width="10%"><p>2023/7/11</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>1.9 GiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS/generic.repo">openEuler 22.03 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
@@ -362,7 +362,7 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
     软件源 repo 文件的 URL 或者路径，也可以是软件源中资源库的 baseurl 列表。注意，如果该参数为资源库的 baseurl 列表，该参数需要使用双引号，各个 baseurl 之间以空格隔开。
 
     下面分别举例：
-    - 软件源 repo 文件的 URL，如 `https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
+    - 软件源 repo 文件的 URL，如 `https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
     - 软件源的 repo 文件路径：
 
         `./openEuler-20.03-LTS.repo`：生成 openEuler 20.03 LTS 版本的镜像，该文件内容参考 <https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo>。

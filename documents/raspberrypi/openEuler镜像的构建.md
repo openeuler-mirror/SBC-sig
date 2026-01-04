@@ -160,7 +160,7 @@ rpm --root ${WORKDIR}/rootfs/ --initdb
 
 ```
 mkdir ${WORKDIR}/rootfs/etc/yum.repos.d
-curl -o ${WORKDIR}/rootfs/etc/yum.repos.d/openEuler-20.03-LTS.repo https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo
+curl -o ${WORKDIR}/rootfs/etc/yum.repos.d/openEuler-20.03-LTS.repo https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo
 ```
 
 ### 安装 dnf

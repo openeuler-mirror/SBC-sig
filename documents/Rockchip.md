@@ -137,7 +137,7 @@
     软件源 repo 文件的 URL 或者路径，也可以是软件源中资源库的 baseurl 列表。注意，如果该参数为资源库的 baseurl 列表，该参数需要使用双引号，各个 baseurl 之间以空格隔开。
     下面分别举例：
 
-    - 软件源 repo 文件的 URL，如 `https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
+    - 软件源 repo 文件的 URL，如 `https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-20.03-LTS/generic.repo`。
     - 软件源的 repo 文件路径：
 
         `./openEuler-20.03-LTS.repo`：生成 openEuler 20.03 LTS 版本的镜像，该文件内容参考 <https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-20.03-LTS/generic.repo>。
@@ -354,7 +354,7 @@
              -k https://atomgit.com/openeuler/rockchip-kernel.git \
              -b openEuler-22.03-LTS-SP3 \
              -c openeuler_rockchip_defconfig \
-             -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP3/generic.repo \
+             -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP3/generic.repo \
              -s headless
         ```
 
@@ -368,7 +368,7 @@
              -k https://atomgit.com/openeuler/allwinner-kernel.git \
              -b openEuler-24.03-LTS \
              -c openeuler_allwinner_defconfig \
-             -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
              -s headless
         ```
 
@@ -382,7 +382,7 @@
              -k https://atomgit.com/openeuler/phytium-kernel.git \
              -b openEuler-24.03-LTS-Phytium \
              -c phytium_defconfig \
-             -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
              -s headless
         ```
 
@@ -396,6 +396,6 @@
              -k https://atomgit.com/openeuler/kernel.git \
              -b OLK-6.6 \
              -c amlogic-kernel-OLK-6.6.config \
-             -r https://atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
              -s headless
         ```
