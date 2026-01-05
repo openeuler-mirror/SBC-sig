@@ -259,7 +259,6 @@ install_kernel() {
 mk_boot() {
     LOG "start make bootimg..."
     if [ "x${board}" != "xraspberrypi" ]; then
-        mkdir -p ${boot_dir}/extlinux
 
         LOG "start gen initrd..."
         dracut --no-kernel ${boot_dir}/initrd.img
@@ -274,18 +273,28 @@ mk_boot() {
             bootargs=${allwinner_bootargs}
         elif [ "${platform}" == "amlogic" ];then
             bootargs=${amlogic_bootargs}
+        elif [ "${platform}" == "cix" ];then
+            bootargs=${cix_bootargs}
         else
             echo "Unsupported platform"
             exit 2
         fi
-        echo "label openEuler
-        kernel /Image
-        initrd /initrd.img
-        fdt /${dtb_name}.dtb
-        append  ${bootargs}" \
-        > ${boot_dir}/extlinux/extlinux.conf
 
-        LOG "gen extlinux config done."
+        if [ "x${bootmode}" == "xextlinux" ]; then
+            mkdir -p ${boot_dir}/extlinux
+            cp ${config_dir}/extlinux.conf ${boot_dir}/extlinux
+            sed -i "s|BOOTARGS|${bootargs}|g" ${boot_dir}/extlinux/extlinux.conf
+            sed -i "s|DEVICETREE|${dtb_name}.dtb|g" ${boot_dir}/extlinux/extlinux.conf
+            LOG "gen extlinux config done."
+        elif [ "x${bootmode}" == "xgrub" ]; then
+            echo ${bootargs} \
+            >> ${boot_dir}/grub-cmdline.txt
+            LOG "save grub cmdline done."
+        else
+            echo "Unsupported bootmode"
+            exit 2
+        fi
+        
     fi
     dd if=/dev/zero of=${workdir}/boot.img bs=1M count=${boot_size} status=progress
     mkfs.vfat -n boot ${workdir}/boot.img
@@ -320,6 +329,7 @@ rockchip_bootargs="earlyprintk console=ttyS2,1500000 rw root=UUID=614e0000-0000-
 phytium_bootargs="console=ttyAMA1,115200 earlycon=pl011,0x2800d000 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait cma=256m"
 allwinner_bootargs="console=tty0 console=ttyS0,115200 rw root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootfstype=ext4 rootwait earlycon clk_gnore_unused"
 amlogic_bootargs="console=ttyAML0,115200 console=tty1 consoleblank=0 root=UUID=614e0000-0000-4b53-8000-1d28000054a9 rootwait rootfstype=ext4 splash=verbose coherent_pool=2M loglevel=8"
+cix_bootargs="root=UUID=614e0000-0000-4b53-8000-1d28000054a9 loglevel=0 acpi=off kasan=off rootwait rw pcie_aspm=off console=tty0 console=ttyAMA2 splash=verbose"
 
 if [ -n "${default_defconfig}" ]; then
     if [ ! -f $default_defconfig ] ; then

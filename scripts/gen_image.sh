@@ -31,9 +31,8 @@ default_param() {
     rootfs_dir=${workdir}/rootfs
     boot_dir=${workdir}/boot
     uboot_dir=${workdir}/u-boot
-    boot_mnt=${workdir}/boot_tmp
-    emmc_boot_mnt=${workdir}/emmc_boot_tmp
     root_mnt=${workdir}/root_tmp
+    boot_mnt=${workdir}/root_tmp/boot
     log_dir=${workdir}/log
 }
 
@@ -69,29 +68,33 @@ parseargs()
 
 LOSETUP_D_IMG(){
     set +e
-    if [ -d ${root_mnt} ]; then
-        if grep -q "${root_mnt} " /proc/mounts ; then
-            umount ${root_mnt}
-        fi
+    if grep -q "${root_mnt}/dev " /proc/mounts ; then
+        umount -l ${root_mnt}/dev
+    fi
+    if grep -q "${root_mnt}/proc " /proc/mounts ; then
+        umount -l ${root_mnt}/proc
+    fi
+    if grep -q "${root_mnt}/sys " /proc/mounts ; then
+        umount -l ${root_mnt}/sys
     fi
     if [ -d ${boot_mnt} ]; then
         if grep -q "${boot_mnt} " /proc/mounts ; then
             umount ${boot_mnt}
         fi
     fi
-    if [ -d ${emmc_boot_mnt} ]; then
-        if grep -q "${emmc_boot_mnt} " /proc/mounts ; then
-            umount ${emmc_boot_mnt}
-        fi
-    fi
-    if [ -d ${rootfs_dir} ]; then
-        if grep -q "${rootfs_dir} " /proc/mounts ; then
-            umount ${rootfs_dir}
+    if [ -d ${root_mnt} ]; then
+        if grep -q "${root_mnt} " /proc/mounts ; then
+            umount ${root_mnt}
         fi
     fi
     if [ -d ${boot_dir} ]; then
         if grep -q "${boot_dir} " /proc/mounts ; then
             umount ${boot_dir}
+        fi
+    fi
+    if [ -d ${rootfs_dir} ]; then
+        if grep -q "${rootfs_dir} " /proc/mounts ; then
+            umount ${rootfs_dir}
         fi
     fi
     if [ "x$device" != "x" ]; then
@@ -102,17 +105,11 @@ LOSETUP_D_IMG(){
     if [ -d ${root_mnt} ]; then
         rm -rf ${root_mnt}
     fi
-    if [ -d ${boot_mnt} ]; then
-        rm -rf ${boot_mnt}
-    fi
-    if [ -d ${emmc_boot_mnt} ]; then
-        rm -rf ${emmc_boot_mnt}
+    if [ -d ${boot_dir} ]; then
+        rm -rf ${boot_dir}
     fi
     if [ -d ${rootfs_dir} ]; then
         rm -rf ${rootfs_dir}
-    fi
-    if [ -d ${boot_dir} ]; then
-        rm -rf ${boot_dir}
     fi
     set -e
 }
@@ -178,9 +175,6 @@ make_img(){
     mkfs.vfat -n boot ${bootp}
     mkfs.ext4 -L rootfs ${rootp}
     LOG "make filesystems done."
-    mkdir -p ${root_mnt} ${boot_mnt}
-    mount -t vfat -o uid=root,gid=root,umask=0000 ${bootp} ${boot_mnt}
-    mount -t ext4 ${rootp} ${root_mnt}
 
     if [ -d ${rootfs_dir} ];then rm -rf ${rootfs_dir}; fi
     mkdir ${rootfs_dir}
@@ -189,6 +183,21 @@ make_img(){
     mkdir ${boot_dir}
     mount ${workdir}/boot.img ${boot_dir}
 
+    mkdir -p ${root_mnt}
+    mount -t ext4 ${rootp} ${root_mnt}
+    rsync -avHAXq ${rootfs_dir}/* ${root_mnt}
+    sync
+    sleep 10
+    LOG "copy openEuler-root done."
+
+    if [ -d ${workdir}/kernel/kernel-modules/lib/modules ]; then
+        if [ -d ${root_mnt}/lib/modules ];then rm -rf ${root_mnt}/lib/modules; fi
+        cp -rfp ${workdir}/kernel/kernel-modules/lib/modules ${root_mnt}/lib
+        LOG "install kernel modules done."
+    fi
+
+    if [ ! -d ${boot_mnt} ];then mkdir ${boot_mnt}; fi
+    mount -t vfat -o uid=root,gid=root,umask=0000 ${bootp} ${boot_mnt}
     cp -rfp ${boot_dir}/* ${boot_mnt} || LOG "${boot_dir} is empty."
 
     line=$(blkid | grep $rootp)
@@ -205,24 +214,42 @@ make_img(){
     else
         uuid=${line#*UUID=\"}
         uuid=${uuid%%\"*}
-        sed -i "s|UUID=614e0000-0000-4b53-8000-1d28000054a9|UUID=${uuid}|g" ${boot_mnt}/extlinux/extlinux.conf
+
+        if [ "x${bootmode}" == "xextlinux" ]; then
+            sed -i "s|UUID=614e0000-0000-4b53-8000-1d28000054a9|UUID=${uuid}|g" ${boot_mnt}/extlinux/extlinux.conf
+        elif [ "x${bootmode}" == "xgrub" ]; then
+            efi_line=$(blkid | grep $bootp)
+            efi_uuid=${efi_line#*UUID=\"}
+            efi_uuid=${efi_uuid%%\"*}
+            cp -rfp ${rootfs_dir}/boot/* ${boot_mnt} || true
+            cp ${config_dir}/grub.cfg ${boot_mnt}/efi/EFI/openEuler
+            bootargs=$(cat ${boot_mnt}/grub-cmdline.txt)
+            sed -i "s|614e0000-0000-4b53-8000-1d28000054a9|${uuid}|g" ${boot_mnt}/efi/EFI/openEuler/grub.cfg
+            sed -i "s|BOOT_UUID|${efi_uuid}|g" ${boot_mnt}/efi/EFI/openEuler/grub.cfg
+            sed -i "s|BOOTARGS|${bootargs}|g" ${boot_mnt}/efi/EFI/openEuler/grub.cfg
+            sed -i "s|DEVICETREE|${dtb_name}.dtb|g" ${boot_mnt}/efi/EFI/openEuler/grub.cfg
+            mkdir -p ${boot_mnt}/efi/BOOT
+            cp ${boot_mnt}/efi/EFI/openEuler/grub.cfg ${boot_mnt}/grub2
+            cp ${config_dir}/grubenv ${boot_mnt}/grub2
+            rm ${boot_mnt}/grub-cmdline.txt
+
+            mount --bind /dev ${root_mnt}/dev
+            mount -t proc /proc ${root_mnt}/proc
+            mount -t sysfs /sys ${root_mnt}/sys
+
+            chroot ${root_mnt} grub2-install --target=arm64-efi --efi-directory=/boot/efi --bootloader-id=openEuler --no-nvram
+            cp ${root_mnt}/boot/efi/EFI/openEuler/grubaa64.efi ${root_mnt}/boot/efi/BOOT/BOOTAA64.EFI
+
+            umount ${root_mnt}/dev
+            umount ${root_mnt}/proc
+            umount ${root_mnt}/sys
+        fi
     fi
 
-    rsync -avHAXq ${rootfs_dir}/* ${root_mnt}
-    sync
-    sleep 10
-    LOG "copy openEuler-root done."
-
-    if [ -d ${workdir}/kernel/kernel-modules/lib/modules ]; then
-        if [ -d ${root_mnt}/lib/modules ];then rm -rf ${root_mnt}/lib/modules; fi
-        cp -rfp ${workdir}/kernel/kernel-modules/lib/modules ${root_mnt}/lib
-        LOG "install kernel modules done."
-    fi
-
-    umount $rootp
     umount $bootp
-    umount ${rootfs_dir}
+    umount $rootp
     umount ${boot_dir}
+    umount ${rootfs_dir}
     
     if [ "${platform}" == "rockchip" ];then
         echo "Installing Rockchip U-Boot..."
@@ -268,7 +295,7 @@ make_img(){
             ERROR "amlogic u-boot file can not be found!"
             exit 2
         fi
-    elif [ "${platform}" != "broadcom" ];then
+    elif [[ "${platform}" != "broadcom" && "${platform}" != "cix" ]];then
         echo "Unsupported platform"
     fi
     

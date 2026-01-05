@@ -150,5 +150,12 @@ English | [简体中文](./compatibility-list.md)
 <td class="cellrowborder" valign="top" width="10%"><p style="color:yellow">Community Support</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#khadas-vim3">Build a unified system image</a></td>
 </tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://docs.radxa.com/orion/o6">Radxa Orion O6</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>CIX P1 CD8180</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS(<a href="https://github.com/armbian/linux-cix/tree/cix-6.6-2025q3/">kernel version 6.6</a>)</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p style="color:yellow">Community Support</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#radxa-orion-o6">Build a unified system image</a></td>
+</tr>
 </tbody>
 </table>

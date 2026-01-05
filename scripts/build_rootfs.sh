@@ -142,7 +142,7 @@ INSTALL_PACKAGES(){
     do
         chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y $item --nogpgcheck
         if [ $? == 0 ]; then
-            LOG install $item.
+            LOG $item installed.
         else
             ERROR can not install $item.
         fi
@@ -154,6 +154,9 @@ INSTALL_PACKAGES(){
         else
             ERROR can not install raspberrypi-kernel.
         fi
+    fi
+    if [ "x${bootmode}" == "xgrub" ]; then
+        chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y grub2-efi-aa64 grub2-efi-aa64-modules efibootmgr --nogpgcheck
     fi
 }
 

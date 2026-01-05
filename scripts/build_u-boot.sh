@@ -171,8 +171,8 @@ fi
 sed -i 's/u-boot//g' ${workdir}/.done
 LOG "build u-boot..."
 
-if [ "x${board}" == "xraspberrypi" ]; then
-    LOG "Skip build u-boot for Raspberry Pi."
+if [[ "x${ubootconfig}" == "x" && "x${local_uboot_dir}" == "x" ]]; then # RaspberryPi & Radxa-Orion-O6
+    LOG "Skip build u-boot."
 else
     if [ "x$ubootconfig" == "x" ]; then
         use_prebuild_u-boot
