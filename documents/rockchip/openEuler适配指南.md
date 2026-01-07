@@ -127,7 +127,15 @@ POST_BOARD_OVERLAY() {
       - rootfs_dir
 
         该参数为框架构建的 openEuler 根目录所在的路径，默认为 `${workdir}/rootfs`。
-    
+  
+  8.  boot_mode
+      
+      开发板所使用的启动方式，目前支持的有：
+
+      - extlinux: 使用 u-boot 解析 /boot/extlinux/extlinux.conf 启动配置文件进行启动
+
+      - grub: 使用 efi 启动
+
 ## 运行测试
 
 通过运行脚本 [构建完整镜像](../Rockchip.md#构建完整镜像)，将 `--board` 参数设置为新增开发板的版型文件来运行测试。

@@ -269,6 +269,13 @@
 <td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#khadas-vim3">构建完整镜像命令</a></td>
 </tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>Radxa Orion O6</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://docs.radxa.com/orion/o6">Radxa Wiki</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>CIX P1 CD8180</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#radxa-orion-o6">构建完整镜像命令</a></td>
+</tr>
 </tbody></table>
 
 ### Docker 容器内构建
@@ -396,6 +403,20 @@
              -k https://atomgit.com/openeuler/kernel.git \
              -b OLK-6.6 \
              -c amlogic-kernel-OLK-6.6.config \
+             -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
+             -s headless
+        ```
+
+      - CIX: Radxa Orion O6
+
+        ```
+        sudo bash build-image-docker.sh \
+             --board radxa-orion-o6 \
+             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -n openEuler-24.03-LTS-Radxa-Orion-O6-aarch64-alpha1 \
+             -k https://github.com/armbian/linux-cix.git \
+             -b cix-6.6-2025q3 \
+             -c cix-kernel-cix-6.6-2025q3.config \
              -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
              -s headless
         ```
