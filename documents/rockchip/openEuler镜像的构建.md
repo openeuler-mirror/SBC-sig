@@ -4,6 +4,7 @@
   - [编译 RK3399 U-Boot](#编译-rk3399-u-boot)
   - [编译 RK356x/RK3588 U-Boot](#编译-rk356xrk3588-u-boot)
   - [编译 H616/H618 U-Boot](#编译-h616h618-u-boot)
+  - [编译 A311D U-Boot](#编译-a311d-u-boot)
   - [关于 PhytiumPi U-Boot](#关于-phytiumpi-u-boot)
 - [基于 openEuler 内核编译内核镜像](#基于-openeuler-内核编译内核镜像)
   - [编译内核代码](#编译内核代码)
@@ -364,6 +365,128 @@
     cp u-boot-sunxi-with-spl.bin $WORKDIR
     cd $WORKDIR
     ```
+
+## 编译 A311D U-Boot
+
+1.  下载源码
+
+    1. 下载 U-Boot 源码
+
+        ```
+        git clone --depth=1 https://github.com/u-boot/u-boot.git -b v2025.10
+        ```
+
+    2. 下载 U-Boot 打包工具
+
+        ```
+        git clone --depth=1 https://github.com/LibreELEC/amlogic-boot-fip.git
+        ```
+
+2.  编译 U-Boot
+
+    1.  配置 U-Boot
+
+        ```
+        cd u-boot
+        make ARCH=arm khadas-vim3_defconfig
+        ```
+
+        如果需要自定义 U-Boot 功能
+
+        ```
+        make ARCH=arm menuconfig
+        ```
+
+    2.  编译 U-Boot
+
+        ```
+        make ARCH=arm -j$(nproc)
+        ```
+
+3.  运行 U-Boot 打包脚本
+
+    如果是 `aarch64` 架构的构建主机，运行之前需要安装 `qemu-user` 软件包：
+    
+    - Debian/Ubuntu 安装命令如下；
+
+        ```
+        sudo apt-get install qemu-user
+        ```
+
+    - openEuler 25.09 安装命令如下：
+
+        ```
+        sudo dnf install qemu-user
+        ```
+
+    - 其他 openEuler 版本安装命令如下：
+
+        ```
+        wget https://repo.openeuler.openatom.cn/openEuler-25.09/everything/aarch64/Packages/qemu-user-8.2.0-47.oe2509.aarch64.rpm
+        wget https://repo.openeuler.openatom.cn/openEuler-25.09/everything/aarch64/Packages/qemu-user-binfmt-8.2.0-47.oe2509.aarch64.rpm
+        rpm -ivh qemu-user-8.2.0-47.oe2509.aarch64.rpm
+        rpm -ivh qemu-user-binfmt-8.2.0-47.oe2509.aarch64.rpm
+        ```
+
+    U-Boot 编译完成后，运行以下命令来打包 U-Boot
+
+    ```
+    cd ../amlogic-boot-fip
+    mkdir ../output
+
+    ./build-fip.sh khadas-vim3 ../u-boot/u-boot.bin ../output
+    ```
+
+    运行以上命令后，输出如下：
+
+    ```
+    make: Entering directory '/home/chainsx/amlogic-boot-fip/khadas-vim3'
+    ./blx_fix.sh bl2.bin /tmp/tmp.pHimpYgceC/zero_tmp /tmp/tmp.pHimpYgceC/bl2_zero.bin acs.bin /tmp/tmp.pHimpYgceC/bl21_zero.bin /tmp/tmp.pHimpYgceC/bl2_new.bin bl2
+    4224+0 records in
+    4224+0 records out
+    4224 bytes (4.2 kB, 4.1 KiB) copied, 0.003218 s, 1.3 MB/s
+    2384+0 records in
+    2384+0 records out
+    2384 bytes (2.4 kB, 2.3 KiB) copied, 0.00177716 s, 1.3 MB/s
+    qemu-x86_64 -L /usr/x86_64-linux-gnu/ ./aml_encrypt_g12b --bl2sig --input /tmp/tmp.pHimpYgceC/bl2_new.bin --output /tmp/tmp.pHimpYgceC/bl2.n.bin.sig
+    ./blx_fix.sh bl30.bin /tmp/tmp.pHimpYgceC/zero_tmp /tmp/tmp.pHimpYgceC/bl30_zero.bin bl301.bin /tmp/tmp.pHimpYgceC/bl301_zero.bin /tmp/tmp.pHimpYgceC/bl30_new.bin bl30
+    48+0 records in
+    48+0 records out
+    48 bytes copied, 0.00014908 s, 322 kB/s
+    4982+0 records in
+    4982+0 records out
+    4982 bytes (5.0 kB, 4.9 KiB) copied, 0.00365048 s, 1.4 MB/s
+    qemu-x86_64 -L /usr/x86_64-linux-gnu/ ./aml_encrypt_g12b --bl30sig --input /tmp/tmp.pHimpYgceC/bl30_new.bin --output /tmp/tmp.pHimpYgceC/bl30_new.bin.g12a.enc --level v3
+    emu-x86_64 -L /usr/x86_64-linux-gnu/ ./aml_encrypt_g12b --bl3sig --input /tmp/tmp.pHimpYgceC/bl30_new.bin.g12a.enc --output /tmp/tmp.pHimpYgceC/bl30_new.bin.enc --level v3 --type bl30
+    qemu-x86_64 -L /usr/x86_64-linux-gnu/ ./aml_encrypt_g12b --bl3sig --input bl31.img --output /tmp/tmp.pHimpYgceC/bl31.img.enc --level v3 --type bl31
+    qemu-x86_64 -L /usr/x86_64-linux-gnu/ ./aml_encrypt_g12b --bl3sig --input /home/chainsx/u-boot/u-boot.bin --output /tmp/tmp.pHimpYgceC/bl33.bin.enc --level v3 --type bl33 
+    if [ -e lpddr3_1d.fw ] ; then \
+            qemu-x86_64 -L /usr/x86_64-linux-gnu/ ./aml_encrypt_g12b --bootmk --output /home/chainsx/output/u-boot.bin --level v3 \
+                       --bl2 /tmp/tmp.pHimpYgceC/bl2.n.bin.sig --bl30 /tmp/tmp.pHimpYgceC/bl30_new.bin.enc \
+                       --bl31 /tmp/tmp.pHimpYgceC/bl31.img.enc --bl33 /tmp/tmp.pHimpYgceC/bl33.bin.enc \
+                       --ddrfw1 ddr4_1d.fw --ddrfw2 ddr4_2d.fw --ddrfw3 ddr3_1d.fw \
+                       --ddrfw4 piei.fw --ddrfw5 lpddr4_1d.fw --ddrfw6 lpddr4_2d.fw \
+                       --ddrfw7 diag_lpddr4.fw --ddrfw8 aml_ddr.fw --ddrfw9 lpddr3_1d.fw ;\
+    else \
+            qemu-x86_64 -L /usr/x86_64-linux-gnu/ ./aml_encrypt_g12b --bootmk --output /home/chainsx/output/u-boot.bin --level v3 \
+                       --bl2 /tmp/tmp.pHimpYgceC/bl2.n.bin.sig --bl30 /tmp/tmp.pHimpYgceC/bl30_new.bin.enc \
+                       --bl31 /tmp/tmp.pHimpYgceC/bl31.img.enc --bl33 /tmp/tmp.pHimpYgceC/bl33.bin.enc \
+                       --ddrfw1 ddr4_1d.fw --ddrfw2 ddr4_2d.fw --ddrfw3 ddr3_1d.fw \
+                       --ddrfw4 piei.fw --ddrfw5 lpddr4_1d.fw --ddrfw6 lpddr4_2d.fw \
+                       --ddrfw7 diag_lpddr4.fw --ddrfw8 aml_ddr.fw ;\
+    fi
+    make: Leaving directory '/home/chainsx/amlogic-boot-fip/khadas-vim3'
+    ```
+
+4.  收集编译结果
+
+    将生成的 u-boot.bin.sd.bin 文件复制到工作目录。
+
+    ```
+    cp ../output/u-boot.bin.sd.bin $WORKDIR
+    cd $WORKDIR
+    ```
+
 
 ## PhytiumPi U-Boot
 
@@ -746,6 +869,15 @@ add map loop0p2 ...
 写入 u-boot-sunxi-with-spl.bin
 
 `dd if=u-boot-sunxi-with-spl.bin of=/dev/loop0 seek=8k`
+
+### Amlogic 开发板
+
+写入 u-boot.bin.sd.bin
+
+```
+dd if=u-boot.bin.sd.bin of=/dev/loop0 bs=1 count=442
+dd if=u-boot.bin.sd.bin of=/dev/loop0 bs=512 skip=1 seek=1
+```
 
 ### Phytium 开发板
 
