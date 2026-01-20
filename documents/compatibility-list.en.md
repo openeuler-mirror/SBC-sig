@@ -20,35 +20,35 @@ English | [简体中文](./compatibility-list.md)
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://www.raspberrypi.com/products/raspberry-pi-5/">Raspberry Pi 5</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Broadcom BCM2712</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP2/raspi_img/">openEuler 24.03 LTS SP2</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP1/raspi_img/">openEuler 24.03 LTS SP1</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP3/raspi_img/">openEuler 24.03 LTS SP3</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-25.09/raspi_img/">openEuler 25.09</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/openEuler-25.09/">kernel version 6.6</a>)<br><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP2/raspi_img/">openEuler 24.03 LTS SP2</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP1/raspi_img/">openEuler 24.03 LTS SP1</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a style="color:green" href="https://repo.openeuler.org/openEuler-24.03-LTS-SP2/raspi_img/">Official Support</a></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./raspberrypi/images.md">Download images</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://www.raspberrypi.com/products/raspberry-pi-4-model-b/">Raspberry Pi 4B</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Broadcom BCM2711</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP2/raspi_img/">openEuler 24.03 LTS SP2</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="./raspberrypi/images.md">more images</a></p></td>
+<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP3/raspi_img/">openEuler 24.03 LTS SP3</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="./raspberrypi/images.md">more images</a></p></td>
 <td class="cellrowborder" valign="top" width="10%"><a style="color:green" href="https://repo.openeuler.org/openEuler-24.03-LTS-SP2/raspi_img/">Official Support</a></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./raspberrypi/images.md">Download images</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://www.raspberrypi.com/products/raspberry-pi-400/">Raspberry Pi 400</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Broadcom BCM2711</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP2/raspi_img/">openEuler 24.03 LTS SP2</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="./raspberrypi/images.md">more images</a></p></td>
+<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP3/raspi_img/">openEuler 24.03 LTS SP3</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="./raspberrypi/images.md">more images</a></p></td>
 <td class="cellrowborder" valign="top" width="10%"><a style="color:green" href="https://repo.openeuler.org/openEuler-24.03-LTS-SP2/raspi_img/">Official Support</a></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./raspberrypi/images.md">Download images</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/">Raspberry Pi 3B+</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Broadcom BCM2837B0</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP2/raspi_img/">openEuler 24.03 LTS SP2</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="./raspberrypi/images.md">more images</a></p></td>
+<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP3/raspi_img/">openEuler 24.03 LTS SP3</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="./raspberrypi/images.md">more images</a></p></td>
 <td class="cellrowborder" valign="top" width="10%"><a style="color:green" href="https://repo.openeuler.org/openEuler-24.03-LTS-SP2/raspi_img/">Official Support</a></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./raspberrypi/images.md">Download images</a></td>
 </tr>
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://www.raspberrypi.com/products/raspberry-pi-3-model-b/">Raspberry Pi 3B</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Broadcom BCM2837</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP2/raspi_img/">openEuler 24.03 LTS SP2</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="./raspberrypi/images.md">more images</a></p></td>
+<td class="cellrowborder" valign="top" width="10%"><p><a href="https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP3/raspi_img/">openEuler 24.03 LTS SP3</a>(<a href="https://atomgit.com/openeuler/raspberrypi-kernel/tree/OLK-6.6/">kernel version 6.6</a>)<br><a href="./raspberrypi/images.md">more images</a></p></td>
 <td class="cellrowborder" valign="top" width="10%"><a style="color:green" href="https://repo.openeuler.org/openEuler-24.03-LTS-SP2/raspi_img/">Official Support</a></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./raspberrypi/images.md">Download images</a></td>
 </tr>

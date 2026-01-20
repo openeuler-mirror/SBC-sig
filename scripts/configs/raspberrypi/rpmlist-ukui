@@ -24,6 +24,8 @@ raspberrypi-bluetooth
 sudo
 ukui
 firefox
+ibus-libpinyin
+imsettings
 bc
 systemd-timesyncd
 openEuler-repos
