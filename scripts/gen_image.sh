@@ -27,7 +27,6 @@ default_param() {
     soc_name=rk3399
     platform=rockchip
     nonfree_bin_dir=${cur_dir}/bin
-    config_dir=${cur_dir}/configs/rockchip
     rootfs_dir=${workdir}/rootfs
     boot_dir=${workdir}/boot
     uboot_dir=${workdir}/u-boot
@@ -206,7 +205,7 @@ make_img(){
             rm -rf ${rootfs_dir}/boot/grub2
         fi
         cp -rfp ${rootfs_dir}/boot/* ${boot_mnt}/ || LOG "no file in ${rootfs_dir}/boot/"
-        cp ${config_dir}/config.txt ${boot_mnt}/
+        cp ${cur_dir}/configs/raspberrypi/config.txt ${boot_mnt}/
 
         partuuid=${line#*PARTUUID=\"}
         partuuid=${partuuid%%\"*}
@@ -222,7 +221,7 @@ make_img(){
             efi_uuid=${efi_line#*UUID=\"}
             efi_uuid=${efi_uuid%%\"*}
             cp -rfp ${rootfs_dir}/boot/* ${boot_mnt} || true
-            cp ${config_dir}/grub.cfg ${boot_mnt}/efi/EFI/openEuler
+            cp ${cur_dir}/configs/common/grub.cfg ${boot_mnt}/efi/EFI/openEuler
             bootargs=$(cat ${boot_mnt}/grub-cmdline.txt)
             sed -i "s|614e0000-0000-4b53-8000-1d28000054a9|${uuid}|g" ${boot_mnt}/efi/EFI/openEuler/grub.cfg
             sed -i "s|BOOT_UUID|${efi_uuid}|g" ${boot_mnt}/efi/EFI/openEuler/grub.cfg
@@ -230,7 +229,7 @@ make_img(){
             sed -i "s|DEVICETREE|${dtb_name}.dtb|g" ${boot_mnt}/efi/EFI/openEuler/grub.cfg
             mkdir -p ${boot_mnt}/efi/BOOT
             cp ${boot_mnt}/efi/EFI/openEuler/grub.cfg ${boot_mnt}/grub2
-            cp ${config_dir}/grubenv ${boot_mnt}/grub2
+            cp ${cur_dir}/configs/common/grubenv ${boot_mnt}/grub2
             rm ${boot_mnt}/grub-cmdline.txt
 
             mount --bind /dev ${root_mnt}/dev
@@ -361,10 +360,6 @@ set -e
 cur_dir=$(cd $(dirname $0);pwd)
 default_param
 parseargs "$@" || help $?
-
-if [ "x${board}" == "xraspberrypi" ]; then
-    config_dir=${cur_dir}/configs/raspberrypi
-fi
 
 if [ ! -d ${workdir} ]; then
     mkdir ${workdir}

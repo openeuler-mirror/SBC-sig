@@ -30,7 +30,7 @@ default_param() {
     branch=openEuler-20.03-LTS
     rootfs_arch=aarch64
     nonfree_bin_dir=${cur_dir}/bin
-    config_dir=${cur_dir}/configs/rockchip
+    rpmlist_dir=${cur_dir}/configs/common
     rootfs_dir=${workdir}/rootfs
     log_dir=${workdir}/log
     rootfs_mnt=${workdir}/rootfs_tmp
@@ -170,7 +170,7 @@ build_rootfs() {
     if [ "x$spec_param" == "xheadless" ] || [ "x$spec_param" == "x" ]; then
         :
     elif [ "x$spec_param" == "xxfce" ] || [ "x$spec_param" == "xukui" ] || [ "x$spec_param" == "xdde" ] || [ "x$spec_param" == "xgnome" ] || [ "x$spec_param" == "xdevstation" ]; then
-        CONFIG_RPM_LIST=${config_dir}/rpmlist-${spec_param}
+        CONFIG_RPM_LIST=${rpmlist_dir}/rpmlist-${spec_param}
     elif [ -f ${spec_param} ]; then
         cp ${spec_param} ${tmp_dir}/
         spec_file_name=${spec_param##*/}
@@ -279,29 +279,32 @@ build_rootfs() {
 
     rm -rf ${rootfs_dir}/*.core
     
-    cp -Lp ${config_dir}/resolv.conf ${rootfs_dir}/etc/resolv.conf
+    cp ${cur_dir}/configs/common/resolv.conf ${rootfs_dir}/etc/resolv.conf
 
     if [ ! -d ${rootfs_dir}/etc/sysconfig/network-scripts ]; then mkdir "${rootfs_dir}/etc/sysconfig/network-scripts"; fi
-    cp -Lp ${config_dir}/ifcfg-eth0 ${rootfs_dir}/etc/sysconfig/network-scripts/ifcfg-eth0
+    cp ${cur_dir}/configs/common/ifcfg-eth0 ${rootfs_dir}/etc/sysconfig/network-scripts/ifcfg-eth0
 
     LOG "Configure network done."
+
+    if [ ! -d ${rootfs_dir}/etc/rc.d/init.d ]; then mkdir -p ${rootfs_dir}/etc/rc.d/init.d; fi
 
     if [ "x${board}" == "xraspberrypi" ]; then
         mkdir -p ${rootfs_dir}/lib/udev/rules.d
         if [ ! -d ${rootfs_dir}/usr/share/licenses/raspi ]; then mkdir -p ${rootfs_dir}/usr/share/licenses/raspi; fi
-        cp ${config_dir}/hosts ${rootfs_dir}/etc/hosts
-        cp ${config_dir}/*.rules ${rootfs_dir}/lib/udev/rules.d/
-        cp ${config_dir}/LICENCE.* ${rootfs_dir}/usr/share/licenses/raspi/
+        cp ${cur_dir}/configs/raspberrypi/hosts ${rootfs_dir}/etc/hosts
+        cp ${cur_dir}/configs/raspberrypi/*.rules ${rootfs_dir}/lib/udev/rules.d/
+        cp ${cur_dir}/configs/raspberrypi/LICENCE.* ${rootfs_dir}/usr/share/licenses/raspi/
+        cp ${cur_dir}/configs/raspberrypi/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
+        cp ${cur_dir}/configs/raspberrypi/chroot.sh ${rootfs_dir}/chroot.sh
+    else
+        cp ${cur_dir}/configs/common/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
+        cp ${cur_dir}/configs/common/chroot.sh ${rootfs_dir}/chroot.sh
     fi
 
-    if [ ! -d ${rootfs_dir}/etc/rc.d/init.d ]; then mkdir -p ${rootfs_dir}/etc/rc.d/init.d; fi
-    cp -Lp ${config_dir}/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
     chmod +x ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
     echo net.ipv4.conf.wlan0.rp_filter=0 >> ${rootfs_dir}/etc/sysctl.conf
 
-    cp -Lp ${config_dir}/chroot.sh ${rootfs_dir}/chroot.sh
     chmod +x ${rootfs_dir}/chroot.sh
-
     chroot ${rootfs_dir} /bin/bash -c "echo 'Y' | /chroot.sh ${spec_param}"
 
     LOG "Set NTP and auto expand rootfs done."
@@ -355,9 +358,9 @@ local_param
 parseargs "$@" || help $?
 
 if [ "x${board}" == "xraspberrypi" ]; then
-    config_dir=${cur_dir}/configs/raspberrypi
+    rpmlist_dir=${cur_dir}/configs/raspberrypi
 fi
-CONFIG_RPM_LIST=${config_dir}/rpmlist
+CONFIG_RPM_LIST=${rpmlist_dir}/rpmlist
 
 POST_BOARD_OVERLAY() {
     echo "Initial POST_BOARD_OVERLAY function" # It will be overwritten by board.conf.

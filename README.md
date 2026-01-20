@@ -2,7 +2,7 @@
 
 [English](./README.en.md) | 简体中文
 
-本仓库是 openEuler 社区 SBC (Single-Board Computer) SIG 组的主仓库，提供 SIG 组相关信息以及适用于[树莓派](https://www.raspberrypi.org/)、[Rockchip](https://www.rock-chips.com/)、[全志](https://www.allwinnertech.com/)、[晶晨](https://www.amlogic.cn/)等开发板的 openEuler 镜像的构建脚本和相关文档。
+本仓库是 openEuler 社区 SBC (Single-Board Computer) SIG 组的主仓库，提供 SIG 组相关信息以及适用于[树莓派](https://www.raspberrypi.org/)、[Rockchip](https://www.rock-chips.com/)、[全志](https://www.allwinnertech.com/)、[晶晨](https://www.amlogic.cn/)、[此芯](https://www.cixtech.com/)等开发板的 openEuler 镜像的构建脚本和相关文档。
 
 <!-- TOC -->
 
@@ -355,7 +355,7 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
 
 5.  -c, --config KERNEL_DEFCONFIG
 
-    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 `arch/arm64/configs` 或构建框架的 [scripts/configs/rockchip](./scripts/configs/rockchip/) 下。
+    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 `arch/arm64/configs` 或构建框架的 [scripts/configs/common](./scripts/configs/common/) 下。
 
 6.  -r, --repo REPO_INFO
 
@@ -378,7 +378,7 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
     - `dde`，带 DDE 桌面以及中文字体、输入法等全部配套软件。
     - `gnome`，带 GNOME 桌面以及中文字体、输入法等全部配套软件。
     - `devstation`，带 GNOME 桌面、中文字体、输入法、大量开发工具和 IDE 等配套软件。
-    -  rpmlist 文件路径，其中包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs/rockchip//rpmlist)。
+    -  rpmlist 文件路径，其中包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs/common/rpmlist)。
 
     默认使用 `headless` 选项。
 

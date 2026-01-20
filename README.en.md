@@ -2,7 +2,7 @@
 
 English | [简体中文](./README.md)
 
-This repository is the main repository of the openEuler SBC (Single-Board Computer) SIG. It provides information related to SBC SIG, build scripts and documentation for openEuler images suitable for development boards such as [Raspberry Pi](https://www.raspberrypi.org/), [Rockchip](https://www.rock-chips.com/), [Allwinner](https://www.allwinnertech.com/) and [Amlogic](https://www.amlogic.cn/).
+This repository is the main repository of the openEuler SBC (Single-Board Computer) SIG. It provides information related to SBC SIG, build scripts and documentation for openEuler images suitable for development boards such as [Raspberry Pi](https://www.raspberrypi.org/), [Rockchip](https://www.rock-chips.com/), [Allwinner](https://www.allwinnertech.com/), [Amlogic](https://www.amlogic.cn/) and [CIX](https://www.cixtech.com/).
 
 <!-- TOC -->
 
@@ -352,7 +352,7 @@ After building the image, you can find the image in `build/YYYY-MM-DD` of the di
 
 5.  -c, --config KERNEL_DEFCONFIG
 
-    The filename/path of configuration for compiling kernel, which defaults to `openeuler-raspi_defconfig`. If this parameter is the filename of configuration, please make sure the configuration file in `arch/arm64/configs` of the kernel source.
+    The filename/path of configuration for compiling kernel, which defaults to `openeuler-raspi_defconfig`. If this parameter is the filename of configuration, please make sure the configuration file in `arch/arm64/configs` of the kernel source or under [scripts/configs/common](./scripts/configs/common/) of this framework.
 
 6.  -r, --repo REPO_INFO
 

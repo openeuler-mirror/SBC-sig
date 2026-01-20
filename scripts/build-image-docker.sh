@@ -133,11 +133,6 @@ builddate=${buildid:0:8}
 make_cores=$(nproc)
 log_dir=${workdir}/log
 if [ ! -d ${log_dir} ];then mkdir -p ${log_dir}; fi
-if [ "x${board}" == "xraspberrypi" ]; then
-    config_dir=${cur_dir}/configs/raspberrypi
-else
-    config_dir=${cur_dir}/configs/rockchip
-fi
 
 params_dir=${workdir}/params
 params_dir_indocker=/work/build/params
@@ -168,9 +163,9 @@ docker_img_name=${docker_img_name##*: }
 
 LOG build board image with docker: ${docker_file}.
 
-(echo "FROM $docker_img_name" && grep -v FROM ${config_dir}/Dockerfile) | \
+(echo "FROM $docker_img_name" && grep -v FROM ${cur_dir}/configs/common/Dockerfile) | \
     docker build -t ${docker_img_name}-${buildid} \
-    --no-cache -f- ${config_dir}
+    --no-cache -f- ${cur_dir}/configs/common
     
 echo docker run --rm --privileged=true \
     -v ${cur_dir}:/work \
