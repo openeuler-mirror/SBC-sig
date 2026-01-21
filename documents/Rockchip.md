@@ -130,7 +130,7 @@
 
 5.  -c, --config KERNEL_DEFCONFIG
 
-    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 `arch/arm64/configs` 或构建框架的 [scripts/configs/rockchip](../scripts/configs/rockchip/) 下。
+    内核编译使用的配置文件名称或路径，默认为 `openeuler_rockchip_defconfig`。如果该参数为配置文件名称，请确保该文件在内核源码的目录 `arch/arm64/configs` 或构建框架的 [scripts/configs/common](../scripts/configs/common) 下。
 
 6.  -r, --repo REPO_INFO
 
@@ -151,7 +151,7 @@
     - `xfce`，带 Xfce 桌面以及中文字体、输入法等全部配套软件。
     - `ukui`，带 UKUI 桌面及必要的配套软件（不包括中文字体以及输入法）。
     - `dde`，带 DDE 桌面及必要的配套软件（不包括中文字体以及输入法）。
-    -  rpmlist 文件路径，其中包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs/rockchip//rpmlist)。
+    -  rpmlist 文件路径，其中包含镜像中要安装的软件列表，内容参考 [rpmlist](../scripts/configs/common/rpmlist)。
 
     默认使用 `headless` 选项。
 

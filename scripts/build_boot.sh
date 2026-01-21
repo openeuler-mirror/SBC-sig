@@ -163,9 +163,9 @@ make_kernel(){
     kernel_dir_tmp=$1
     pushd "${kernel_dir_tmp}"
 
-    if [ -f ${cur_dir}/configs/rockchip/${kernel_defconfig} ];then
+    if [ -f ${cur_dir}/configs/common/${kernel_defconfig} ];then
         LOG "use local kernel defconfig: ${kernel_defconfig}"
-        cp ${cur_dir}/configs/rockchip/${kernel_defconfig} arch/arm64/configs
+        cp ${cur_dir}/configs/common/${kernel_defconfig} arch/arm64/configs
     fi
 
     if [ -n "${kernel_defconfig}" ]; then
@@ -282,7 +282,7 @@ mk_boot() {
 
         if [ "x${bootmode}" == "xextlinux" ]; then
             mkdir -p ${boot_dir}/extlinux
-            cp ${config_dir}/extlinux.conf ${boot_dir}/extlinux
+            cp ${cur_dir}/configs/common/extlinux.conf ${boot_dir}/extlinux
             sed -i "s|BOOTARGS|${bootargs}|g" ${boot_dir}/extlinux/extlinux.conf
             sed -i "s|DEVICETREE|${dtb_name}.dtb|g" ${boot_dir}/extlinux/extlinux.conf
             LOG "gen extlinux config done."
