@@ -123,7 +123,16 @@ LOG(){
 
 cur_dir=$(cd $(dirname $0);pwd)
 
-docker_file="https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz"
+host_arch=$(arch)
+
+if [[ "${host_arch}" == "aarch64" ]];then
+    docker_file="https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz"
+elif [[ "${host_arch}" == "x86_64" ]];then
+    docker_file="https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/x86_64/openEuler-docker.x86_64.tar.xz"
+else
+    echo `date` - ERROR, Unsupported host_arch ${host_arch} combination.
+    exit 2
+fi
 
 workdir=${cur_dir}/build
 
