@@ -347,16 +347,18 @@
 
     (1) 由于 openEuler x86_64 软件仓库没有交叉编译工具链，在使用 x86_64 进行构建时，需要使用 [openEuler Embedded Toolchains](https://atomgit.com/openeuler/yocto-meta-openeuler/releases/tag/toolchains-v0.1.8) 交叉编译工具链。
 
-    (2) 在使用 x86_64 进行构建时，需要构建主机支持 Qemu-User-Static 的运行条件。目前使用的 Qemu-User-Static 是基于 openEuler 24.03 LTS 预构建的软件包，使用其他版本跨架构构建时可能会出现问题。openEuler 软件仓库暂时还没有引进该软件包，目前正在将该软件包添加到 openEuler 软件仓库。
+    (2) 在使用 x86_64 架构进行构建时，构建主机需具备运行 QEMU User Static 的环境支持。目前，openEuler 25.09 以及 openEuler 24.03 LTS SP3 已正式集成该软件包；而对于在 openEuler 22.03 LTS 至 openEuler 24.03 LTS SP3 之间的版本，则使用 openEuler 24.03 LTS SP3 软件仓库的 QEMU User Static 软件包。
 
-    (3) 本框架支持在不同的操作系统（例如 Ubuntu、Fedora）以及不同的架构（x86_64）上构建 openEuler，经过测试的目标开发板及构建命令举例如下，其他开发板型号待测试：
+    (3) 使用 `build-image-docker.sh` 指定 Docker 容器镜像时，应该使用和构建主机架构相同的容器；在 x86_64 上使用 Docker 构建时，推荐使用 Ubuntu 22.04 LTS，经测试 Ubuntu 24.03 LTS 会出现安全权限问题。
+
+    (4) 本框架支持在不同的操作系统（例如 Ubuntu、Fedora）以及不同的架构（x86_64）上构建 openEuler，在 x86_64 的 Ubuntu 22.04 LTS 下使用 Docker 经过测试的目标开发板及构建命令举例如下，其他开发板型号和环境待测试：
 
       - Rockchip: Firefly ROC-RK3588S-PC
 
         ```
         sudo bash build-image-docker.sh \
              --board firefly-roc-rk3588s-pc \
-             -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/x86_64/openEuler-docker.x86_64.tar.xz \
              -n openEuler-22.03-LTS-SP3-Station-M3-aarch64-alpha1 \
              -k https://atomgit.com/openeuler/rockchip-kernel.git \
              -b openEuler-22.03-LTS-SP3 \
@@ -370,7 +372,7 @@
         ```
         sudo bash build-image-docker.sh \
              --board orangepi-zero2 \
-             -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/x86_64/openEuler-docker.x86_64.tar.xz \
              -n openEuler-24.03-LTS-OrangePi-Zero2-aarch64-alpha1 \
              -k https://atomgit.com/openeuler/allwinner-kernel.git \
              -b openEuler-24.03-LTS \
@@ -384,7 +386,7 @@
         ```
         sudo bash build-image-docker.sh \
              --board phytiumpi-4gb \
-             -d https://repo.openeuler.org/openEuler-22.03-LTS-SP3/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/x86_64/openEuler-docker.x86_64.tar.xz \
              -n openEuler-24.03-LTS-PhytiumPi-4GB-aarch64-alpha1 \
              -k https://atomgit.com/openeuler/phytium-kernel.git \
              -b openEuler-24.03-LTS-Phytium \
@@ -398,7 +400,7 @@
         ```
         sudo bash build-image-docker.sh \
              --board khadas-vim3 \
-             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/x86_64/openEuler-docker.x86_64.tar.xz \
              -n openEuler-24.03-LTS-Khadas-VIM3-aarch64-alpha1 \
              -k https://atomgit.com/openeuler/kernel.git \
              -b OLK-6.6 \
@@ -412,7 +414,7 @@
         ```
         sudo bash build-image-docker.sh \
              --board radxa-orion-o6 \
-             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/x86_64/openEuler-docker.x86_64.tar.xz \
              -n openEuler-24.03-LTS-Radxa-Orion-O6-aarch64-alpha1 \
              -k https://github.com/armbian/linux-cix.git \
              -b cix-6.6-2025q3 \

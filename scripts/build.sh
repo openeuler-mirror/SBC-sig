@@ -155,8 +155,7 @@ if [ ! -d ${workdir} ]; then
     mkdir ${workdir}
 fi
 
-# Firefly Toolchain Repo
-aarch64_toolchain_base_url="https://atomgit.com/openeuler/yocto-meta-openeuler/releases/download"
+aarch64_toolchain_base_url="https://gitee.com/openeuler/yocto-meta-openeuler/releases/download"
 aarch64_toolchain_verson="toolchains-v0.1.8"
 
 host_arch=$(arch)
@@ -215,7 +214,16 @@ fi
 if [[ $(cat ${workdir}/.done | grep rootfs) != "rootfs" ]];then
     if [[ "${host_arch}" == "x86_64" && "${arch}" == "arm64" ]];then
         LOG "You are running this script on a ${host_arch} mechine, installing qemu-user-static...."
-        sudo rpm -ivh ${nonfree_bin_dir}/qemu-user-static-aarch64-x86_64.rpm
+        HOST_VERSION=$(cat /etc/os-release | grep VERSION_ID)
+        HOST_VERSION=${HOST_VERSION:12:-1}  #25.09
+        if [[ "${HOST_VERSION}" > "25.09" ]] || [[ "${HOST_VERSION}" == "25.09" ]]; then
+            sudo dnf install qemu-user-static qemu-user-binfmt -y
+        elif [[ "${HOST_VERSION}" == "22.03" ]] || [[ "${HOST_VERSION}" == "24.03" ]]; then
+            sudo dnf install https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP3/everything/aarch64/Packages/qemu-user-static-8.2.0-58.oe2403sp3.aarch64.rpm -y
+            sudo dnf install https://dl-cdn.openeuler.openatom.cn/openEuler-24.03-LTS-SP3/everything/aarch64/Packages/qemu-user-binfmt-8.2.0-58.oe2403sp3.aarch64.rpm -y
+        else
+            ERROR "Unsupported openEuler version."
+        fi
     fi
     LOG "You are running this script on a ${host_arch} mechine, start building rootfs...."
     bash ${cur_dir}/build_rootfs.sh
