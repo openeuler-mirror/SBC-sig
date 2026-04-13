@@ -32,6 +32,7 @@
   - [交叉编译内核](raspberrypi/交叉编译内核.md)
   - [QEMU 启动树莓派](raspberrypi/QEMU启动树莓派.md)
   - [Hailo AI](raspberrypi/HailoAI.md)
+  - [树莓派部署 OpenClaw](raspberrypi/树莓派部署openclaw.md)
   - [openEuler 20.03 LTS SP2 更新日志](raspberrypi/changelog/changelog-20.03-LTS-SP2.md)
   - [openEuler 20.03 LTS SP2 内测版（UKUI 桌面、中文输入法）更新日志](raspberrypi/changelog/changelog-20.03-LTS-SP2-UKUI.md)
   - [openEuler 20.03 LTS SP2 内测版（DDE 桌面、中文输入法）更新日志](raspberrypi/changelog/changelog-20.03-LTS-SP2-DDE.md)
