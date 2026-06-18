@@ -387,7 +387,7 @@
         sudo bash build-image-docker.sh \
             --board phytiumpi-4gb \
             -d https://repo.openeuler.org/openEuler-24.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
-            -n openEuler-24.03-LTS-SP1-PhytiumPi-aarch64-alpha1 \
+            -n openEuler-24.03-LTS-SP1-PhytiumPi-4GB-aarch64-alpha1 \
             -k https://atomgit.com/openeuler/phytium-kernel.git \
             -b openEuler-24.03-LTS-SP1-update-20260519 \
             -c phytium_defconfig \

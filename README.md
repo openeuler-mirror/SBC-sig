@@ -308,7 +308,7 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
 <th class="cellrowborder" valign="top" width="10%"><p><strong>镜像类型</strong></p></th>
 </tr></thead>
 <tbody><tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-24.03-LTS-SP1-PhytiumPi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 PhytiumPi</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-24.03-LTS-SP1-PhytiumPi-4GB-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 PhytiumPi 4GB</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><p>2026/06/16</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>811 MiB</p></td>
@@ -317,7 +317,7 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 <tbody><tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-22.03-LTS-SP4-PhytiumPi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 PhytiumPi</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-22.03-LTS-SP4-PhytiumPi-4GB-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 PhytiumPi 4GB</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><p>2026/06/16</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>877 MiB</p></td>
