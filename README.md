@@ -2,7 +2,7 @@
 
 [English](./README.en.md) | 简体中文
 
-本仓库是 openEuler 社区 SBC (Single-Board Computer) SIG 组的主仓库，提供 SIG 组相关信息以及适用于[树莓派](https://www.raspberrypi.org/)、[Rockchip](https://www.rock-chips.com/)、[全志](https://www.allwinnertech.com/)、[晶晨](https://www.amlogic.cn/)、[此芯](https://www.cixtech.com/)等开发板的 openEuler 镜像的构建脚本和相关文档。
+本仓库是 openEuler 社区 SBC (Single-Board Computer) SIG 组的主仓库，提供 SIG 组相关信息以及适用于[树莓派](https://www.raspberrypi.org/)、[Rockchip](https://www.rock-chips.com/)、[全志](https://www.allwinnertech.com/)、[晶晨](https://www.amlogic.cn/)、[此芯](https://www.cixtech.com/)、[飞腾](https://www.phytium.com.cn/)等开发板的 openEuler 镜像的构建脚本和相关文档。
 
 <!-- TOC -->
 
@@ -12,7 +12,8 @@
     - [文件说明](#文件说明)
     - [最新镜像](#最新镜像)
         - [树莓派](#树莓派)
-        - [瑞芯微等其他开发板](#瑞芯微等其他开发板)
+        - [瑞芯微](#瑞芯微)
+        - [飞腾](#飞腾)
     - [镜像构建](#镜像构建)
         - [准备环境](#准备环境)
         - [构建镜像](#构建镜像)
@@ -199,7 +200,7 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
 </tr>
 </tbody></table>
 
-### 瑞芯微等其他开发板
+### 瑞芯微
 
 镜像的基本信息如下所示：
 
@@ -291,6 +292,37 @@ SIG 组基本信息位于 [sig-SBC](https://atomgit.com/openeuler/community/tree
 <td class="cellrowborder" valign="top" width="10%"><p>450 MiB</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p>5.10.0</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://atomgit.com/src-openeuler/openEuler-repos/blob/openEuler-22.03-LTS-SP3/generic.repo">openEuler 22.03 LTS SP3 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
+</tr>
+</tbody></table>
+
+### 飞腾
+
+<table><thead align="left"><tr>
+<th class="cellrowborder" valign="top" width="10%"><p><strong>镜像版本</strong></p></th>
+<th class="cellrowborder" valign="top" width="10%"><p><strong>系统用户（密码）</strong></p></th>
+<th class="cellrowborder" valign="top" width="10%"><p><strong>发布时间</strong></p></th>
+<th class="cellrowborder" valign="top" width="10%"><p><strong>大小</strong></p></th>
+<th class="cellrowborder" valign="top" width="10%"><p><strong>内核版本</strong></p></th>
+<th class="cellrowborder" valign="top" width="10%"><p><strong>构建文件系统的源仓库</strong></p></th>
+<th class="cellrowborder" valign="top" width="10%"><p><strong>镜像类型</strong></p></th>
+</tr></thead>
+<tbody><tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-24.03-LTS-SP1-PhytiumPi-4GB-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP1 PhytiumPi 4GB</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/06/16</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>811 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0<br>(phytium-kernel: <a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-24.03-LTS-SP1-update-20260519">openEuler-24.03-LTS-SP1-update-20260519</a>)</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 源仓库</a></td>
+<td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
+</tr>
+<tbody><tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-22.03-LTS-SP4-PhytiumPi-4GB-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 PhytiumPi 4GB</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/06/16</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>877 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>5.10.0<br>(phytium-kernel: <a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-22.03-LTS-SP4-update-20260527">openEuler-22.03-LTS-SP4-update-20260527</a>)</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 源仓库</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>压缩后的 RAW 原始镜像</p></td>
 </tr>
 </tbody></table>

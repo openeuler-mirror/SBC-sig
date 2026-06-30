@@ -246,7 +246,7 @@
 <td class="cellrowborder" valign="top" width="10%"><ul><li>Phytium Pi 4GB</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://www.phytium.com.cn/homepage/phytium_pie/">Phytium Website</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Phytium</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP3, openEuler 24.03 LTS</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>openEuler 22.03 LTS SP4, openEuler 24.03 LTS SP1</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#phytium-pi-4gb">构建完整镜像命令</a></td>
 </tr>
 <tr>
@@ -385,14 +385,14 @@
 
         ```
         sudo bash build-image-docker.sh \
-             --board phytiumpi-4gb \
-             -d https://repo.openeuler.org/openEuler-24.03-LTS/docker_img/x86_64/openEuler-docker.x86_64.tar.xz \
-             -n openEuler-24.03-LTS-PhytiumPi-4GB-aarch64-alpha1 \
-             -k https://atomgit.com/openeuler/phytium-kernel.git \
-             -b openEuler-24.03-LTS-Phytium \
-             -c phytium_defconfig \
-             -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS/generic.repo \
-             -s headless
+            --board phytiumpi-4gb \
+            -d https://repo.openeuler.org/openEuler-24.03-LTS-SP1/docker_img/aarch64/openEuler-docker.aarch64.tar.xz \
+            -n openEuler-24.03-LTS-SP1-PhytiumPi-4GB-aarch64-alpha1 \
+            -k https://atomgit.com/openeuler/phytium-kernel.git \
+            -b openEuler-24.03-LTS-SP1-update-20260519 \
+            -c phytium_defconfig \
+            -r https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS-SP1/generic.repo \
+            -s headless
         ```
 
       - Amlogic: Khadas VIM3
