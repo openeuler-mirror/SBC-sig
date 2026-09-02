@@ -138,6 +138,14 @@ root_need() {
 INSTALL_PACKAGES(){
     tmp_repo_info=$2
     chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" makecache --nogpgcheck
+    if [ "x${board}" == "xraspberrypi" ] && [ -z "${kernel_url}"  ]; then
+        chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y raspberrypi-kernel --nogpgcheck
+        if [ $? == 0 ]; then
+            LOG install raspberrypi-kernel.
+        else
+            ERROR can not install raspberrypi-kernel.
+        fi
+    fi
     for item in $(cat $1)
     do
         chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y $item --nogpgcheck
@@ -147,14 +155,6 @@ INSTALL_PACKAGES(){
             ERROR can not install $item.
         fi
     done
-    if [ "x${board}" == "xraspberrypi" ] && [ -z "${kernel_url}"  ]; then
-        chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y raspberrypi-kernel --nogpgcheck
-        if [ $? == 0 ]; then
-            LOG install raspberrypi-kernel.
-        else
-            ERROR can not install raspberrypi-kernel.
-        fi
-    fi
     if [ "x${bootmode}" == "xgrub" ]; then
         chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y grub2-efi-aa64 grub2-efi-aa64-modules efibootmgr --nogpgcheck
     fi
@@ -294,7 +294,7 @@ build_rootfs() {
         cp ${cur_dir}/configs/raspberrypi/hosts ${rootfs_dir}/etc/hosts
         cp ${cur_dir}/configs/raspberrypi/*.rules ${rootfs_dir}/lib/udev/rules.d/
         cp ${cur_dir}/configs/raspberrypi/LICENCE.* ${rootfs_dir}/usr/share/licenses/raspi/
-        cp ${cur_dir}/configs/raspberrypi/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
+        cp ${cur_dir}/configs/common/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
         cp ${cur_dir}/configs/raspberrypi/chroot.sh ${rootfs_dir}/chroot.sh
     else
         cp ${cur_dir}/configs/common/extend-root.sh ${rootfs_dir}/etc/rc.d/init.d/extend-root.sh
@@ -324,7 +324,11 @@ build_rootfs() {
 mk_rootfsimg() {
     trap 'LOSETUP_D_IMG' EXIT
     rootfs_size=`du -sh --block-size=1MiB ${rootfs_dir} | cut -f 1 | xargs`
-    mod_size=`du -sh --block-size=1MiB ${workdir}/kernel/kernel-modules/lib/modules | cut -f 1 | xargs`
+    if [ -d ${workdir}/kernel/kernel-modules/lib/modules ]; then
+        mod_size=`du -sh --block-size=1MiB ${workdir}/kernel/kernel-modules/lib/modules | cut -f 1 | xargs`
+    else
+        mod_size=0
+    fi
     size=$(($rootfs_size+$mod_size+1100))
     rootfs_img=${workdir}/rootfs.img
     dd if=/dev/zero of=${rootfs_img} bs=1MiB count=$size status=progress && sync

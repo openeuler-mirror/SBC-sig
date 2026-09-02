@@ -4,9 +4,11 @@ systemctl enable systemd-timesyncd
 systemctl enable hciuart
 systemctl enable haveged
 echo openEuler > /etc/hostname
-echo "openeuler" | passwd --stdin root
-useradd -m -G "wheel" -s "/bin/bash" pi
-echo "raspberry" | passwd --stdin pi
+echo "openEuler12#$" | passwd --stdin root
+if ! id openeuler; then
+    useradd -m -G "wheel" -s "/bin/bash" openeuler
+fi
+echo "openEuler12#$" | passwd --stdin openeuler
 if [ -f /usr/share/zoneinfo/Asia/Shanghai ]; then
     if [ -f /etc/localtime ]; then
         rm -f /etc/localtime
@@ -20,10 +22,6 @@ if [ "x$1" == "xxfce" ]; then
     echo "user-session=xfce" >> /etc/lightdm/lightdm.conf.d/60-lightdm-gtk-greeter.conf
     sed -i -e 's/^background=/#background=/' /etc/lightdm/lightdm-gtk-greeter.conf
     sed -i -e '/^#background=/cbackground=/usr/share/backgrounds/xfce/xfce-blue.jpg' /etc/lightdm/lightdm-gtk-greeter.conf
-elif [ "x$1" == "xdde" ]; then
-    if id openeuler; then
-        userdel -r openeuler
-    fi
 fi
 cd /etc/rc.d/init.d
 chmod +x extend-root.sh
