@@ -125,7 +125,7 @@
 <tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://www.phytium.com.cn/homepage/phytium_pie/">Phytium Pi 4GB</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>Phytium</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS SP1（<a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-24.03-LTS-SP1-update-20260922/">内核版本 6.6</a>）<br>openEuler 22.03 LTS SP4（<a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-22.03-LTS-SP4-update-20260527/">内核版本 5.10</a>）</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>openEuler 24.03 LTS SP1（<a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-24.03-LTS-SP1-update-20260922/">内核版本 6.6</a>）<br>openEuler 22.03 LTS SP4（<a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-22.03-LTS-SP4-update-20260911/">内核版本 5.10</a>）</p></td>
 <td class="cellrowborder" valign="top" width="10%"><p style="color:#CC9900;">社区支持</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="./rockchip/构建完整镜像命令列举.md#phytium-pi-4gb">构建完整镜像</a></td>
 </tr>
