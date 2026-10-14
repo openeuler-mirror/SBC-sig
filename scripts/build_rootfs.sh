@@ -141,9 +141,17 @@ INSTALL_PACKAGES(){
     if [ "x${board}" == "xraspberrypi" ] && [ -z "${kernel_url}"  ]; then
         chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y raspberrypi-kernel --nogpgcheck
         if [ $? == 0 ]; then
-            LOG install raspberrypi-kernel.
+            LOG raspberrypi-kernel installed.
         else
             ERROR can not install raspberrypi-kernel.
+        fi
+        if [ "x$spec_param" == "xgnome" ] || [ "x$spec_param" == "xdevstation" ]; then
+            chroot ${rootfs_dir}/ dnf ${tmp_repo_info} --disablerepo="*" install -y raspberrypi-kernel-tools --nogpgcheck
+            if [ $? == 0 ]; then
+                LOG raspberrypi-kernel-tools installed.
+            else
+                ERROR can not install raspberrypi-kernel-tools.
+            fi
         fi
     fi
     for item in $(cat $1)

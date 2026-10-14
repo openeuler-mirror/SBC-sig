@@ -15,6 +15,61 @@
 </tr></thead>
 <tbody>
 <tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/raspberrypi/openEuler-26.09-raspi-aarch64-alpha1.img.xz">openEuler 26.09 内测版</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>openeuler（openEuler12#$）</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/10/14</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>359.9 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-175.0.0.4</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-26.09/generic.repo">openEuler 26.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/raspberrypi/openEuler-26.09-UKUI-raspi-aarch64-alpha1.img.xz">openEuler 26.09 内测版（UKUI 桌面、中文输入法）</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>openeuler（openEuler12#$）</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/10/14</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>1.7 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-175.0.0.4</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-26.09/generic.repo">openEuler 26.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/raspberrypi/openEuler-26.09-DDE-raspi-aarch64-alpha1.img.xz">openEuler 26.09 内测版（DDE 桌面、中文输入法）</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>openeuler（openEuler12#$）</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/10/14</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>1.3 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-175.0.0.4</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-26.09/generic.repo">openEuler 26.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/raspberrypi/openEuler-26.09-GNOME-raspi-aarch64-alpha1.img.xz">openEuler 26.09 内测版（GNOME 桌面、中文输入法）</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>openeuler（openEuler12#$）</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/10/14</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2.5 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-175.0.0.4</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-26.09/generic.repo">openEuler 26.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/raspberrypi/openEuler-26.09-DevStation-raspi-aarch64-alpha1.img.xz">openEuler 26.09 内测版（DevStation 开发者工作站、中文输入法）</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>openeuler（openEuler12#$）</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/10/14</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>1.6 GiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-175.0.0.4</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-26.09/generic.repo">openEuler 26.09 源仓库</a></td>
+</tr>
+<tr>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://repo.openeuler.org/openEuler-26.09/raspi_img/openEuler-26.09-raspi-aarch64.img.xz">openEuler 26.09</a></td>
+<td class="cellrowborder" valign="top" width="10%"><ul><li>openeuler（openEuler12#$）</li></ul></td>
+<td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/09/30</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>325.5 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0-175.0.0.4</p></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-26.09/generic.repo">openEuler 26.09 源仓库</a></td>
+</tr>
+<tr>
+<tr>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/raspberrypi/openEuler-24.03-LTS-SP4-raspi-aarch64-alpha1.img.xz">openEuler 24.03 LTS SP4 内测版</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>openeuler（openEuler12#$）</li></ul></td>
 <td class="cellrowborder" valign="top" width="10%"><p>-</p></td>
