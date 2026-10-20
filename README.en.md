@@ -311,20 +311,20 @@ Basic information of the image is as follows:
 <th class="cellrowborder" valign="top" width="10%"><p><strong>Image type</strong></p></th>
 </tr></thead>
 <tbody><tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-24.03-LTS-SP1-PhytiumPi-4GB-aarch64-alpha2.img.xz">openEuler 24.03 LTS SP1 PhytiumPi 4GB alpha2</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-24.03-LTS-SP1-PhytiumPi-4GB-aarch64-alpha3.img.xz">openEuler 24.03 LTS SP1 PhytiumPi 4GB alpha3</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2026/08/11</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>817 MiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>6.6.0<br>(phytium-kernel: <a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-24.03-LTS-SP1-update-20260723">openEuler-24.03-LTS-SP1-update-20260723</a>)</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/10/17</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>828 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>6.6.0<br>(phytium-kernel: <a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-24.03-LTS-SP1-update-20260922">openEuler-24.03-LTS-SP1-update-20260922</a>)</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-24.03-LTS-SP1/generic.repo">openEuler 24.03 LTS SP1 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
 <tbody><tr>
-<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-22.03-LTS-SP4-PhytiumPi-aarch64-alpha1.img.xz">openEuler 22.03 LTS SP4 PhytiumPi 4GB alpha1</a></td>
+<td class="cellrowborder" valign="top" width="10%"><a href="https://mirror.iscas.ac.cn/openeuler-sbc-sig/images/phytium/openEuler-22.03-LTS-SP4-PhytiumPi-4GB-aarch64-alpha2.img.xz">openEuler 22.03 LTS SP4 PhytiumPi 4GB alpha2</a></td>
 <td class="cellrowborder" valign="top" width="10%"><ul><li>root (openeuler)</li></ul></td>
-<td class="cellrowborder" valign="top" width="10%"><p>2026/06/16</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>877 MiB</p></td>
-<td class="cellrowborder" valign="top" width="10%"><p>5.10.0<br>(phytium-kernel: <a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-22.03-LTS-SP4-update-20260527">openEuler-22.03-LTS-SP4-update-20260527</a>)</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>2026/10/17</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>895 MiB</p></td>
+<td class="cellrowborder" valign="top" width="10%"><p>5.10.0<br>(phytium-kernel: <a href="https://atomgit.com/openeuler/phytium-kernel/tree/openEuler-22.03-LTS-SP4-update-20260911">openEuler-22.03-LTS-SP4-update-20260911</a>)</p></td>
 <td class="cellrowborder" valign="top" width="10%"><a href="https://raw.atomgit.com/src-openeuler/openEuler-repos/raw/openEuler-22.03-LTS-SP4/generic.repo">openEuler 22.03 LTS SP4 repository</a></td>
 <td class="cellrowborder" valign="top" width="10%"><p>A compressed RAW original image</p></td>
 </tr>
